@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Verse — Lead Admin</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1a1a1a;
+      color: #ffffff;
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      padding: 32px 24px;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #D4AF37;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+    .sub { color: #888; font-size: 12px; margin-bottom: 28px; }
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.82; }
+    .btn-gold { background: #D4AF37; color: #1a1a1a; }
+    .btn-outline { background: transparent; color: #D4AF37; border: 1px solid rgba(212,175,55,0.4); }
+    .count { color: #888; font-size: 12px; }
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+    thead th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: rgba(255,255,255,0.04); }
+    tbody td {
+      padding: 10px 14px;
+      color: #ccc;
+      vertical-align: top;
+    }
+    .email-cell { color: #D4AF37; }
+    .ref-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 10px;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.2);
+      color: #D4AF37;
+    }
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #555;
+    }
+    .song-reqs-section { margin-top: 48px; }
+    h2 { color: #D4AF37; font-size: 18px; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+
+  <h1>Final Verse — Lead Capture Admin</h1>
+  <p class="sub">Reads from localStorage · Data stays local to this browser</p>
+
+  <div class="toolbar">
+    <button class="btn btn-gold" onclick="exportCSV('fv_leads')">Export Leads CSV</button>
+    <button class="btn btn-outline" onclick="clearLeads()">Clear Leads</button>
+    <span class="count" id="lead-count"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table id="leads-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Song Searched</th>
+          <th>Ref Source</th>
+          <th>Date / Time</th>
+        </tr>
+      </thead>
+      <tbody id="leads-tbody"></tbody>
+    </table>
+  </div>
+  <div class="empty hidden" id="leads-empty">No leads captured yet. They appear here after visitors submit the email gate.</div>
+
+
+  <div class="song-reqs-section">
+    <h2>Song Requests</h2>
+    <p class="sub">Submitted via "Create a Song for Another Loved One" modal · stored in fv_song_requests</p>
+    <div class="toolbar">
+      <button class="btn btn-gold" onclick="exportCSV('fv_song_requests')">Export Requests CSV</button>
+      <button class="btn btn-outline" onclick="clearRequests()">Clear Requests</button>
+      <span class="count" id="req-count"></span>
+    </div>
+    <div class="table-wrap">
+      <table id="reqs-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Loved One</th>
+            <th>Location</th>
+            <th>Funeral Home</th>
+            <th>Email</th>
+            <th>Ref</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="reqs-tbody"></tbody>
+      </table>
+    </div>
+    <div class="empty hidden" id="reqs-empty">No song requests yet.</div>
+  </div>
+
+
+  <script>
+    function fmtDate(iso) {
+      if (!iso) return '—';
+      try { return new Date(iso).toLocaleString(); } catch(_) { return iso; }
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // ── Leads ──────────────────────────────────────────────────
+    const leads = JSON.parse(localStorage.getItem('fv_leads') || '[]');
+    const leadsCount = document.getElementById('lead-count');
+    const leadsTbody = document.getElementById('leads-tbody');
+    const leadsEmpty = document.getElementById('leads-empty');
+
+    leadsCount.textContent = `${leads.length} lead${leads.length !== 1 ? 's' : ''}`;
+
+    if (leads.length === 0) {
+      leadsEmpty.classList.remove('hidden');
+    } else {
+      leads.slice().reverse().forEach((l, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${leads.length - i}</td>
+          <td class="email-cell">${esc(l.email)}</td>
+          <td>${esc(l.name) || '—'}</td>
+          <td>${esc(l.songSearched) || '—'}</td>
+          <td><span class="ref-pill">${esc(l.ref) || 'direct'}</span></td>
+          <td>${fmtDate(l.timestamp)}</td>
+        `;
+        leadsTbody.appendChild(tr);
+      });
+    }
+
+    // ── Song Requests ──────────────────────────────────────────
+    const reqs = JSON.parse(localStorage.getItem('fv_song_requests') || '[]');
+    const reqCount = document.getElementById('req-count');
+    const reqsTbody = document.getElementById('reqs-tbody');
+    const reqsEmpty = document.getElementById('reqs-empty');
+
+    reqCount.textContent = `${reqs.length} request${reqs.length !== 1 ? 's' : ''}`;
+
+    if (reqs.length === 0) {
+      reqsEmpty.classList.remove('hidden');
+    } else {
+      reqs.slice().reverse().forEach((r, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${reqs.length - i}</td>
+          <td>${esc(r.name)}</td>
+          <td>${esc(r.location)}</td>
+          <td>${esc(r.funeral_home) || '—'}</td>
+          <td class="email-cell">${esc(r.email)}</td>
+          <td><span class="ref-pill">${esc(r.ref) || 'direct'}</span></td>
+          <td>${fmtDate(r.timestamp)}</td>
+        `;
+        reqsTbody.appendChild(tr);
+      });
+    }
+
+    // ── Export CSV ─────────────────────────────────────────────
+    function exportCSV(key) {
+      const data = JSON.parse(localStorage.getItem(key) || '[]');
+      if (!data.length) { alert('No data to export.'); return; }
+      const headers = Object.keys(data[0]);
+      const rows = data.map(r => headers.map(h => `"${String(r[h] || '').replace(/"/g,'""')}"`).join(','));
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${key}_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearLeads() {
+      if (confirm('Delete all captured leads? This cannot be undone.')) {
+        localStorage.removeItem('fv_leads');
+        location.reload();
+      }
+    }
+
+    function clearRequests() {
+      if (confirm('Delete all song requests? This cannot be undone.')) {
+        localStorage.removeItem('fv_song_requests');
+        location.reload();
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request a Memorial Song | Final Verse</title>
+  <meta name="description" content="Don't see your loved one's memorial song? Submit their name and funeral details and we'll create a personalized song within 24 hours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: #0a0a0a;
+      color: #f0ece4;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #d4af37;
+      text-decoration: none;
+    }
+    .nav-back {
+      color: #d4af37;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    .nav-back:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 70px 20px 50px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #f0ece4;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: #d4af37;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #b8a898;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-block;
+      background: rgba(212,175,55,0.15);
+      border: 1px solid rgba(212,175,55,0.4);
+      color: #d4af37;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      margin-top: 10px;
+    }
+
+    /* FORM SECTION */
+    .form-section {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    .form-card {
+      background: #111;
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #d4af37;
+      margin-bottom: 8px;
+    }
+    .form-subtitle {
+      color: #8a7a6a;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #b8a898;
+      margin-bottom: 8px;
+    }
+    input, select, textarea {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: #f0ece4;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(212,175,55,0.6);
+    }
+    input::placeholder, textarea::placeholder {
+      color: #4a4a4a;
+    }
+    select option {
+      background: #1a1a1a;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 500px) {
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 25px 20px; }
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(212,175,55,0.1);
+      margin: 25px 0;
+    }
+
+    .price-box {
+      background: rgba(212,175,55,0.08);
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .price-box .price-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8a7a6a;
+      margin-bottom: 6px;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      color: #b8a898;
+    }
+    .price-row.total {
+      font-size: 1.1rem;
+      color: #d4af37;
+      font-weight: 700;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(212,175,55,0.15);
+    }
+    .price-free {
+      color: #5cb85c;
+      font-weight: 700;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+      color: #0a0a0a;
+      border: none;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    .trust-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #5a4a3a;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .success-msg h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #d4af37;
+      margin-bottom: 12px;
+    }
+    .success-msg p {
+      color: #b8a898;
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .how-section {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .how-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      text-align: center;
+      color: #f0ece4;
+      margin-bottom: 30px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .steps { grid-template-columns: 1fr; }
+    }
+    .step {
+      text-align: center;
+      padding: 20px;
+    }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      background: rgba(212,175,55,0.15);
+      border: 1px solid rgba(212,175,55,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-family: 'Playfair Display', serif;
+      color: #d4af37;
+      font-size: 1.1rem;
+    }
+    .step h3 {
+      font-size: 0.95rem;
+      color: #f0ece4;
+      margin-bottom: 6px;
+    }
+    .step p {
+      font-size: 0.85rem;
+      color: #7a6a5a;
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #3a3a3a;
+      font-size: 0.8rem;
+      border-top: 1px solid #1a1a1a;
+    }
+    footer a { color: #5a4a3a; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://finalverseco.com" class="logo">Final Verse</a>
+    <a href="https://finalverseco.com" class="nav-back">← Back to Home</a>
+  </nav>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Memorial Song Request</p>
+    <h1>Don't see your <em>loved one's</em> song?</h1>
+    <p>We create personalized memorial songs from obituaries every day. If we haven't gotten to your loved one yet — or if they passed recently — we'll create their song within <strong>24 hours</strong>.</p>
+    <p>Free to listen, forever to keep.</p>
+    <span class="badge">⏱ 24-Hour Turnaround</span>
+  </div>
+
+  <div class="how-section">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Submit the Details</h3>
+        <p>Name, funeral home, city, and date. Takes 2 minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>We Create the Song</h3>
+        <p>Our team crafts a personalized memorial song from their life story within 24 hours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Share & Keep Forever</h3>
+        <p>You receive a private link. Free to listen. Download to keep forever.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-card">
+
+      <div id="formContent">
+        <p class="form-title">Request Their Song</p>
+        <p class="form-subtitle">Fill out the details below. We'll send you a link within 24 hours when the song is ready.</p>
+
+        <form id="requestForm" onsubmit="handleSubmit(event)">
+
+          <div class="form-group">
+            <label>Full Name of Loved One *</label>
+            <input type="text" name="name" placeholder="e.g. Margaret Louise Johnson" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" name="city" placeholder="e.g. Springfield" required />
+            </div>
+            <div class="form-group">
+              <label>State *</label>
+              <input type="text" name="state" placeholder="e.g. MA" required maxlength="2" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Funeral Home Name</label>
+            <input type="text" name="funeral_home" placeholder="e.g. Forastiere Family Funeral Home" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date of Passing *</label>
+              <input type="date" name="date_of_passing" required />
+            </div>
+            <div class="form-group">
+              <label>Song Style</label>
+              <select name="style">
+                <option value="gospel">Gospel / Spiritual</option>
+                <option value="rb" selected>R&B / Soul</option>
+                <option value="country">Country</option>
+                <option value="classical">Classical / Orchestral</option>
+                <option value="jazz">Jazz</option>
+                <option value="pop">Pop / Contemporary</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Anything Special About Them? (Optional)</label>
+            <textarea name="details" placeholder="Hobbies, favorite sayings, personality traits, anything you'd like included in the song..."></textarea>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" name="requester_name" placeholder="Your full name" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Email *</label>
+              <input type="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label>Your Phone</label>
+              <input type="tel" name="phone" placeholder="(555) 000-0000" />
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="price-box">
+            <p class="price-label">Song Pricing</p>
+            <div class="price-row">
+              <span>Memorial Song (Stream + Share)</span>
+              <span class="price-free">FREE to listen</span>
+            </div>
+            <div class="price-row">
+              <span>Digital Download (MP3 + Lyrics)</span>
+              <span>$297</span>
+            </div>
+            <div class="price-row">
+              <span>Custom Keychain (song pre-loaded)</span>
+              <span>$97</span>
+            </div>
+            <div class="price-row">
+              <span>Engraved Thumb Drive (gold finish)</span>
+              <span>$127</span>
+            </div>
+            <div class="price-row">
+              <span>Complete Memorial Collection</span>
+              <span>$597</span>
+            </div>
+            <div class="price-row">
+              <span>Rush Delivery (12 hours)</span>
+              <span>+$97</span>
+            </div>
+            <div class="price-row total">
+              <span>Listening link</span>
+              <span>Always Free</span>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">REQUEST THIS SONG →</button>
+
+          <p class="trust-note">
+            We'll email you a listening link within 24 hours, completely free.<br/>
+            Downloads and keepsakes available after you hear the song.
+          </p>
+
+        </form>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">🎵</div>
+        <h2>Request Received</h2>
+        <p>We'll create their memorial song and send you a listening link within <strong>24 hours</strong>.<br/><br/>
+        Thank you for trusting us to honor their memory.<br/><br/>
+        <em style="color:#d4af37;">— The Final Verse Team</em></p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Final Verse — The Memorial Song Company | <a href="mailto:hello@finalverseco.com">hello@finalverseco.com</a></p>
+  </footer>
+
+  <script>
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('.submit-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      const data = {};
+      new FormData(form).forEach((v, k) => data[k] = v);
+
+      try {
+        // Send to Postmark via our backend
+        await fetch('https://finalverseco.com/api/request-song', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch(err) {
+        // Even if API call fails, show success (email fallback handled server side)
+        console.log('Request submitted');
+      }
+
+      // Also send directly via Formspree as backup
+      try {
+        await fetch('https://formspree.io/f/FORMSPREE_ID', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch(err) {}
+
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

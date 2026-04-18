@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Your Loved One's Song | Final Verse</title>
+  <meta name="description" content="Search to see if your loved one's memorial song has been created. If not, we'll make one within 24 hours — free to listen." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Lato', sans-serif;
+      background: #0a0a0a;
+      color: #f0ece4;
+      min-height: 100vh;
+    }
+    nav {
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(212,175,55,0.15);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      color: #d4af37;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    .nav-home { color: #5a4a3a; text-decoration: none; font-size: 0.85rem; }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    h1 em { font-style: italic; color: #d4af37; }
+    .sub {
+      color: #7a6a5a;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    /* SEARCH BOX */
+    .search-wrap {
+      max-width: 560px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+    .search-box {
+      display: flex;
+      gap: 0;
+      border: 1px solid rgba(212,175,55,0.4);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #111;
+    }
+    .search-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 18px 20px;
+      color: #f0ece4;
+      font-size: 1.05rem;
+      font-family: 'Lato', sans-serif;
+      outline: none;
+    }
+    .search-box input::placeholder { color: #3a3a3a; }
+    .search-btn {
+      background: linear-gradient(135deg, #d4af37, #b8941f);
+      color: #0a0a0a;
+      border: none;
+      padding: 18px 24px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .search-btn:hover { opacity: 0.9; }
+    .search-hint {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #3a3a3a;
+      margin-top: 10px;
+    }
+
+    /* RESULTS */
+    .result-area {
+      max-width: 560px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      display: none;
+    }
+
+    /* FOUND STATE */
+    .found-card {
+      background: #111;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+    }
+    .found-badge {
+      display: inline-block;
+      background: rgba(92,184,92,0.15);
+      border: 1px solid rgba(92,184,92,0.4);
+      color: #5cb85c;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .found-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #f0ece4;
+      margin-bottom: 4px;
+    }
+    .found-song-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #d4af37;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    audio {
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    .found-note {
+      font-size: 0.85rem;
+      color: #5a4a3a;
+      line-height: 1.5;
+    }
+
+    /* NOT FOUND STATE */
+    .notfound-card {
+      background: #111;
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+    }
+    .notfound-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .notfound-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #f0ece4;
+      margin-bottom: 8px;
+    }
+    .notfound-card p {
+      color: #6a5a4a;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .request-btn {
+      display: block;
+      background: linear-gradient(135deg, #d4af37, #b8941f);
+      color: #0a0a0a;
+      padding: 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      margin-bottom: 12px;
+    }
+    .request-btn:hover { opacity: 0.9; }
+    .timer-note {
+      font-size: 0.8rem;
+      color: #4a3a2a;
+    }
+
+    /* SEARCHING STATE */
+    .searching {
+      text-align: center;
+      padding: 30px;
+      color: #5a4a3a;
+      font-style: italic;
+    }
+
+    /* HOW IT WORKS */
+    .how-section {
+      max-width: 680px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .how-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #3a3a3a;
+      margin-bottom: 24px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+    @media(max-width:560px){ .steps{grid-template-columns:1fr;} }
+    .step { padding: 16px; }
+    .step-num {
+      width: 36px; height: 36px;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 10px;
+      font-family: 'Playfair Display', serif;
+      color: #d4af37;
+    }
+    .step h3 { font-size: 0.9rem; color: #5a5a5a; margin-bottom: 4px; }
+    .step p { font-size: 0.8rem; color: #3a3a3a; line-height: 1.4; }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.75rem;
+      color: #2a2a2a;
+      border-top: 1px solid #111;
+    }
+    footer a { color: #3a3a3a; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://finalverseco.com" class="logo">Final Verse</a>
+  <a href="https://finalverseco.com" class="nav-home">← Home</a>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Memorial Song Search</p>
+  <h1>Has <em>their song</em> been made?</h1>
+  <p class="sub">Enter your loved one's name to see if we've already created their memorial song. If we haven't — we will, within 24 hours.</p>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Enter full name, e.g. Elizabeth Wescott" autocomplete="off" />
+    <button class="search-btn" onclick="searchSong()">Search →</button>
+  </div>
+  <p class="search-hint">Try: Elizabeth Wescott · Thomas Petty · Charles Rodgers</p>
+</div>
+
+<div class="result-area" id="resultArea"></div>
+
+<div class="how-section">
+  <p class="how-title">How it works</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Search Their Name</h3>
+      <p>Type your loved one's name to see if their song is ready.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Listen Free</h3>
+      <p>If the song exists, listen right here. No account needed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Request in 24hrs</h3>
+      <p>If not found, submit their details and we'll create it within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <a href="https://finalverseco.com">Final Verse — The Memorial Song Company</a> &nbsp;·&nbsp; <a href="mailto:hello@finalverseco.com">hello@finalverseco.com</a></p>
+</footer>
+
+<script>
+  // Song database — add songs here as they're created
+  const songs = [
+    {
+      names: ['elizabeth wescott', 'betty wescott', 'elizabeth norma wescott', 'betty norma wescott', 'betty'],
+      display_name: 'Elizabeth "Betty" Norma Wescott',
+      song_title: 'Angel Monday',
+      years: '1926 – 2026',
+      location: 'Agawam, Massachusetts',
+      audio_url: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1776371059/final-verse/betty-wescott-angel-monday.mp3',
+      page_url: 'https://finalverseco.com/songs/betty-wescott.html',
+      funeral_home: 'Curran Jones Funeral Home'
+    },
+    {
+      names: ['thomas petty', 'thomas francis petty', 'tom petty', 'petty'],
+      display_name: 'Thomas Francis Petty',
+      song_title: 'Thirty-Five Summers',
+      years: '1990 – 2026',
+      location: 'Springfield, Massachusetts',
+      audio_url: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1776371059/final-verse/betty-wescott-angel-monday.mp3',
+      page_url: 'https://finalverseco.com/songs/thomas-petty-curran-jones.html',
+      funeral_home: 'Curran Jones Funeral Home'
+    },
+    {
+      names: ['charles rodgers', 'chuck rodgers', 'charles chuck rodgers', 'chuck'],
+      display_name: 'Charles "Chuck" C. Rodgers',
+      song_title: "Chuck's Way",
+      years: '1968 – 2026',
+      location: 'Springfield, Massachusetts',
+      audio_url: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1776371059/final-verse/betty-wescott-angel-monday.mp3',
+      page_url: 'https://finalverseco.com/songs/charles-rodgers-curran-jones.html',
+      funeral_home: 'Curran Jones Funeral Home'
+    }
+  ];
+
+  function scoreMatch(name, queryWords) {
+    // Score how well a name matches the query words
+    let score = 0;
+    for (const word of queryWords) {
+      if (word.length < 2) continue;
+      for (const part of name.split(' ')) {
+        if (part === word) score += 10;           // exact word match
+        else if (part.startsWith(word)) score += 7; // starts with
+        else if (part.includes(word)) score += 4;   // contains
+      }
+    }
+    return score;
+  }
+
+  function searchSong() {
+    const raw = document.getElementById('searchInput').value.trim();
+    const query = raw.toLowerCase();
+    if (!query || query.length < 2) return;
+
+    const area = document.getElementById('resultArea');
+    area.style.display = 'block';
+    area.innerHTML = '<div class="searching">Searching our library...</div>';
+
+    setTimeout(() => {
+      const queryWords = query.split(/[\s,.]+/).filter(w => w.length > 1);
+
+      // Score all songs and find matches above threshold
+      const scored = songs.map(s => {
+        const best = Math.max(...s.names.map(n => scoreMatch(n, queryWords)));
+        return { song: s, score: best };
+      }).filter(r => r.score >= 4).sort((a, b) => b.score - a.score);
+
+      if (scored.length === 1 || (scored.length > 0 && scored[0].score >= 10)) {
+        // Single strong match — show the song
+        const match = scored[0].song;
+        area.innerHTML = `
+          <div class="found-card">
+            <div class="found-badge">✓ Song Found</div>
+            <div class="found-name">${match.display_name}</div>
+            <div class="found-song-title">"${match.song_title}"</div>
+            <p style="font-size:0.8rem;color:#5a4a3a;margin-bottom:16px;">${match.years} · ${match.location}</p>
+            <audio controls preload="auto">
+              <source src="${match.audio_url}" type="audio/mpeg" />
+            </audio>
+            <p class="found-note">
+              This song was created in loving memory by Final Verse in partnership with ${match.funeral_home}.<br/><br/>
+              <a href="${match.page_url}" style="color:#d4af37;">View full memorial page →</a>
+            </p>
+          </div>
+        `;
+      } else if (scored.length > 1) {
+        // Multiple possible matches — show list to pick from
+        const cards = scored.slice(0, 4).map(r => `
+          <div class="found-card" style="margin-bottom:12px;cursor:pointer;" onclick="selectSong('${r.song.page_url}','${r.song.audio_url}','${r.song.display_name}','${r.song.song_title}','${r.song.years}','${r.song.location}','${r.song.funeral_home}')">
+            <div class="found-badge">✓ Possible Match</div>
+            <div class="found-name">${r.song.display_name}</div>
+            <div class="found-song-title">"${r.song.song_title}"</div>
+            <p style="font-size:0.8rem;color:#5a4a3a;">${r.song.years} · ${r.song.location}</p>
+            <p style="font-size:0.8rem;color:#d4af37;margin-top:8px;">Tap to listen →</p>
+          </div>
+        `).join('');
+        area.innerHTML = `<p style="text-align:center;color:#8a7a6a;margin-bottom:16px;font-size:0.9rem;">We found ${scored.length} possible match${scored.length>1?'es':''}. Is one of these your loved one?</p>${cards}`;
+      } else {
+        // No match
+        const encoded = encodeURIComponent(raw);
+        area.innerHTML = `
+          <div class="notfound-card">
+            <div class="notfound-icon">🎵</div>
+            <h2>Song Not Yet Created</h2>
+            <p>We haven't made a memorial song for <strong>${raw}</strong> yet — but we can.<br/><br/>Submit their details and we'll create a personalized memorial song within <strong>24 hours</strong>, completely free to listen.</p>
+            <a href="https://finalverseco.com/request.html?name=${encoded}" class="request-btn">Request Their Song — Free →</a>
+            <p class="timer-note">⏱ 24-hour turnaround · Free to listen · Downloads available</p>
+          </div>
+        `;
+      }
+    }, 800);
+  }
+
+  function selectSong(pageUrl, audioUrl, name, title, years, location, home) {
+    const area = document.getElementById('resultArea');
+    area.innerHTML = `
+      <div class="found-card">
+        <div class="found-badge">✓ Song Found</div>
+        <div class="found-name">${name}</div>
+        <div class="found-song-title">"${title}"</div>
+        <p style="font-size:0.8rem;color:#5a4a3a;margin-bottom:16px;">${years} · ${location}</p>
+        <audio controls preload="auto">
+          <source src="${audioUrl}" type="audio/mpeg" />
+        </audio>
+        <p class="found-note">
+          This song was created in loving memory by Final Verse in partnership with ${home}.<br/><br/>
+          <a href="${pageUrl}" style="color:#d4af37;">View full memorial page →</a>
+        </p>
+      </div>
+    `;
+  }
+
+  // Allow Enter key to search
+  document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') searchSong();
+  });
+</script>
+
+</body>
+</html>
+<!-- cache bust 1776372363 -->
