@@ -1853,6 +1853,30 @@
 
 
   <!-- =============================================
+       BUY CTA — DON'T SEE YOUR LOVED ONE?
+  ============================================= -->
+  <section id="buy-cta" style="background:var(--black-soft);padding:72px 20px;text-align:center;position:relative;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,175,55,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+    <div class="container" style="position:relative;z-index:1;max-width:640px;">
+      <p class="section-label fade-in">Order Directly</p>
+      <h2 class="fade-in fade-in-delay-1" style="font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--white);margin-bottom:1rem;">
+        Don't See Your Loved One?
+      </h2>
+      <div class="gold-line fade-in fade-in-delay-2"></div>
+      <p class="fade-in fade-in-delay-2" style="font-size:1.05rem;color:var(--gray-light);margin-bottom:2rem;line-height:1.75;">
+        We can create a personalized memorial song for anyone. Order directly and we will craft it within 48 hours.
+      </p>
+      <a href="https://buy.stripe.com/dRmfZg4bm34Egc26bU6c004" target="_blank" class="btn btn-gold btn-lg fade-in fade-in-delay-3" style="font-size:1.05rem;padding:1.1rem 2.8rem;">
+        Order a Custom Song — $297
+      </a>
+      <p class="fade-in fade-in-delay-4" style="font-size:0.8rem;color:var(--gray);margin-top:1rem;">
+        🔒 Secure checkout via Stripe · Delivered digitally within 48 hours
+      </p>
+    </div>
+  </section>
+
+
+  <!-- =============================================
        CAN'T FIND THEIR SONG
   ============================================= -->
   <section id="cant-find" aria-labelledby="cant-find-title">
@@ -2230,8 +2254,8 @@
       {
         title: '"The Old Porch Swing"',
         sub: 'Margaret Louise — Country / Acoustic · Fictional Demo Character',
-        caption: '"The Old Porch Swing" — A gentle country acoustic melody — demonstration only',
-        src: 'https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3',
+        caption: '"The Old Porch Swing" — A warm country acoustic tribute — demonstration only',
+        src: 'https://ceo522.github.io/finalverseco/audio/pharoah-smalls-still.mp3',
       },
     ];
 
@@ -2337,7 +2361,7 @@
       const name = document.getElementById('search-input').value.trim();
       if (name) {
         const encoded = encodeURIComponent(name);
-        window.location.href = '/listen/index.html?search=' + encoded;
+        window.location.href = 'https://finalverseco.com/listen/?search=' + encoded;
       }
     }
     document.getElementById('search-form').addEventListener('submit', function (e) {
