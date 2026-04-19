@@ -1,51 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
   <defs>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#f5c842;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#c9952a;stop-opacity:1" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&amp;display=swap');
+    </style>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C8A832"/>
+      <stop offset="100%" style="stop-color:#D4AA30"/>
     </linearGradient>
   </defs>
 
   <!-- Black background -->
-  <rect width="520" height="160" fill="#000000" rx="8"/>
+  <rect width="600" height="200" fill="#000000"/>
 
-  <!-- Main script text: Final Verse -->
+  <!-- Main title: Final Verse -->
   <text
-    x="260"
-    y="90"
+    x="290"
+    y="108"
     text-anchor="middle"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="62"
+    font-family="'Playfair Display', 'Georgia', 'Times New Roman', serif"
+    font-size="78"
     font-style="italic"
-    font-weight="bold"
-    fill="white"
-    letter-spacing="2"
+    font-weight="700"
+    fill="#FFFFFF"
+    letter-spacing="1"
   >Final Verse</text>
 
-  <!-- Gold swoosh left -->
-  <path d="M 55 105 Q 130 120 200 108 Q 255 100 270 105" stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <!-- Gold swoosh right -->
-  <path d="M 270 105 Q 310 110 380 104 Q 430 100 465 95" stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Gold swoosh — double line, gentle concave arc under text -->
+  <path d="M 72 128 Q 290 142 510 128" stroke="#C8A832" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 72 133 Q 290 147 510 133" stroke="#C8A832" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.7"/>
 
-  <!-- Gold music note (eighth note) -->
-  <g transform="translate(454, 30) scale(1.1)">
+  <!-- Tagline — sits centered between the swoosh lines -->
+  <text
+    x="290"
+    y="162"
+    text-anchor="middle"
+    font-family="'Helvetica Neue', Arial, sans-serif"
+    font-size="12"
+    font-weight="400"
+    fill="#FFFFFF"
+    letter-spacing="5"
+  >THE MEMORIAL SONG CO.</text>
+
+  <!-- Gold eighth note — upper right -->
+  <g transform="translate(490, 42)" fill="#C8A832">
     <!-- Note head -->
-    <ellipse cx="10" cy="30" rx="8" ry="6" fill="url(#goldGrad)" transform="rotate(-20, 10, 30)"/>
+    <ellipse cx="9" cy="28" rx="7" ry="5.5" transform="rotate(-15, 9, 28)"/>
     <!-- Stem -->
-    <line x1="17" y1="27" x2="17" y2="3" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="14.5" y="4" width="2.2" height="24" rx="1"/>
     <!-- Flag -->
-    <path d="M 17 3 Q 30 8 24 18" stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 16.7 4 Q 28 10 22 22" stroke="#C8A832" stroke-width="2.2" fill="none" stroke-linecap="round"/>
   </g>
 
-  <!-- Tagline -->
-  <text
-    x="260"
-    y="135"
-    text-anchor="middle"
-    font-family="Arial, Helvetica, sans-serif"
-    font-size="13"
-    font-weight="normal"
-    fill="#cccccc"
-    letter-spacing="4"
-  >THE MEMORIAL SONG CO.</text>
 </svg>
