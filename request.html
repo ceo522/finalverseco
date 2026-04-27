@@ -349,7 +349,12 @@
         <p class="form-title">Request Their Song</p>
         <p class="form-subtitle">Fill out the details below. We'll send you a link within 24 hours when the song is ready.</p>
 
-        <form id="requestForm" onsubmit="handleSubmit(event)">
+        <form id="requestForm" action="https://formspree.io/ceo@dortchai.com" method="POST" onsubmit="handleSubmit(event)">
+
+          <!-- Formspree control fields -->
+          <input type="hidden" name="_subject" value="New Final Verse Song Request" />
+          <input type="hidden" name="_next" value="https://finalverseco.com/request.html?submitted=1" />
+          <input type="hidden" name="_captcha" value="false" />
 
           <div class="form-group">
             <label>Full Name of Loved One *</label>
@@ -480,33 +485,64 @@
       btn.textContent = 'Submitting...';
       btn.disabled = true;
 
+      // Build form data
+      const formData = new FormData(form);
       const data = {};
-      new FormData(form).forEach((v, k) => data[k] = v);
+      formData.forEach((v, k) => data[k] = v);
+      data['_subject'] = 'New Final Verse Request: ' + (data['name'] || 'Unknown');
+      data['_replyto'] = data['email'] || '';
 
+      let sent = false;
+
+      // Primary: Formspree
       try {
-        // Send to Postmark via our backend
-        await fetch('https://finalverseco.com/api/request-song', {
+        const res = await fetch('https://formspree.io/f/xdkgjvwq', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-      } catch(err) {
-        // Even if API call fails, show success (email fallback handled server side)
-        console.log('Request submitted');
-      }
-
-      // Also send directly via Formspree as backup
-      try {
-        await fetch('https://formspree.io/f/FORMSPREE_ID', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(data)
-        });
+        if (res.ok || res.status === 200) sent = true;
       } catch(err) {}
 
+      // Backup: mailto link open if both fail (silent fallback)
+      if (!sent) {
+        const subject = encodeURIComponent('Song Request: ' + (data['name'] || ''));
+        const body = encodeURIComponent(
+          'Name: ' + (data['name'] || '') + '\n' +
+          'City: ' + (data['city'] || '') + ', ' + (data['state'] || '') + '\n' +
+          'Funeral Home: ' + (data['funeral_home'] || '') + '\n' +
+          'Date of Passing: ' + (data['date_of_passing'] || '') + '\n' +
+          'Style: ' + (data['style'] || '') + '\n' +
+          'Details: ' + (data['details'] || '') + '\n\n' +
+          'From: ' + (data['requester_name'] || '') + '\n' +
+          'Email: ' + (data['email'] || '') + '\n' +
+          'Phone: ' + (data['phone'] || '')
+        );
+        window.location.href = 'mailto:ceo@dortchai.com?subject=' + subject + '&body=' + body;
+        return;
+      }
+
+      // Show success screen
       document.getElementById('formContent').style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // Handle Formspree native redirect return (?submitted=1)
+    document.addEventListener('DOMContentLoaded', function() {
+      if (new URLSearchParams(window.location.search).get('submitted') === '1') {
+        document.getElementById('formContent').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      }
+      // Dynamically update _subject when name is typed
+      const nameInput = document.querySelector('input[name="name"]');
+      const subjectField = document.querySelector('input[name="_subject"]');
+      if (nameInput && subjectField) {
+        nameInput.addEventListener('input', function() {
+          subjectField.value = 'New Final Verse Request: ' + (nameInput.value || 'Unknown');
+        });
+      }
+    });
   </script>
 
 </body>
