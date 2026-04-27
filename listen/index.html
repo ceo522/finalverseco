@@ -3,2017 +3,1809 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Listen Hub — Search Tributes | Final Verse</title>
-  <meta name="description" content="Search the Final Verse Listen Hub to find an AI tribute song for your loved one. Stream a 30-second preview free." />
-  <link rel="icon" href="https://finalverseco.com/static/img/favicon.ico" type="image/x-icon" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Final Verse — The Memorial Song Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'FACEBOOK_PIXEL_ID');
+  fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GOOGLE_TAG_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GOOGLE_TAG_ID');
+  </script>
+  <!-- End Google Tag -->
+
   <style>
-/* ============================================================
-   FINAL VERSE — Premium Memorial Platform
-   Mobile-first | Dark Navy + Gold | Glassmorphism
-   ============================================================ */
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Reset & Base ─────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #1A1A1A;
+      --bg-2:     #222222;
+      --bg-3:     #2A2A2A;
+      --gold:     #D4AF37;
+      --gold-dim: #A8882A;
+      --gold-bg:  rgba(212,175,55,0.08);
+      --white:    #FFFFFF;
+      --muted:    #999999;
+      --border:   rgba(212,175,55,0.18);
+      --radius:   12px;
+      --shadow:   0 8px 40px rgba(0,0,0,0.6);
+    }
 
-:root {
-  --navy:        #0b0d1a;
-  --navy-mid:    #111428;
-  --navy-card:   #141829;
-  --navy-light:  #1a2040;
-  --gold:        #f5c542;
-  --gold-dim:    #c9a227;
-  --gold-glow:   rgba(245, 197, 66, 0.25);
-  --gold-glow-sm:rgba(245, 197, 66, 0.12);
-  --cream:       #f0e8d8;
-  --cream-dim:   #b8a98a;
-  --white:       #ffffff;
-  --glass-bg:    rgba(255,255,255,0.04);
-  --glass-border:rgba(245,197,66,0.15);
-  --glass-blur:  blur(16px);
-  --red:         #a02020;
-  --green:       #2a7a4a;
-  --font-serif:  'Playfair Display', Georgia, serif;
-  --font-sans:   'Inter', system-ui, -apple-system, sans-serif;
-  --radius:      12px;
-  --radius-lg:   20px;
-  --transition:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow-gold: 0 0 30px rgba(245,197,66,0.2), 0 4px 24px rgba(0,0,0,0.5);
-  --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
-}
+    html { scroll-behavior: smooth; }
 
-html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-body {
-  font-family: var(--font-sans);
-  background: var(--navy);
-  color: var(--cream);
-  line-height: 1.7;
-  font-size: 16px;
-  overflow-x: hidden;
-}
+    /* ─── Animations ───────────────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.94); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    @keyframes barBounce1 { 0%,100%{height:8px}  50%{height:32px} }
+    @keyframes barBounce2 { 0%,100%{height:16px} 50%{height:48px} }
+    @keyframes barBounce3 { 0%,100%{height:24px} 50%{height:40px} }
+    @keyframes barBounce4 { 0%,100%{height:12px} 50%{height:44px} }
+    @keyframes barBounce5 { 0%,100%{height:20px} 50%{height:36px} }
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+      50%      { box-shadow: 0 0 0 10px rgba(212,175,55,0); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes overlayIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.93) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
 
-img { max-width: 100%; display: block; }
-a { color: var(--gold); text-decoration: none; transition: color var(--transition); }
-a:hover { color: #fff; }
-ul { list-style: none; }
-em { font-style: italic; }
+    .fade-in { animation: fadeIn 0.7s ease both; }
+    .fade-in-delay-1 { animation: fadeIn 0.7s 0.15s ease both; }
+    .fade-in-delay-2 { animation: fadeIn 0.7s 0.30s ease both; }
+    .fade-in-delay-3 { animation: fadeIn 0.7s 0.45s ease both; }
 
-/* ── Typography ───────────────────────────────────────────── */
-h1, h2, h3, h4 {
-  font-family: var(--font-serif);
-  line-height: 1.25;
-  color: var(--cream);
-}
-h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; }
-h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 600; }
-h3 { font-size: 1.2rem; font-weight: 600; }
-p  { color: var(--cream-dim); line-height: 1.8; }
+    /* ─── Gold Rule ─────────────────────────────────────────────── */
+    .gold-rule {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 0 auto;
+      opacity: 0.7;
+    }
 
-/* ── Utility ──────────────────────────────────────────────── */
-.container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
-.section   { padding: 80px 0; position: relative; }
-.section-label {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 12px;
-}
-.section-title {
-  margin-bottom: 12px;
-  background: linear-gradient(135deg, #fff 0%, var(--cream) 50%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.section-sub { color: var(--cream-dim); font-size: 1.05rem; margin-bottom: 48px; }
+    /* ─────────────────────────────────────────────────────────────
+       EMAIL GATE MODAL
+    ───────────────────────────────────────────────────────────── */
+    #email-gate {
+      position: fixed; inset: 0;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+    }
 
-/* ── Glass Card ───────────────────────────────────────────── */
-.glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-}
-.glass-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-gold);
-  border-color: rgba(245,197,66,0.35);
-}
+    .gate-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 52px 44px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow), 0 0 60px rgba(212,175,55,0.05);
+      animation: fadeInScale 0.5s ease both;
+    }
 
-/* ── Buttons ──────────────────────────────────────────────── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 32px;
-  border-radius: 50px;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), filter var(--transition);
-  white-space: nowrap;
-}
-.btn-icon { font-size: 1.1rem; }
+    .gate-logo { margin-bottom: 8px; }
+    .gate-logo-mark { font-size: 36px; line-height: 1; }
+    .gate-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-top: 6px;
+    }
+    .gate-tagline {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .gate-divider { margin: 24px auto; }
+    .gate-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .gate-subtext {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .gate-input-wrap { position: relative; margin-bottom: 14px; }
+    .gate-input {
+      width: 100%;
+      padding: 15px 18px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .gate-input::placeholder { color: #666; }
+    .gate-input:focus { border-color: var(--gold); }
+    .gate-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--gold);
+      color: #1A1A1A;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .gate-btn:hover { background: #e0bc3d; transform: translateY(-1px); }
+    .gate-btn:active { transform: translateY(0); }
+    .gate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .gate-privacy {
+      margin-top: 16px;
+      font-size: 11px;
+      color: #555;
+      line-height: 1.5;
+    }
+    .gate-error {
+      color: #e05555;
+      font-size: 13px;
+      margin-top: 8px;
+      min-height: 18px;
+    }
 
-.btn-gold {
-  background: linear-gradient(135deg, var(--gold) 0%, #e0a800 100%);
-  color: #0b0d1a;
-  font-weight: 700;
-}
-.btn-gold:hover, .btn-gold:focus {
-  transform: scale(1.05);
-  filter: brightness(1.12);
-  color: #0b0d1a;
-}
-.btn-glow {
-  box-shadow: 0 0 20px rgba(245,197,66,0.35), 0 4px 16px rgba(0,0,0,0.4);
-}
-.btn-glow:hover {
-  box-shadow: 0 0 40px rgba(245,197,66,0.55), 0 6px 24px rgba(0,0,0,0.5);
-}
-.btn-glass {
-  background: rgba(255,255,255,0.06);
-  color: var(--cream);
-  border: 1px solid rgba(255,255,255,0.18);
-  backdrop-filter: blur(8px);
-}
-.btn-glass:hover {
-  background: rgba(255,255,255,0.12);
-  color: var(--white);
-  transform: scale(1.05);
-}
-.btn-outline-gold {
-  background: transparent;
-  color: var(--gold);
-  border: 1.5px solid var(--gold);
-}
-.btn-outline-gold:hover {
-  background: var(--gold-glow-sm);
-  color: var(--gold);
-  transform: scale(1.04);
-}
-.btn-lg  { padding: 16px 40px; font-size: 1rem; }
-.btn-sm  { padding: 9px 20px; font-size: 0.85rem; }
-.btn-full { width: 100%; justify-content: center; }
+    /* ─────────────────────────────────────────────────────────────
+       MAIN LAYOUT
+    ───────────────────────────────────────────────────────────── */
+    #main-hub {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    #main-hub.visible {
+      display: flex;
+      animation: fadeIn 0.6s ease both;
+    }
 
-/* ── Nav ──────────────────────────────────────────────────── */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  height: 68px;
-  display: flex;
-  align-items: center;
-  transition: background var(--transition), box-shadow var(--transition), height var(--transition);
-}
-.nav.scrolled {
-  background: rgba(11,13,26,0.94);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 rgba(245,197,66,0.12);
-  height: 60px;
-}
-.nav-inner {
-  max-width: 1140px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-/* Logo — sized by height only; SVG is 1600x600 so width auto gives ~140px at h=52 */
-.nav-logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;          /* never shrink into nav links */
-  text-decoration: none;
-}
-.nav-logo-img {
-  height: 44px;            /* comfortable in 68px bar */
-  width: auto;             /* natural aspect ratio — no max-width squeeze */
-  display: block;
-  filter: drop-shadow(0 0 8px rgba(245,197,66,0.3));
-  transition: filter var(--transition), transform var(--transition);
-}
-.nav.scrolled .nav-logo-img { height: 38px; }
-.nav-logo-img:hover {
-  filter: drop-shadow(0 0 20px rgba(245,197,66,0.75)) brightness(1.12);
-  transform: scale(1.03);
-}
-.logo-final { color: var(--cream); font-family: var(--font-serif); font-weight: 700; font-size: 1.3rem; }
-.logo-verse { color: var(--gold);  font-family: var(--font-serif); font-weight: 400; font-size: 1.3rem; }
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  flex-shrink: 0;          /* keep links from wrapping into logo */
-}
-.nav-links a {
-  color: var(--cream-dim);
-  font-size: 0.88rem;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: color var(--transition);
-}
-.nav-links a:hover { color: var(--cream); }
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-}
-.nav-toggle span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--cream);
-  border-radius: 2px;
-  transition: var(--transition);
-}
+    /* ─── Header ────────────────────────────────────────────────── */
+    header {
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: rgba(26,26,26,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .header-logo-mark { font-size: 26px; }
+    .header-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+    .header-sub {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+    .header-badge {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 20px;
+      opacity: 0.8;
+    }
 
-/* ── HERO ─────────────────────────────────────────────────── */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: radial-gradient(ellipse 120% 80% at 50% 20%, #151c3d 0%, #0b0d1a 60%, #060710 100%);
-}
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.notes-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-.note {
-  position: absolute;
-  font-size: 1.4rem;
-  color: var(--gold);
-  opacity: 0;
-  animation: noteFall linear infinite;
-  text-shadow: 0 0 10px rgba(245,197,66,0.6);
-  user-select: none;
-}
-@keyframes noteFall {
-  0%   { opacity: 0; transform: translateY(-30px) translateX(0) rotate(0deg); }
-  10%  { opacity: 0.7; }
-  90%  { opacity: 0.3; }
-  100% { opacity: 0; transform: translateY(110vh) translateX(40px) rotate(25deg); }
-}
-.hero-rays {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-.ray {
-  position: absolute;
-  top: -20%;
-  width: 2px;
-  height: 130%;
-  opacity: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(245,197,66,0.12) 40%, transparent 100%);
-  transform-origin: top center;
-  transition: opacity 1s ease, transform 0.8s ease;
-}
-.ray-1 { left: 30%; transform: rotate(-12deg); animation: rayPulse 6s ease-in-out infinite; }
-.ray-2 { left: 50%; transform: rotate(0deg);   animation: rayPulse 6s ease-in-out 2s infinite; }
-.ray-3 { left: 70%; transform: rotate(12deg);  animation: rayPulse 6s ease-in-out 4s infinite; }
-@keyframes rayPulse {
-  0%,100% { opacity: 0; }
-  50%      { opacity: 1; }
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(11,13,26,0.2) 0%, rgba(11,13,26,0.7) 100%);
-}
-.hero-inner {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  padding: 110px 24px 80px;  /* 68px nav + 42px breathing room */
-  max-width: 860px;
-}
-.hero-eyebrow {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(245,197,66,0.8);
-  margin-bottom: 16px;
-  padding: 6px 20px;
-  border: 1px solid rgba(245,197,66,0.2);
-  border-radius: 50px;
-  display: inline-block;
-  background: rgba(245,197,66,0.05);
-}
-.hero-headline {
-  font-size: clamp(2.4rem, 6vw, 4rem);
-  font-weight: 700;
-  color: var(--cream);
-  margin-bottom: 24px;
-  line-height: 1.2;
-  text-shadow: 0 2px 40px rgba(0,0,0,0.6);
-}
-.hero-headline em {
-  background: linear-gradient(135deg, var(--gold) 0%, #fff 60%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-style: italic;
-}
-.hero-sub {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: rgba(240,232,216,0.8);
-  margin-bottom: 40px;
-  line-height: 1.9;
-}
-.hero-ctas {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-.hero-trust {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-size: 0.8rem;
-  color: var(--cream-dim);
-  flex-wrap: wrap;
-}
-.trust-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 6px var(--gold);
-  animation: pulse 2s ease-in-out infinite;
-}
-.trust-sep { color: rgba(255,255,255,0.2); }
-@keyframes pulse {
-  0%,100% { box-shadow: 0 0 4px var(--gold); }
-  50%      { box-shadow: 0 0 12px var(--gold); }
-}
-.hero-scroll-hint {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: scrollBounce 2s ease-in-out infinite;
-}
-.scroll-arrow {
-  display: block;
-  width: 20px; height: 20px;
-  border-right: 2px solid rgba(245,197,66,0.5);
-  border-bottom: 2px solid rgba(245,197,66,0.5);
-  transform: rotate(45deg);
-}
-@keyframes scrollBounce {
-  0%,100% { transform: translateX(-50%) translateY(0); }
-  50%      { transform: translateX(-50%) translateY(6px); }
-}
+    /* ─── Hero Section ──────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 72px 24px 56px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      opacity: 0.85;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-body {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto;
+    }
 
-/* ── Reveal on scroll ─────────────────────────────────────── */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal-up.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-.delay-1 { transition-delay: 0.12s; }
-.delay-2 { transition-delay: 0.24s; }
-.delay-3 { transition-delay: 0.36s; }
-.delay-4 { transition-delay: 0.48s; }
+    /* ─── Search Section ────────────────────────────────────────── */
+    .search-section {
+      max-width: 600px;
+      margin: 0 auto 32px;
+      padding: 0 24px;
+      width: 100%;
+    }
+    .search-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+    .search-wrap { display: flex; gap: 10px; }
+    .search-input {
+      flex: 1;
+      padding: 16px 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input::placeholder { color: #555; }
+    .search-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+    }
+    .search-btn {
+      padding: 16px 28px;
+      background: var(--gold);
+      color: #1A1A1A;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .search-btn:hover { background: #e0bc3d; transform: translateY(-1px); }
+    .search-hint { margin-top: 10px; font-size: 12px; color: #555; }
+    .search-hint span { color: var(--gold-dim); cursor: pointer; }
+    .search-hint span:hover { color: var(--gold); }
+    .search-no-result {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
 
-/* ── How It Works ─────────────────────────────────────────── */
-.how-it-works { background: var(--navy-mid); }
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
-}
-.step-card {
-  padding: 36px 28px;
-  text-align: center;
-  position: relative;
-}
-.step-icon-wrap {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 16px;
-}
-.step-icon {
-  font-size: 2.2rem;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 0 8px rgba(245,197,66,0.5));
-}
-.step-icon-glow {
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(245,197,66,0.15) 0%, transparent 70%);
-  animation: iconPulse 3s ease-in-out infinite;
-}
-@keyframes iconPulse {
-  0%,100% { transform: scale(1); opacity: 0.6; }
-  50%      { transform: scale(1.3); opacity: 1; }
-}
-.step-num {
-  font-family: var(--font-serif);
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: rgba(245,197,66,0.08);
-  position: absolute;
-  top: 16px; right: 20px;
-  line-height: 1;
-  user-select: none;
-}
-.step-card h3 { margin-bottom: 10px; color: var(--cream); }
-.step-line {
-  width: 40px; height: 2px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-  margin: 20px auto 0;
-  border-radius: 2px;
-}
+    /* ─── Player Card ───────────────────────────────────────────── */
+    #player-section {
+      max-width: 600px;
+      margin: 0 auto 12px;
+      padding: 0 24px;
+      width: 100%;
+    }
+    .result-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease both;
+    }
+    .result-meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .result-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .result-detail { display: flex; gap: 12px; align-items: center; }
+    .result-genre {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .result-duration { font-size: 13px; color: var(--muted); }
 
-/* ── Products ─────────────────────────────────────────────── */
-.products { background: var(--navy); }
-.products-bg-glow {
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 600px; height: 300px;
-  background: radial-gradient(ellipse, rgba(245,197,66,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px;
-  margin-bottom: 32px;
-}
-.product-card { padding: 36px 32px; position: relative; }
-.product-card--featured {
-  border-color: rgba(245,197,66,0.4);
-  background: rgba(245,197,66,0.04);
-}
-.product-glow-ring {
-  position: absolute;
-  inset: -2px;
-  border-radius: calc(var(--radius-lg) + 2px);
-  background: linear-gradient(135deg, rgba(245,197,66,0.3), transparent, rgba(245,197,66,0.3));
-  pointer-events: none;
-  animation: ringRotate 4s linear infinite;
-}
-@keyframes ringRotate {
-  from { background-position: 0% 50%; }
-  to   { background-position: 100% 50%; }
-}
-.product-badge {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 50px;
-  background: rgba(255,255,255,0.08);
-  color: var(--cream-dim);
-  margin-bottom: 20px;
-}
-.product-badge--gold {
-  background: var(--gold-glow-sm);
-  color: var(--gold);
-  border: 1px solid rgba(245,197,66,0.3);
-}
-.product-icon {
-  font-size: 2rem;
-  margin-bottom: 12px;
-  filter: drop-shadow(0 0 6px rgba(245,197,66,0.4));
-}
-.product-name {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-  color: var(--cream);
-}
-.product-price {
-  font-family: var(--font-serif);
-  font-size: 2.6rem;
-  font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 24px;
-  line-height: 1;
-}
-.price-note {
-  font-size: 0.8rem;
-  color: var(--cream-dim);
-  font-family: var(--font-sans);
-  font-weight: 400;
-}
-.product-features {
-  margin-bottom: 28px;
-}
-.product-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 0.9rem;
-  color: var(--cream-dim);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.product-features li:last-child { border-bottom: none; }
-.check { color: var(--gold); font-weight: 700; flex-shrink: 0; }
-.products-note {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--cream-dim);
-}
-.products-note a { color: var(--gold); }
-.products-note strong { color: var(--cream); }
+    /* Waveform */
+    .waveform {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 52px;
+    }
+    .waveform-bar {
+      width: 5px;
+      border-radius: 3px;
+      background: var(--gold);
+      opacity: 0.4;
+      height: 8px;
+      transition: opacity 0.3s;
+    }
+    .waveform.playing .waveform-bar { opacity: 0.85; }
+    .waveform.playing .waveform-bar:nth-child(1) { animation: barBounce1 0.8s ease-in-out infinite; }
+    .waveform.playing .waveform-bar:nth-child(2) { animation: barBounce2 0.9s 0.1s ease-in-out infinite; }
+    .waveform.playing .waveform-bar:nth-child(3) { animation: barBounce3 0.7s 0.2s ease-in-out infinite; }
+    .waveform.playing .waveform-bar:nth-child(4) { animation: barBounce4 1.0s 0.05s ease-in-out infinite; }
+    .waveform.playing .waveform-bar:nth-child(5) { animation: barBounce5 0.85s 0.15s ease-in-out infinite; }
 
-/* ── Partners ─────────────────────────────────────────────── */
-.partners {
-  background: var(--navy-mid);
-  overflow: hidden;
-}
-.partners-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-.partners-text h2 { margin-bottom: 16px; }
-.partners-text p  { margin-bottom: 24px; font-size: 1rem; }
-.partners-text strong { color: var(--cream); }
-.partners-list {
-  margin-bottom: 32px;
-}
-.partners-list li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 0.95rem;
-  color: var(--cream-dim);
-}
-.partners-stat-block {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.stat {
-  padding: 24px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.stat-num {
-  font-family: var(--font-serif);
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-}
-.stat-label {
-  font-size: 0.85rem;
-  color: var(--cream-dim);
-}
+    /* Audio Player UI */
+    .player-ui {
+      display: none;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .player-ui.visible { display: block; animation: fadeIn 0.4s ease both; }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .play-pause-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.15s;
+      animation: pulseGlow 2s infinite;
+    }
+    .play-pause-btn:hover { background: #e0bc3d; transform: scale(1.07); }
 
-/* ── Franchise ────────────────────────────────────────────── */
-.franchise-cta { background: var(--navy); overflow: hidden; }
-.franchise-bg-glow {
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 700px; height: 300px;
-  background: radial-gradient(ellipse, rgba(245,197,66,0.05) 0%, transparent 70%);
-  pointer-events: none;
-}
-.franchise-cta-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-.franchise-text .section-label { margin-bottom: 12px; }
-.franchise-text h2 { margin-bottom: 16px; }
-.franchise-text p  { margin-bottom: 28px; }
-.franchise-highlights {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.highlight {
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.highlight-icon { font-size: 1.6rem; flex-shrink: 0; }
-.highlight div { display: flex; flex-direction: column; gap: 2px; }
-.highlight strong { color: var(--cream); font-size: 0.95rem; }
-.highlight span { color: var(--cream-dim); font-size: 0.82rem; }
+    .progress-wrap { flex: 1; }
+    .progress-bar-bg {
+      height: 4px;
+      background: var(--bg-3);
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.25s linear;
+      position: relative;
+    }
+    .progress-bar-fill::after {
+      content: '';
+      position: absolute;
+      right: -5px; top: 50%;
+      transform: translateY(-50%);
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+    .progress-times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .player-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .player-action-btn {
+      padding: 9px 18px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .player-action-btn.primary {
+      background: var(--gold);
+      color: #1A1A1A;
+      border: none;
+    }
+    .player-action-btn.primary:hover { background: #e0bc3d; }
+    .player-action-btn.secondary {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--border);
+    }
+    .player-action-btn.secondary:hover { border-color: var(--gold); background: var(--gold-bg); }
 
-/* ── Testimonials ─────────────────────────────────────────── */
-.trust { background: var(--navy-mid); }
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-.testimonial { padding: 32px 28px; }
-.testimonial-stars {
-  color: var(--gold);
-  font-size: 0.9rem;
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-}
-.testimonial-text {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--cream);
-  line-height: 1.8;
-  margin-bottom: 16px;
-}
-.testimonial-author {
-  font-size: 0.8rem;
-  color: var(--gold);
-  font-weight: 600;
-}
+    /* ─── Rush Delivery Add-On ──────────────────────────────────── */
+    #rush-addon {
+      max-width: 600px;
+      margin: 0 auto 24px;
+      padding: 0 24px;
+      width: 100%;
+    }
+    .rush-card {
+      background: linear-gradient(135deg, rgba(212,175,55,0.07) 0%, rgba(212,175,55,0.02) 100%);
+      border: 1px solid rgba(212,175,55,0.32);
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeIn 0.5s ease both;
+    }
+    .rush-left { display: flex; align-items: center; gap: 14px; }
+    .rush-emoji { font-size: 24px; flex-shrink: 0; }
+    .rush-info {}
+    .rush-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .rush-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .rush-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .rush-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .rush-btn {
+      padding: 10px 20px;
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(212,175,55,0.4);
+      border-radius: 8px;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .rush-btn:hover { background: var(--gold); color: #1A1A1A; border-color: var(--gold); }
 
-/* ── Final CTA ────────────────────────────────────────────── */
-.cta-final {
-  background: var(--navy);
-  text-align: center;
-  padding: 100px 0;
-}
-.cta-final-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245,197,66,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.cta-final-inner { position: relative; z-index: 1; }
-.cta-final-inner h2 {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #fff, var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.cta-final-inner p  { font-size: 1.1rem; margin-bottom: 36px; }
+    /* ─────────────────────────────────────────────────────────────
+       CREATE ANOTHER SONG — CTA BUTTON
+    ───────────────────────────────────────────────────────────── */
+    #create-another-section {
+      max-width: 600px;
+      margin: 0 auto 16px;
+      padding: 0 24px;
+      width: 100%;
+    }
+    .create-another-btn {
+      display: block;
+      width: 100%;
+      padding: 18px 24px;
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.22s, color 0.22s, transform 0.15s, box-shadow 0.22s;
+    }
+    .create-another-btn:hover {
+      background: var(--gold);
+      color: #1A1A1A;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(212,175,55,0.18);
+    }
+    .create-another-btn:active { transform: translateY(0); }
 
-/* ── Footer ───────────────────────────────────────────────── */
-.footer {
-  background: #070810;
-  padding: 60px 0 0;
-  position: relative;
-  overflow: hidden;
-}
-.footer-glow {
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 500px; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(245,197,66,0.4), transparent);
-}
-.footer-inner {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 24px 48px;
-  display: grid;
-  grid-template-columns: 1.5fr 2fr;
-  gap: 60px;
-}
-.footer-logo { height: 56px; width: auto; max-width: 240px; margin-bottom: 14px; filter: brightness(0.85) drop-shadow(0 0 8px rgba(245,197,66,0.2)); }
-.footer-tagline { font-size: 0.9rem; color: var(--cream-dim); margin-bottom: 20px; }
-.footer-social { display: flex; gap: 12px; }
-.social-icon {
-  width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50%;
-  color: var(--cream-dim);
-  font-size: 0.85rem;
-  transition: var(--transition);
-}
-.social-icon:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-.footer-links {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.footer-col { display: flex; flex-direction: column; gap: 10px; }
-.footer-col h4 {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 4px;
-}
-.footer-col a, .footer-domain {
-  font-size: 0.85rem;
-  color: var(--cream-dim);
-  transition: color var(--transition);
-}
-.footer-col a:hover { color: var(--cream); }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.05);
-  padding: 20px 24px;
-  max-width: 1140px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.25); }
-.footer-legal { font-style: italic; }
+    /* ─────────────────────────────────────────────────────────────
+       HONOR ANOTHER LOVED ONE — MODAL
+    ───────────────────────────────────────────────────────────── */
+    #honor-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(8,8,8,0.88);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #honor-modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .honor-modal {
+      background: var(--bg-2);
+      border: 1px solid rgba(212,175,55,0.28);
+      border-radius: 20px;
+      padding: 44px 40px 36px;
+      max-width: 460px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 60px rgba(212,175,55,0.06);
+      transform: scale(0.93) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+      opacity: 0;
+    }
+    #honor-modal-overlay.open .honor-modal {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
 
-/* ── Memorial Page ────────────────────────────────────────── */
-.memorial-page { padding: 120px 0 80px; min-height: 100vh; }
-.memorial-hero {
-  text-align: center;
-  padding: 60px 24px;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,197,66,0.06) 0%, transparent 60%);
-}
-.memorial-photo {
-  width: 120px; height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid rgba(245,197,66,0.4);
-  margin: 0 auto 24px;
-  box-shadow: 0 0 30px rgba(245,197,66,0.2);
-}
-.memorial-photo-placeholder {
-  width: 120px; height: 120px;
-  border-radius: 50%;
-  background: var(--navy-light);
-  border: 3px solid rgba(245,197,66,0.2);
-  margin: 0 auto 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  color: rgba(245,197,66,0.3);
-}
-.memorial-name { font-size: clamp(2rem, 5vw, 3rem); color: var(--cream); margin-bottom: 8px; }
-.memorial-years { color: var(--gold); font-size: 1rem; font-family: var(--font-serif); letter-spacing: 0.1em; margin-bottom: 24px; }
-.memorial-obit {
-  max-width: 680px;
-  margin: 0 auto;
-  font-size: 1rem;
-  color: var(--cream-dim);
-  line-height: 1.9;
-  font-family: var(--font-serif);
-  font-style: italic;
-}
+    .honor-modal-close {
+      position: absolute;
+      top: 16px; right: 18px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .honor-modal-close:hover { color: var(--white); background: rgba(255,255,255,0.08); }
 
-/* Audio player */
-.audio-section {
-  max-width: 680px;
-  margin: 40px auto;
-  padding: 0 24px;
-}
-.audio-player-wrap {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  position: relative;
-}
-.player-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 16px;
-  font-weight: 600;
-}
-.player-controls {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-#fv-play-btn {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  color: #0b0d1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform var(--transition), box-shadow var(--transition);
-  box-shadow: 0 0 16px rgba(245,197,66,0.3);
-}
-#fv-play-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 28px rgba(245,197,66,0.5);
-}
-#fv-progress-bar {
-  flex: 1;
-  height: 4px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 4px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-#fv-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--gold), #fff);
-  border-radius: 4px;
-  width: 0;
-  transition: width 0.3s linear;
-}
-#fv-time-display {
-  font-size: 0.8rem;
-  color: var(--cream-dim);
-  font-variant-numeric: tabular-nums;
-  min-width: 36px;
-  text-align: right;
-}
+    .honor-modal-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .honor-modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .honor-modal-sub {
+      font-size: 14px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.65;
+      margin-bottom: 28px;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-/* Lock overlay */
-.fv-lock-overlay {
-  display: none;
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-lg);
-  background: rgba(7,8,16,0.88);
-  backdrop-filter: blur(8px);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  text-align: center;
-  padding: 24px;
-}
-.fv-fade-in { animation: fadeIn 0.4s ease forwards; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.lock-icon { font-size: 2rem; color: var(--gold); }
-.lock-message { color: var(--cream); font-size: 0.9rem; line-height: 1.6; }
-.lock-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; }
+    .honor-form-field {
+      margin-bottom: 14px;
+    }
+    .honor-form-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px;
+      opacity: 0.9;
+    }
+    .honor-form-input {
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .honor-form-input::placeholder { color: #555; }
+    .honor-form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+    }
 
-/* Memorial unlock section */
-.memorial-actions {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 0 24px 40px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-}
+    .honor-submit-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      background: var(--gold);
+      color: #1A1A1A;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .honor-submit-btn:hover { background: #e0bc3d; transform: translateY(-1px); }
+    .honor-submit-btn:active { transform: translateY(0); }
+    .honor-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-/* Share + claim */
-.memorial-meta {
-  max-width: 680px;
-  margin: 0 auto 60px;
-  padding: 0 24px;
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+    .honor-success {
+      display: none;
+      text-align: center;
+      padding: 16px 0 8px;
+      animation: fadeInUp 0.4s ease both;
+    }
+    .honor-success-icon { font-size: 44px; margin-bottom: 14px; }
+    .honor-success-msg {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.5;
+    }
+    .honor-success-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    .honor-form-error {
+      color: #e05555;
+      font-size: 12px;
+      margin-top: 10px;
+      text-align: center;
+      min-height: 16px;
+    }
 
-/* ── Page Hero (inner pages) ──────────────────────────────── */
-.page-hero {
-  padding: 100px 0 48px;   /* 68px nav + 32px breathing room */
-  text-align: center;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,197,66,0.05) 0%, transparent 65%);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.page-hero--sm { padding: 90px 0 36px; }
-.page-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, #fff 0%, var(--cream) 50%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 10px;
-}
-.page-sub {
-  color: var(--cream-dim);
-  font-size: 1rem;
-  max-width: 480px;
-  margin: 0 auto;
-}
-.section--tight { padding: 32px 0; }
+    /* ─────────────────────────────────────────────────────────────
+       PRODUCT STORE
+    ───────────────────────────────────────────────────────────── */
+    #store-section {
+      max-width: 640px;
+      margin: 0 auto 24px;
+      padding: 0 24px;
+      width: 100%;
+    }
+    .store-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .store-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+    .store-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .store-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
-/* ── Search / Listen Hub ──────────────────────────────────── */
-.search-form { max-width: 620px; margin: 0 auto; }
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(245,197,66,0.22);
-  border-radius: 50px;
-  padding: 6px 6px 6px 24px;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.search-bar:focus-within {
-  border-color: rgba(245,197,66,0.55);
-  box-shadow: 0 0 0 3px rgba(245,197,66,0.08), 0 0 24px rgba(245,197,66,0.08);
-}
-.search-input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--cream);
-  font-size: 1rem;
-  font-family: var(--font-sans);
-  padding: 10px 0;
-}
-.search-input::placeholder { color: rgba(255,255,255,0.28); }
-.search-btn { flex-shrink: 0; border-radius: 50px; }
+    /* Bundle — ANCHOR — comes FIRST and BIGGEST */
+    .bundle-card {
+      background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.04) 100%);
+      border: 2px solid rgba(212,175,55,0.5);
+      border-radius: 20px;
+      padding: 40px 32px 32px;
+      text-align: center;
+      animation: fadeIn 0.6s ease both;
+      margin-bottom: 28px;
+      position: relative;
+      box-shadow: 0 0 48px rgba(212,175,55,0.07), var(--shadow);
+    }
+    .bundle-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: #1A1A1A;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .bundle-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .bundle-items {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.75;
+    }
+    .bundle-anchor-text {
+      font-size: 13px;
+      color: var(--gold-dim);
+      font-style: italic;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+    .bundle-pricing {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .bundle-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .bundle-original {
+      font-size: 22px;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+    .bundle-save {
+      background: rgba(212,175,55,0.15);
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(212,175,55,0.3);
+    }
+    .bundle-btn {
+      display: inline-block;
+      padding: 18px 52px;
+      background: var(--gold);
+      color: #1A1A1A;
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      margin-bottom: 12px;
+    }
+    .bundle-btn:hover {
+      background: #e0bc3d;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(212,175,55,0.28);
+    }
+    .bundle-stripe-badge {
+      display: block;
+      font-size: 11px;
+      color: #666;
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
 
-/* ── Results heading ──────────────────────────────────────── */
-.results-heading {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  color: var(--cream);
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.results-count {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--gold);
-  background: rgba(245,197,66,0.1);
-  border: 1px solid rgba(245,197,66,0.2);
-  border-radius: 50px;
-  padding: 3px 12px;
-}
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 520px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
 
-/* ── Memorial grid ────────────────────────────────────────── */
-.memorial-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
+    .product-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+      animation: fadeIn 0.6s ease both;
+    }
+    .product-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.06);
+    }
+    .product-emoji { font-size: 28px; margin-bottom: 14px; }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .product-price {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+    }
+    .product-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 8px;
+    }
+    .product-anchor {
+      font-size: 11px;
+      color: var(--gold-dim);
+      font-style: italic;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .product-btn {
+      width: 100%;
+      padding: 11px;
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .product-btn:hover {
+      background: var(--gold);
+      color: #1A1A1A;
+      border-color: var(--gold);
+    }
+    .stripe-badge {
+      font-size: 10px;
+      color: #666;
+      text-align: center;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
 
-/* ── Memorial card ────────────────────────────────────────── */
-.memorial-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;                        /* keeps photo inside border-radius */
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-}
-.memorial-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,197,66,0.2);
-  border-color: rgba(245,197,66,0.3);
-}
-.memorial-card--featured {
-  border-color: rgba(245,197,66,0.28);
-  animation: cardPulse 3.5s ease-in-out infinite;
-}
-@keyframes cardPulse {
-  0%,100% { box-shadow: var(--shadow-card); }
-  50%      { box-shadow: 0 8px 32px rgba(245,197,66,0.12), var(--shadow-card); }
-}
+    /* ─── Separator ─────────────────────────────────────────────── */
+    .section-sep {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .section-sep hr {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
 
-/* Card photo — fixed height, no overflow */
-.memorial-card-photo {
-  width: 100%;
-  height: 180px;
-  flex-shrink: 0;
-  overflow: hidden;
-  background: var(--navy-light);
-  position: relative;
-}
-.memorial-card-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-}
-.photo-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--navy-light) 0%, #0d1125 100%);
-}
-.photo-placeholder span {
-  font-size: 3rem;
-  color: rgba(245,197,66,0.2);
-  user-select: none;
-}
+    /* ─── Footer ────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      margin-top: auto;
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    .footer-sub {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .footer-link {
+      color: var(--gold-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--gold); }
+    .footer-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
 
-/* Card body */
-.memorial-card-body {
-  padding: 20px 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-}
-.featured-badge {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(245,197,66,0.1);
-  border: 1px solid rgba(245,197,66,0.25);
-  border-radius: 50px;
-  padding: 3px 10px;
-  margin-bottom: 4px;
-  align-self: flex-start;
-}
-.memorial-card-name {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--cream);
-  line-height: 1.3;
-  margin: 0;
-}
-.memorial-card-years {
-  font-size: 0.82rem;
-  color: var(--gold);
-  font-family: var(--font-serif);
-  letter-spacing: 0.06em;
-  margin: 0;
-}
-.memorial-card-excerpt {
-  font-size: 0.85rem;
-  color: var(--cream-dim);
-  line-height: 1.6;
-  margin: 4px 0 8px;
-  flex: 1;
-}
+    /* ─── Misc Utilities ─────────────────────────────────────────── */
+    .hidden { display: none !important; }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(26,26,26,0.3);
+      border-top-color: #1A1A1A;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .spinner-gold {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(212,175,55,0.25);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
 
-/* Mini audio player */
-.mini-player {
-  margin: 8px 0;
-}
-.mini-play {
-  background: rgba(245,197,66,0.1);
-  border: 1px solid rgba(245,197,66,0.3);
-  border-radius: 50px;
-  color: var(--gold);
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-family: var(--font-sans);
-  padding: 6px 16px;
-  cursor: pointer;
-  transition: background var(--transition), box-shadow var(--transition);
-  white-space: nowrap;
-}
-.mini-play:hover {
-  background: rgba(245,197,66,0.18);
-  box-shadow: 0 0 12px rgba(245,197,66,0.2);
-}
-
-/* Buttons in card */
-.btn-outline {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: var(--cream-dim);
-  border-radius: 50px;
-  padding: 8px 20px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  font-family: var(--font-sans);
-  display: inline-block;
-  text-align: center;
-  transition: border-color var(--transition), color var(--transition), background var(--transition);
-  align-self: flex-start;
-  margin-top: auto;
-}
-.btn-outline:hover {
-  border-color: rgba(245,197,66,0.5);
-  color: var(--gold);
-  background: rgba(245,197,66,0.05);
-}
-
-/* ── Not found block ──────────────────────────────────────── */
-.not-found-block {
-  text-align: center;
-  padding: 60px 24px;
-  max-width: 520px;
-  margin: 0 auto;
-}
-.not-found-icon {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  filter: drop-shadow(0 0 12px rgba(245,197,66,0.3));
-}
-.not-found-block h2 {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  color: var(--cream);
-  margin-bottom: 12px;
-}
-.not-found-block p {
-  color: var(--cream-dim);
-  margin-bottom: 28px;
-  line-height: 1.7;
-}
-.not-found-block strong { color: var(--cream); }
-
-/* ── Featured section divider ─────────────────────────────── */
-.featured-section { margin-top: 60px; }
-.featured-section .section-title { margin-bottom: 8px; }
-.featured-section .section-sub   { margin-bottom: 28px; }
-
-/* ── Empty hub ────────────────────────────────────────────── */
-.empty-hub {
-  text-align: center;
-  padding: 80px 24px;
-}
-.empty-hub-msg {
-  color: var(--cream-dim);
-  font-size: 1rem;
-  margin-bottom: 28px;
-}
-
-/* Listen Hub page bottom breathing room */
-.search-page-content { padding-bottom: 80px; }
-
-/* ── Intake / Create ──────────────────────────────────────── */
-.create-page { padding: 120px 0 80px; min-height: 100vh; }
-.create-hero  { text-align: center; padding: 40px 24px 48px; }
-.fv-step { display: none; }
-.fv-step.active { display: block; animation: fadeIn 0.3s ease; }
-.intake-form { max-width: 680px; margin: 0 auto; padding: 0 24px; }
-.form-group { margin-bottom: 24px; }
-.form-label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--cream);
-  margin-bottom: 8px;
-  letter-spacing: 0.02em;
-}
-.form-input, .form-select, .form-textarea {
-  width: 100%;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius);
-  color: var(--cream);
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color var(--transition), box-shadow var(--transition);
-  -webkit-appearance: none;
-}
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: rgba(245,197,66,0.5);
-  box-shadow: 0 0 0 3px rgba(245,197,66,0.08);
-}
-.form-textarea { resize: vertical; min-height: 120px; line-height: 1.7; }
-.form-select option { background: var(--navy-mid); }
-.personality-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.personality-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 50px;
-  border: 1px solid rgba(255,255,255,0.1);
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--cream-dim);
-  transition: var(--transition);
-  user-select: none;
-}
-.personality-chip input { display: none; }
-.personality-chip:has(input:checked),
-.personality-chip.selected {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: var(--gold-glow-sm);
-}
-.step-nav { display: flex; gap: 12px; margin-top: 32px; }
-.progress-steps {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 32px;
-}
-.fv-progress-step {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  transition: var(--transition);
-}
-.fv-progress-step.active   { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
-.fv-progress-step.completed { background: var(--gold-dim); }
-.fv-review-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  font-size: 0.9rem;
-}
-.fv-review-row span { color: var(--cream-dim); }
-.fv-review-row strong { color: var(--cream); }
-.fv-step-error, .fv-form-error {
-  color: #e06060;
-  font-size: 0.85rem;
-  margin-top: 8px;
-  display: none;
-}
-.fv-success { color: #6ecf8a; font-size: 0.95rem; }
-
-/* Input tabs */
-.input-tabs { display: flex; gap: 0; margin-bottom: 24px; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-.input-tab {
-  flex: 1;
-  padding: 12px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--cream-dim);
-  background: rgba(255,255,255,0.02);
-  transition: var(--transition);
-  border: none;
-}
-.input-tab.active { background: rgba(245,197,66,0.1); color: var(--gold); font-weight: 600; }
-
-/* ── Admin Panel ──────────────────────────────────────────── */
-.admin-page { padding: 100px 0 60px; min-height: 100vh; }
-.admin-header { padding: 20px 0 32px; }
-.admin-tabs { display: flex; gap: 4px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 32px; }
-.fv-admin-tab-btn {
-  padding: 10px 20px;
-  border: none;
-  background: none;
-  color: var(--cream-dim);
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-family: var(--font-sans);
-  transition: var(--transition);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-}
-.fv-admin-tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-.fv-admin-tab-pane { display: none; }
-.fv-admin-tab-pane.active { display: block; }
-.data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-.data-table th {
-  text-align: left;
-  padding: 10px 14px;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border-bottom: 1px solid rgba(245,197,66,0.15);
-}
-.data-table td {
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  color: var(--cream-dim);
-}
-.data-table tr:hover td { background: rgba(255,255,255,0.02); }
-.status-badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 50px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.status-active  { background: rgba(42,122,74,0.2);  color: #6ecf8a; }
-.status-pending { background: rgba(245,197,66,0.1);  color: var(--gold); }
-.status-locked  { background: rgba(160,32,32,0.2);   color: #e08080; }
-.admin-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(4px);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-.admin-modal {
-  background: var(--navy-card);
-  border: 1px solid rgba(245,197,66,0.2);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  width: 100%;
-  max-width: 560px;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.admin-modal h3 { margin-bottom: 24px; }
-.fv-admin-alert {
-  position: fixed;
-  top: 80px; right: 24px;
-  padding: 12px 24px;
-  border-radius: var(--radius);
-  font-size: 0.9rem;
-  z-index: 9999;
-  display: none;
-}
-.fv-admin-alert--success { background: rgba(42,122,74,0.9); color: #fff; }
-.fv-admin-alert--error   { background: rgba(160,32,32,0.9); color: #fff; }
-.fv-admin-alert--info    { background: rgba(245,197,66,0.9); color: #000; }
-
-/* ── Funeral Home Dashboard ───────────────────────────────── */
-.fh-dashboard { padding: 100px 0 60px; min-height: 100vh; }
-.fh-stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; }
-.fh-stat {
-  padding: 24px;
-  text-align: center;
-  border-radius: var(--radius);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-}
-.fh-stat-num  { font-family: var(--font-serif); font-size: 2rem; color: var(--gold); }
-.fh-stat-label{ font-size: 0.8rem; color: var(--cream-dim); margin-top: 4px; }
-
-/* ── Franchise Page ───────────────────────────────────────── */
-.franchise-page { padding: 120px 0 80px; min-height: 100vh; }
-
-/* ── Modals (shared) ──────────────────────────────────────── */
-.fv-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(4px);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-.fv-modal {
-  background: var(--navy-card);
-  border: 1px solid rgba(245,197,66,0.2);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  width: 100%;
-  max-width: 440px;
-}
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-.modal-close {
-  background: none;
-  border: none;
-  color: var(--cream-dim);
-  font-size: 1.4rem;
-  cursor: pointer;
-  transition: color var(--transition);
-}
-.modal-close:hover { color: var(--cream); }
-
-/* ── Logo fallback ───────────────────────────────────────── */
-.nav-logo-fallback {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-.logo-tagline-small {
-  font-size: 0.55rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-family: var(--font-sans);
-  font-weight: 600;
-  margin-top: -2px;
-}
-
-/* ── Hero logo ────────────────────────────────────────────── */
-.hero-logo-wrap {
-  margin-bottom: 28px;
-  display: flex;
-  justify-content: center;
-}
-.hero-logo-img {
-  height: 80px;             /* ~213px wide at natural 1600:600 ratio — clean and bold */
-  width: auto;
-  max-width: 90vw;          /* safe on small screens */
-  display: block;
-  margin: 0 auto;
-  filter:
-    drop-shadow(0 0 16px rgba(245,197,66,0.5))
-    drop-shadow(0 0 36px rgba(245,197,66,0.18));
-  animation: heroLogoFloat 5s ease-in-out infinite;
-}
-@keyframes heroLogoFloat {
-  0%,100% { transform: translateY(0);   filter: drop-shadow(0 0 16px rgba(245,197,66,0.5))  drop-shadow(0 0 36px rgba(245,197,66,0.18)); }
-  50%      { transform: translateY(-6px); filter: drop-shadow(0 0 26px rgba(245,197,66,0.72)) drop-shadow(0 0 54px rgba(245,197,66,0.28)); }
-}
-
-/* ── Nav mobile ───────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .nav-toggle { display: flex; }
-  .nav-inner { padding: 0 20px; }
-  .nav-logo-img { height: 36px; }          /* smaller on mobile — no overlap */
-  .nav.scrolled .nav-logo-img { height: 32px; }
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0; right: 0;
-    background: rgba(11,13,26,0.98);
-    backdrop-filter: blur(20px);
-    flex-direction: column;
-    padding: 20px 24px;
-    gap: 16px;
-    transform: translateY(-10px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition), transform var(--transition);
-    border-bottom: 1px solid rgba(245,197,66,0.1);
-  }
-  .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: all; }
-  .nav-links a { font-size: 1rem; }
-
-  .hero-inner { padding: 100px 24px 60px; }
-  .hero-headline { font-size: 2.2rem; }
-  .hero-sub br { display: none; }
-
-  .steps-grid,
-  .products-grid,
-  .testimonials-grid { grid-template-columns: 1fr; }
-
-  .partners-inner,
-  .franchise-cta-inner { grid-template-columns: 1fr; gap: 40px; }
-
-  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
-  .footer-links { grid-template-columns: repeat(2, 1fr); }
-  .footer-bottom { flex-direction: column; text-align: center; }
-
-  .hero-ctas { flex-direction: column; align-items: center; }
-  .section { padding: 60px 0; }
-}
-
-@media (max-width: 480px) {
-  .products-grid { grid-template-columns: 1fr; }
-  .franchise-highlights { gap: 12px; }
-  .footer-links { grid-template-columns: 1fr; }
-}
-
-</style>
-  
+    @media (max-width: 600px) {
+      .gate-card { padding: 36px 24px; }
+      header { padding: 18px 20px; }
+      .header-badge { display: none; }
+      .hero { padding: 48px 20px 36px; }
+      .search-wrap { flex-direction: column; }
+      .search-btn { width: 100%; }
+      .player-actions { gap: 8px; }
+      .bundle-card { padding: 28px 18px 24px; }
+      .bundle-price { font-size: 42px; }
+      .bundle-btn { padding: 16px 32px; font-size: 13px; }
+      .honor-modal { padding: 36px 24px 28px; }
+      .rush-card { flex-direction: column; align-items: flex-start; }
+      .rush-right { width: 100%; justify-content: space-between; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ── Navigation ── -->
-  <nav class="nav" id="mainNav">
-    <div class="nav-inner">
-      <a href="https://finalverseco.com" class="nav-logo">
-        <?xml version="1.0" encoding="UTF-8"?>
-<svg  alt="Final Verse — The Memorial Song Co." class="nav-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" width="1600" height="600" viewBox="0 0 1600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Final Verse Logo</title>
-  <desc id="desc">Final Verse - The Memorial Song Co. logo in white and gold on a transparent background.</desc>
-  <defs>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFE58A"/>
-      <stop offset="45%" stop-color="#F5C542"/>
-      <stop offset="100%" stop-color="#B98216"/>
-    </linearGradient>
-    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <style>
-      .script {
-        font-family: "Georgia", "Times New Roman", serif;
-        font-style: italic;
-        font-weight: 400;
-        letter-spacing: -8px;
-      }
-      .tagline {
-        font-family: "Arial", "Helvetica", sans-serif;
-        font-weight: 600;
-        letter-spacing: 16px;
-      }
-    </style>
-  </defs>
+  <!-- ─── REAL AUDIO ELEMENT (hidden) ───────────────────────── -->
+  <audio id="real-audio" preload="none">
+    <source src="https://ceo522.github.io/finalverseco/audio/pharoah-smalls-still.mp3" type="audio/mpeg" />
+  </audio>
 
-  <!-- Transparent background by design -->
-
-  <!-- Main wordmark -->
-  <text x="190" y="280" class="script" font-size="190" fill="#ffffff">Final Verse</text>
-
-  <!-- Gold music note -->
-  <g transform="translate(1290 96)" filter="url(#softGlow)">
-    <path d="M75 12 C92 42 116 61 146 75 C126 79 108 88 95 105 L95 237
-             C95 276 63 306 26 301 C-8 296 -26 269 -15 239 C-4 210 31 193 66 203
-             L66 28 C66 14 69 8 75 12Z" fill="url(#gold)"/>
-    <ellipse cx="28" cy="250" rx="52" ry="37" transform="rotate(-20 28 250)" fill="url(#gold)"/>
-  </g>
-
-  <!-- Gold underline swoosh -->
-  <path d="M260 353 C520 402 970 400 1275 333"
-        fill="none" stroke="url(#gold)" stroke-width="13" stroke-linecap="round"/>
-  <path d="M417 383 C675 420 1010 414 1268 363"
-        fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
-  <path d="M1155 386 C1235 390 1307 367 1366 321"
-        fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
-
-  <!-- Tagline -->
-  <text x="516" y="468" class="tagline" font-size="42" fill="#ffffff">THE MEMORIAL SONG CO.</text>
-</svg>
-
-        <span class="nav-logo-fallback" style="display:none">
-          <span class="logo-final">Final</span><span class="logo-verse">Verse</span>
-          <span class="logo-tagline-small">The Memorial Song Co.</span>
-        </span>
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="https://finalverseco.com/listen">Listen Hub</a></li>
-        <li><a href="https://finalverseco.com/listen#partner">Partners</a></li>
-        <li><a href="https://finalverseco.com/listen#create" class="btn btn-gold btn-sm">Create Tribute</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- ── Page content ── -->
-  <main>
-    
-
-<section class="page-hero page-hero--sm">
-  <div class="container">
-    <h1 class="page-title">Listen Hub</h1>
-    <p class="page-sub">Find a tribute. Hear their song. Share their legacy.</p>
-  </div>
-</section>
-
-<!-- ── Search bar ── -->
-<section class="section section--tight">
-  <div class="container">
-    <form class="search-form" action="https://finalverseco.com/listen" method="GET" onsubmit="handleSearch(event)" id="searchForm">
-      <div class="search-bar">
-        <input
-          type="text"
-          name="q"
-          id="searchInput"
-          class="search-input"
-          placeholder="Search by name..."
-          value=""
-          autocomplete="off"
-          autofocus
-        />
-        <button type="submit" class="btn btn-gold search-btn">Search</button>
+  <!-- ─── EMAIL GATE ─────────────────────────────────────────── -->
+  <div id="email-gate" role="dialog" aria-modal="true" aria-labelledby="gate-headline">
+    <div class="gate-card">
+      <div class="gate-logo">
+        <div class="gate-logo-mark">♪</div>
+        <div class="gate-brand">Final Verse</div>
+        <div class="gate-tagline">The Memorial Song Company</div>
       </div>
-    </form>
+      <div class="gate-divider">
+        <div class="gold-rule"></div>
+      </div>
+      <h1 class="gate-headline" id="gate-headline">
+        Access Your Loved One's Song
+      </h1>
+      <p class="gate-subtext">
+        Enter your email below to open the listening hub.<br />
+        Your song was crafted with care — just for your family.
+      </p>
+      <div class="gate-input-wrap">
+        <input
+          type="email"
+          id="gate-email"
+          class="gate-input"
+          placeholder="your@email.com"
+          autocomplete="email"
+          aria-label="Email address"
+        />
+      </div>
+      <div class="gate-error" id="gate-error" aria-live="polite"></div>
+      <button class="gate-btn" id="gate-submit" onclick="handleGateSubmit()">
+        Access Song
+      </button>
+      <p class="gate-privacy">
+        We respect your privacy. Your email is only used to deliver your memorial song experience.
+      </p>
+    </div>
   </div>
-</section>
 
-<!-- ── Results ── -->
-<section class="section section--tight">
-  <div class="container">
+  <!-- ─── MAIN HUB ───────────────────────────────────────────── -->
+  <div id="main-hub">
 
-    
+    <!-- Header -->
+    <header>
+      <div class="header-brand">
+        <span class="header-logo-mark">♪</span>
+        <div>
+          <div class="header-name">Final Verse</div>
+          <div class="header-sub">The Memorial Song Company</div>
+        </div>
+      </div>
+      <div class="header-badge">Family Listening Hub</div>
+    </header>
 
-    <!-- ── Featured Tributes ── -->
-    
-      <div class="featured-section">
-        <h2 class="section-title">Featured Tributes</h2>
-        <p class="section-sub">Recently honored lives.</p>
-        <div class="memorial-grid">
-          
-            <div class="memorial-card memorial-card--featured">
-              <div class="memorial-card-photo">
-                
-                  <div class="photo-placeholder">
-                    <span>&#9752;</span>
-                  </div>
-                
-              </div>
-              <div class="memorial-card-body">
-                <span class="featured-badge">Featured</span>
-                <h3 class="memorial-card-name">Mary Johnson</h3>
-                
-                  <p class="memorial-card-years">
-                    1942 – 2024
-                  </p>
-                
-                <a href="https://finalverseco.com/listen" class="btn btn-outline btn-sm">View Tribute</a>
+    <main>
+
+      <!-- Hero -->
+      <section class="hero fade-in">
+        <p class="hero-eyebrow">Your Private Memorial Experience</p>
+        <h2 class="hero-title">A Song Written for<br /><em>Someone Irreplaceable</em></h2>
+        <p class="hero-body">
+          Search below to find and play the song created in memory of your loved one.
+          Each piece is composed uniquely — a tribute that lasts long after words fade.
+        </p>
+      </section>
+
+      <!-- Search -->
+      <section class="search-section fade-in-delay-1">
+        <label class="search-label" for="search-input">Find Your Song</label>
+        <div class="search-wrap">
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="Enter your loved one's name…"
+            autocomplete="off"
+            onkeydown="if(event.key==='Enter') doSearch()"
+            aria-label="Search by name"
+          />
+          <button class="search-btn" onclick="doSearch()">Search</button>
+        </div>
+        <p class="search-hint">
+          Try: <span onclick="quickSearch('Margaret Williams')">Margaret Williams</span>,
+          <span onclick="quickSearch('Robert Johnson')">Robert Johnson</span>, or
+          <span onclick="quickSearch('Eleanor Dortch')">Eleanor Dortch</span>
+        </p>
+      </section>
+
+      <!-- Player Result -->
+      <section id="player-section" class="hidden">
+
+        <div id="no-result" class="search-no-result hidden">
+          <p>No song found for that name. Please check the spelling or contact your funeral home.</p>
+          <div style="margin-top:28px;background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.22);border-radius:14px;padding:28px 24px;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:#fff;margin-bottom:8px;">Don't See Your Loved One?</div>
+            <p style="font-size:0.9rem;color:#999;line-height:1.65;margin-bottom:18px;">We can create a personalized memorial song for anyone. Order directly and we will craft it within 48 hours.</p>
+            <a href="https://buy.stripe.com/dRmfZg4bm34Egc26bU6c004" target="_blank" style="display:inline-block;padding:13px 30px;background:#D4AF37;color:#1A1A1A;font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:50px;text-decoration:none;transition:background 0.2s;">Order a Custom Song — $297</a>
+            <div style="font-size:0.75rem;color:#555;margin-top:10px;">🔒 Secure checkout via Stripe · Delivered within 48 hours</div>
+          </div>
+        </div>
+
+        <div id="result-card" class="result-card hidden">
+          <div class="result-meta">
+            <div>
+              <div class="result-name" id="res-name">Margaret Williams</div>
+              <div class="result-detail">
+                <span class="result-genre" id="res-genre">Gospel</span>
+                <span class="result-duration" id="res-duration">—:——</span>
               </div>
             </div>
-          
+            <div class="waveform" id="waveform">
+              <div class="waveform-bar"></div>
+              <div class="waveform-bar"></div>
+              <div class="waveform-bar"></div>
+              <div class="waveform-bar"></div>
+              <div class="waveform-bar"></div>
+            </div>
+          </div>
+
+          <!-- Real Audio Player UI -->
+          <div class="player-ui" id="player-ui">
+            <div class="player-controls">
+              <button class="play-pause-btn" id="play-btn" onclick="togglePlay()" aria-label="Play or pause">
+                ▶
+              </button>
+              <div class="progress-wrap">
+                <div class="progress-bar-bg" onclick="seekTo(event)" id="progress-bg">
+                  <div class="progress-bar-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-times">
+                  <span id="time-current">0:00</span>
+                  <span id="time-total">—:——</span>
+                </div>
+              </div>
+            </div>
+            <div class="player-actions">
+              <button class="player-action-btn primary" onclick="scrollToStore()">Order Keepsake</button>
+              <button class="player-action-btn secondary" onclick="shareLink()">Share with Family</button>
+            </div>
+          </div>
+
+          <!-- Show player button -->
+          <button class="search-btn" id="show-player-btn" onclick="showPlayer()" style="width:100%; margin-top:16px;">
+            ▶ &nbsp; Play This Song
+          </button>
+        </div>
+
+      </section>
+
+      <!-- Rush Delivery Add-On (shown after search result) -->
+      <div id="rush-addon" class="hidden">
+        <div class="rush-card">
+          <div class="rush-left">
+            <div class="rush-emoji">⚡</div>
+            <div class="rush-info">
+              <div class="rush-name">Rush Delivery — Song in 12 Hours</div>
+              <div class="rush-desc">Need it fast? We'll prioritize your order and deliver the finished song file within 12 hours.</div>
+            </div>
+          </div>
+          <div class="rush-right">
+            <div class="rush-price">+$97</div>
+            <a href="mailto:ceo@dortchai.com?subject=Rush%20Order%20Request&body=I%20would%20like%20to%20request%20rush%20delivery%20for%20my%20memorial%20song." class="rush-btn" onclick="trackCheckout(event, 'Rush Delivery')">Add Rush</a>
+          </div>
         </div>
       </div>
-    
 
-    
+      <!-- Create a Song for Another Loved One -->
+      <section id="create-another-section">
+        <button class="create-another-btn" onclick="openHonorModal()">
+          🎵 Create a Song for Another Loved One
+        </button>
+      </section>
 
+      <!-- Section Break -->
+      <div class="section-sep">
+        <hr />
+      </div>
+
+      <!-- Product Store -->
+      <section id="store-section" aria-label="Memorial Keepsakes">
+        <div class="store-header fade-in">
+          <p class="store-eyebrow">Memorial Keepsakes</p>
+          <h2 class="store-title">Carry the Music With You</h2>
+          <p class="store-body">
+            Every song we create can live beyond a screen. Our handcrafted keepsakes
+            let family members hold, wear, and replay the music — whenever they need it most.
+          </p>
+        </div>
+
+        <!-- ── BUNDLE FIRST — ANCHOR CARD ── -->
+        <div class="bundle-card" id="order">
+          <div class="bundle-badge">🎁 Best Value — Most Popular</div>
+          <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438334/final-verse/products/usb_drive.png" alt="Handcrafted wood memorial music box" loading="lazy" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:16px;" />
+          <h3 class="bundle-title">The Complete Collection</h3>
+          <p class="bundle-items">
+            Everything above. Song + frame + keychain + drive. Save $273.
+          </p>
+          <p class="bundle-anchor-text">Most families choose the bundle to keep their loved one's memory in every room.</p>
+          <div class="bundle-pricing">
+            <span class="bundle-price">$597</span>
+            <span class="bundle-original">$870</span>
+            <span class="bundle-save">Save $273</span>
+          </div>
+          <a href="https://buy.stripe.com/dRmfZg4bm34Egc26bU6c004" target="_blank" class="bundle-btn" onclick="trackCheckout(event, 'Bundle')">Get the Bundle</a>
+          <span class="bundle-stripe-badge">🔒 Secure checkout via Stripe</span>
+        </div>
+
+        <!-- ── INDIVIDUAL PRODUCTS GRID ── -->
+        <div class="products-grid">
+
+          <div class="product-card">
+            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438301/final-verse/products/digital.png" alt="Digital memorial song download - MP3 and WAV" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
+            <div class="product-name">Digital Download</div>
+            <div class="product-price">$297</div>
+            <div class="product-desc">Download your song forever in MP3 + WAV. Yours to keep, share, and play anywhere.</div>
+            <div class="product-anchor">The most popular choice — yours instantly.</div>
+            <a href="https://buy.stripe.com/bJe3cu9vG34E7Fw2ZI6c000" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Digital Download')">Order Now</a>
+            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
+          </div>
+
+          <div class="product-card">
+            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438271/final-verse/products/photo_frame.png" alt="Memorial song oak photo frame with built-in speaker" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
+            <div class="product-name">Song Photo Frame</div>
+            <div class="product-price">$349</div>
+            <div class="product-desc">A solid wood frame with built-in speaker. Press the button and hear your loved one's song. Song included.</div>
+            <a href="https://buy.stripe.com/4gMaEW9vG8oYf7Y9o66c001" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Song Photo Frame')">Order Now</a>
+            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
+          </div>
+
+          <div class="product-card">
+            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438252/final-verse/products/keychain.png" alt="Custom audio memorial keychain" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
+            <div class="product-name">Custom Keychain</div>
+            <div class="product-price">$97</div>
+            <div class="product-desc">Premium metal keychain with built-in speaker. Press to play your loved one's song. Song included.</div>
+            <a href="https://buy.stripe.com/9B63cu9vG0Ww9NEeIq6c002" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Custom Keychain')">Order Now</a>
+            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
+          </div>
+
+          <div class="product-card">
+            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438334/final-verse/products/usb_drive.png" alt="Engraved gold memorial USB drive in velvet pouch" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
+            <div class="product-name">Engraved Thumb Drive</div>
+            <div class="product-price">$127</div>
+            <div class="product-desc">Laser-engraved gold USB drive pre-loaded with the song. Velvet pouch included. Song included.</div>
+            <a href="https://buy.stripe.com/6oUfZgcHSfRq5xo1VE6c003" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Engraved Thumb Drive')">Order Now</a>
+            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <div style="height: 56px;"></div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-brand">Final Verse</div>
+      <div class="footer-sub">
+        The Memorial Song Company &nbsp;·&nbsp; Springfield, MA
+      </div>
+      <div class="footer-sub">
+        <a href="https://finalverseco.com" target="_blank" class="footer-link">finalverseco.com</a>
+      </div>
+      <div class="footer-tagline">"Songs that last forever."</div>
+      <div style="margin-top:16px;font-size:10px;">
+        <a href="leads.html" style="color:#333;text-decoration:none;" title="Admin">·</a>
+      </div>
+    </footer>
+
+  </div><!-- /#main-hub -->
+
+  <!-- ─── HONOR ANOTHER LOVED ONE MODAL ─────────────────────── -->
+  <div id="honor-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="honor-modal-title" onclick="overlayClickClose(event)">
+    <div class="honor-modal">
+
+      <button class="honor-modal-close" onclick="closeHonorModal()" aria-label="Close">✕</button>
+
+      <!-- Form View -->
+      <div id="honor-form-view">
+        <div class="honor-modal-icon">♪</div>
+        <h2 class="honor-modal-title" id="honor-modal-title">Honor Another Loved One</h2>
+        <p class="honor-modal-sub">
+          We'll find their obituary and create a personalized memorial song — wherever they passed.
+        </p>
+
+        <div class="honor-form-field">
+          <label class="honor-form-label" for="honor-name">Loved One's Full Name <span style="color:#e05555">*</span></label>
+          <input type="text" id="honor-name" class="honor-form-input" placeholder="Full name" required />
+        </div>
+
+        <div class="honor-form-field">
+          <label class="honor-form-label" for="honor-location">City &amp; State They Passed In <span style="color:#e05555">*</span></label>
+          <input type="text" id="honor-location" class="honor-form-input" placeholder="e.g. Springfield, MA" required />
+        </div>
+
+        <div class="honor-form-field">
+          <label class="honor-form-label" for="honor-funeral-home">Funeral Home Name <span style="color:#666; font-weight:300; text-transform:none; letter-spacing:0;">(optional)</span></label>
+          <input type="text" id="honor-funeral-home" class="honor-form-input" placeholder="If you know it" />
+        </div>
+
+        <div class="honor-form-field">
+          <label class="honor-form-label" for="honor-email">Your Email <span style="color:#e05555">*</span></label>
+          <input type="email" id="honor-email" class="honor-form-input" placeholder="your@email.com" required />
+        </div>
+
+        <div class="honor-form-error" id="honor-form-error" aria-live="polite"></div>
+
+        <button class="honor-submit-btn" id="honor-submit-btn" onclick="submitHonorForm()">
+          Request Their Song
+        </button>
+      </div>
+
+      <!-- Success View -->
+      <div class="honor-success" id="honor-success-view">
+        <div class="honor-success-icon">✦</div>
+        <div class="honor-success-msg" id="honor-success-msg">
+          Thank you. We'll research their obituary and reach out within 48 hours.
+        </div>
+        <div class="honor-success-sub">
+          You'll receive a confirmation at the email you provided.<br />
+          — The Final Verse Team
+        </div>
+      </div>
+
+    </div>
   </div>
-</section>
 
-
-  </main>
-
-  <!-- ── Footer ── -->
-  <footer class="footer">
-    <div class="footer-glow"></div>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <?xml version="1.0" encoding="UTF-8"?>
-<svg  alt="Final Verse" class="footer-logo" onerror="this.style.display='none'" width="1600" height="600" viewBox="0 0 1600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Final Verse Logo</title>
-  <desc id="desc">Final Verse - The Memorial Song Co. logo in white and gold on a transparent background.</desc>
-  <defs>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFE58A"/>
-      <stop offset="45%" stop-color="#F5C542"/>
-      <stop offset="100%" stop-color="#B98216"/>
-    </linearGradient>
-    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <style>
-      .script {
-        font-family: "Georgia", "Times New Roman", serif;
-        font-style: italic;
-        font-weight: 400;
-        letter-spacing: -8px;
-      }
-      .tagline {
-        font-family: "Arial", "Helvetica", sans-serif;
-        font-weight: 600;
-        letter-spacing: 16px;
-      }
-    </style>
-  </defs>
-
-  <!-- Transparent background by design -->
-
-  <!-- Main wordmark -->
-  <text x="190" y="280" class="script" font-size="190" fill="#ffffff">Final Verse</text>
-
-  <!-- Gold music note -->
-  <g transform="translate(1290 96)" filter="url(#softGlow)">
-    <path d="M75 12 C92 42 116 61 146 75 C126 79 108 88 95 105 L95 237
-             C95 276 63 306 26 301 C-8 296 -26 269 -15 239 C-4 210 31 193 66 203
-             L66 28 C66 14 69 8 75 12Z" fill="url(#gold)"/>
-    <ellipse cx="28" cy="250" rx="52" ry="37" transform="rotate(-20 28 250)" fill="url(#gold)"/>
-  </g>
-
-  <!-- Gold underline swoosh -->
-  <path d="M260 353 C520 402 970 400 1275 333"
-        fill="none" stroke="url(#gold)" stroke-width="13" stroke-linecap="round"/>
-  <path d="M417 383 C675 420 1010 414 1268 363"
-        fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
-  <path d="M1155 386 C1235 390 1307 367 1366 321"
-        fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
-
-  <!-- Tagline -->
-  <text x="516" y="468" class="tagline" font-size="42" fill="#ffffff">THE MEMORIAL SONG CO.</text>
-</svg>
-
-        <p class="footer-tagline">Honoring lives through music and memory.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="Facebook" class="social-icon">&#9314;</a>
-          <a href="#" aria-label="Instagram" class="social-icon">&#9315;</a>
-        </div>
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h4>Platform</h4>
-          <a href="https://finalverseco.com/listen#create">Create Tribute</a>
-          <a href="https://finalverseco.com/listen">Listen Hub</a>
-          <a href="https://finalverseco.com/listen#partner">Franchise</a>
-        </div>
-        <div class="footer-col">
-          <h4>Partners</h4>
-          <a href="https://finalverseco.com/listen#partner">Become a Partner</a>
-          <a href="https://finalverseco.com/listen">Admin Login</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <a href="tel:18773462587">1-877-FINAL-VS</a>
-          <a href="mailto:hello@finalverseco.com">hello@finalverseco.com</a>
-          <span class="footer-domain">finalverseco.com</span>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Final Verse LLC. All rights reserved.</p>
-      <p class="footer-legal">Tribute songs generated with AI assistance. All content is reviewed before publication.</p>
-    </div>
-  </footer>
-
+  <!-- ─── SCRIPTS ────────────────────────────────────────────── -->
   <script>
-/**
- * main.js — Final Verse shared utilities
- * Loaded on every page via base.html
- */
+    // ── QR / Referral Tracking ─────────────────────────────────
+    const ref = new URLSearchParams(window.location.search).get('ref') || 'direct';
+    localStorage.setItem('fv_ref', ref);
 
-// ── Device ID (localStorage UUID for access tracking) ─────────
-(function initDeviceId() {
-  if (!localStorage.getItem('fv_device_id')) {
-    localStorage.setItem('fv_device_id', crypto.randomUUID());
-  }
-  // Expose globally
-  window.FV_DEVICE_ID = localStorage.getItem('fv_device_id');
-})();
+    // ── Song database ──────────────────────────────────────────
+    const SONGS = [
+      // ── Demo songs ──────────────────────────────────────
+      { name: 'Pharoah Raheem Smalls', genre: 'R&B Soul', home: 'Harrell Funeral Home', audioSrc: 'https://ceo522.github.io/finalverseco/audio/pharoah-smalls-still.mp3', snippetSrc: 'https://ceo522.github.io/finalverseco/audio/pharoah-smalls-still.mp3' },
+      { name: 'Elizabeth Wescott', genre: 'Gospel', home: 'Curran-Jones Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1776371059/final-verse/betty-wescott-angel-monday.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1776371059/final-verse/betty-wescott-angel-monday.mp3' },
+      { name: 'Betty Wescott', genre: 'Gospel', home: 'Curran-Jones Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1776371059/final-verse/betty-wescott-angel-monday.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1776371059/final-verse/betty-wescott-angel-monday.mp3' },
+      // ── Real memorial songs ──────────────────────────────
+      { name: 'Veronica John Francis', genre: 'Memorial', home: 'Agawam Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049912/final-verse/final-verse/veronica-john-francis.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050044/final-verse/snippets/final-verse/snippets/veronica-john-francis.mp3' },
+      { name: 'Dorothy A. Capuano', genre: 'Memorial', home: 'Brunelle Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049915/final-verse/final-verse/dorothy-a-capuano.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050046/final-verse/snippets/final-verse/snippets/dorothy-a-capuano.mp3' },
+      { name: 'Barbara Phillips', genre: 'Memorial', home: 'Byron-Keenan Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049917/final-verse/final-verse/barbara-phillips.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050048/final-verse/snippets/final-verse/snippets/barbara-phillips.mp3' },
+      { name: 'William Joseph Heelon', genre: 'Memorial', home: 'Curran-Jones Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049920/final-verse/final-verse/william-joseph-heelon.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050050/final-verse/snippets/final-verse/snippets/william-joseph-heelon.mp3' },
+      { name: 'Joann Bannish', genre: 'Memorial', home: 'Firtion-Adams Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049923/final-verse/final-verse/joann-bannish.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050052/final-verse/snippets/final-verse/snippets/joann-bannish.mp3' },
+      { name: 'Wayne Corliss', genre: 'Memorial', home: 'Forastiere Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049925/final-verse/final-verse/wayne-corliss.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050055/final-verse/snippets/final-verse/snippets/wayne-corliss.mp3' },
+      { name: 'Deborah Watson', genre: 'Memorial', home: 'Grise Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049928/final-verse/final-verse/deborah-watson.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050057/final-verse/snippets/final-verse/snippets/deborah-watson.mp3' },
+      { name: 'Sharon Tart', genre: 'Memorial', home: 'Harrell Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049931/final-verse/final-verse/sharon-tart.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050058/final-verse/snippets/final-verse/snippets/sharon-tart.mp3' },
+      { name: 'Leo Robert Best', genre: 'Memorial', home: 'Henderson's Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049933/final-verse/final-verse/leo-robert-best.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050060/final-verse/snippets/final-verse/snippets/leo-robert-best.mp3' },
+      { name: 'Monique T. (Langlois) Lefebvre', genre: 'Memorial', home: 'Ludlow Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049937/final-verse/final-verse/monique-t-%28langlois%29-lefebvre.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050062/final-verse/snippets/final-verse/snippets/monique-t-langlois-lefebvre.mp3' },
+      { name: 'Helen Marie Werenski', genre: 'Memorial', home: 'Messier Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049939/final-verse/final-verse/helen-marie-werenski.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050064/final-verse/snippets/final-verse/snippets/helen-marie-werenski.mp3' },
+      { name: 'Mercedes Aviles', genre: 'Memorial', home: 'Sampson Family Chapels', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049942/final-verse/final-verse/mercedes-aviles.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050066/final-verse/snippets/final-verse/snippets/mercedes-aviles.mp3' },
+      { name: 'Antonia (Milidakis) Kamyk', genre: 'Memorial', home: 'St-Pierre-Phaneuf Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049945/final-verse/final-verse/antonia-%28milidakis%29-kamyk.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050071/final-verse/snippets/final-verse/snippets/antonia-milidakis-kamyk.mp3' },
+      { name: 'Michael J. Del Viscio', genre: 'Memorial', home: 'Tazzini Funeral Home', audioSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777049949/final-verse/final-verse/michael-j-del-viscio.mp3', snippetSrc: 'https://res.cloudinary.com/dej4h3qly/video/upload/v1777050073/final-verse/snippets/final-verse/snippets/michael-j-del-viscio.mp3' },
+    ];
 
-// Set device_id cookie so Flask can read it
-document.cookie = `device_id=${window.FV_DEVICE_ID}; path=/; SameSite=Lax`;
+    // ── Real Audio element ─────────────────────────────────────
+    const audioEl = document.getElementById('real-audio');
 
-// ── Mobile nav toggle ──────────────────────────────────────────
-const navToggle = document.getElementById('navToggle');
-const navLinks  = document.getElementById('navLinks');
-
-if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded',
-      navLinks.classList.contains('open') ? 'true' : 'false'
-    );
-  });
-
-  // Close nav on outside click
-  document.addEventListener('click', (e) => {
-    if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('open');
-    }
-  });
-}
-
-// ── Format time helper (seconds → m:ss) ───────────────────────
-function formatTime(secs) {
-  if (!isFinite(secs) || secs < 0) return '0:00';
-  const m = Math.floor(secs / 60);
-  const s = Math.floor(secs % 60).toString().padStart(2, '0');
-  return `${m}:${s}`;
-}
-window.formatTime = formatTime;
-
-// ── Share button utility ───────────────────────────────────────
-function bindShareBtn(btnId, copiedId, url) {
-  const btn = document.getElementById(btnId);
-  const copied = document.getElementById(copiedId);
-  if (!btn) return;
-
-  btn.addEventListener('click', () => {
-    const shareUrl = url || btn.dataset.url || window.location.href;
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        if (copied) {
-          copied.style.display = 'block';
-          setTimeout(() => { copied.style.display = 'none'; }, 2500);
-        }
-      });
-    } else {
-      // Fallback for older browsers
-      const input = document.createElement('input');
-      input.value = shareUrl;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      if (copied) {
-        copied.style.display = 'block';
-        setTimeout(() => { copied.style.display = 'none'; }, 2500);
-      }
-    }
-  });
-}
-window.bindShareBtn = bindShareBtn;
-
-// ── Simple fetch wrapper with JSON ────────────────────────────
-async function apiFetch(path, method = 'GET', body = null) {
-  const opts = {
-    method,
-    headers: { 'Content-Type': 'application/json' },
-  };
-  if (body) opts.body = JSON.stringify(body);
-  const res = await fetch(path, opts);
-  const data = await res.json().catch(() => ({}));
-  return { ok: res.ok, status: res.status, data };
-}
-window.apiFetch = apiFetch;
-
-</script>
-  
-<script>
-/**
- * main.js — Final Verse shared utilities
- * Loaded on every page via base.html
- */
-
-// ── Device ID (localStorage UUID for access tracking) ─────────
-(function initDeviceId() {
-  if (!localStorage.getItem('fv_device_id')) {
-    localStorage.setItem('fv_device_id', crypto.randomUUID());
-  }
-  // Expose globally
-  window.FV_DEVICE_ID = localStorage.getItem('fv_device_id');
-})();
-
-// Set device_id cookie so Flask can read it
-document.cookie = `device_id=${window.FV_DEVICE_ID}; path=/; SameSite=Lax`;
-
-// ── Mobile nav toggle ──────────────────────────────────────────
-const navToggle = document.getElementById('navToggle');
-const navLinks  = document.getElementById('navLinks');
-
-if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded',
-      navLinks.classList.contains('open') ? 'true' : 'false'
-    );
-  });
-
-  // Close nav on outside click
-  document.addEventListener('click', (e) => {
-    if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('open');
-    }
-  });
-}
-
-// ── Format time helper (seconds → m:ss) ───────────────────────
-function formatTime(secs) {
-  if (!isFinite(secs) || secs < 0) return '0:00';
-  const m = Math.floor(secs / 60);
-  const s = Math.floor(secs % 60).toString().padStart(2, '0');
-  return `${m}:${s}`;
-}
-window.formatTime = formatTime;
-
-// ── Share button utility ───────────────────────────────────────
-function bindShareBtn(btnId, copiedId, url) {
-  const btn = document.getElementById(btnId);
-  const copied = document.getElementById(copiedId);
-  if (!btn) return;
-
-  btn.addEventListener('click', () => {
-    const shareUrl = url || btn.dataset.url || window.location.href;
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        if (copied) {
-          copied.style.display = 'block';
-          setTimeout(() => { copied.style.display = 'none'; }, 2500);
-        }
-      });
-    } else {
-      // Fallback for older browsers
-      const input = document.createElement('input');
-      input.value = shareUrl;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      if (copied) {
-        copied.style.display = 'block';
-        setTimeout(() => { copied.style.display = 'none'; }, 2500);
-      }
-    }
-  });
-}
-window.bindShareBtn = bindShareBtn;
-
-// ── Simple fetch wrapper with JSON ────────────────────────────
-async function apiFetch(path, method = 'GET', body = null) {
-  const opts = {
-    method,
-    headers: { 'Content-Type': 'application/json' },
-  };
-  if (body) opts.body = JSON.stringify(body);
-  const res = await fetch(path, opts);
-  const data = await res.json().catch(() => ({}));
-  return { ok: res.ok, status: res.status, data };
-}
-window.apiFetch = apiFetch;
-
-</script>
-<script>
-  // Mini player toggle for search results
-  document.querySelectorAll('.mini-play').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const audioId = btn.dataset.audio;
-      const audio = document.getElementById(audioId);
-      if (!audio) return;
-      if (audio.paused) {
-        // Pause all others
-        document.querySelectorAll('audio').forEach(a => { if (a !== audio) a.pause(); });
-        audio.play();
-        btn.textContent = '⏸ Pause';
-      } else {
-        audio.pause();
-        btn.textContent = '▶ Preview';
-      }
-      audio.addEventListener('ended', () => { btn.textContent = '▶ Preview'; }, { once: true });
+    // Sync progress bar & time display to real audio
+    audioEl.addEventListener('timeupdate', () => {
+      if (!audioEl.duration) return;
+      const pct = (audioEl.currentTime / audioEl.duration) * 100;
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('time-current').textContent = formatTime(audioEl.currentTime);
     });
-  });
-</script>
 
+    // Once metadata loaded, show real duration
+    audioEl.addEventListener('loadedmetadata', () => {
+      document.getElementById('time-total').textContent   = formatTime(audioEl.duration);
+      document.getElementById('res-duration').textContent = formatTime(audioEl.duration);
+    });
 
-<script>
-function handleSearch(e) {
-  e.preventDefault();
-  var q = document.getElementById('searchInput').value.trim();
-  if (q) window.location.href = 'https://finalverseco.com/listen?q=' + encodeURIComponent(q);
-}
-// On load, show search tip if no results (static page — backend not available)
-document.addEventListener('DOMContentLoaded', function() {
-  var params = new URLSearchParams(window.location.search);
-  var q = params.get('q');
-  if (q) {
-    document.getElementById('searchInput').value = q;
-    // Show not-found message with create CTA
-    var container = document.querySelector('.container');
-    if (container) {
-      var msg = document.createElement('div');
-      msg.className = 'not-found-block';
-      msg.innerHTML = '<div class="not-found-icon">&#127925;</div>' +
-        '<h2>We haven\'t created their tribute yet.</h2>' +
-        '<p>We searched for <strong>"' + q.replace(/</g,'&lt;') + '"</strong> and didn\'t find a match. ' +
-        'Be the first to honor them — a custom AI tribute song starts at $297.</p>' +
-        '<a href="mailto:hello@finalverseco.com?subject=Create Tribute for ' + encodeURIComponent(q) + '" class="btn btn-gold btn-lg">Create Their Tribute — $297</a>';
-      container.appendChild(msg);
+    // When song ends — reset to beginning
+    audioEl.addEventListener('ended', () => {
+      audioEl.currentTime = 0;
+      document.getElementById('play-btn').textContent = '▶';
+      document.getElementById('waveform').classList.remove('playing');
+      document.getElementById('progress-fill').style.width = '0%';
+      document.getElementById('time-current').textContent = '0:00';
+    });
+
+    // ── State ──────────────────────────────────────────────────
+    let currentSong = null;
+
+    // ── Conversion Tracking Helpers ────────────────────────────
+    function trackCheckout(e, productName) {
+      try { fbq('track', 'InitiateCheckout', { content_name: productName }); } catch(_) {}
+      try { gtag('event', 'begin_checkout', { item_name: productName }); } catch(_) {}
+      // allow href navigation to proceed normally
     }
-  }
-});
-</script>
+
+    // ── URL param auto-search ──────────────────────────────────
+    function autoSearchFromUrl() {
+      const searchParam = new URLSearchParams(window.location.search).get('search');
+      if (searchParam) {
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+          searchInput.value = searchParam;
+          setTimeout(() => doSearch(), 200);
+        }
+      }
+    }
+
+    // ── Gate Logic ─────────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('fv_email');
+      if (stored) {
+        showHub();
+        const honorEmailField = document.getElementById('honor-email');
+        if (honorEmailField) honorEmailField.value = stored;
+        // Auto-search from URL param after hub is already unlocked
+        autoSearchFromUrl();
+      }
+
+      // Enter key on gate
+      const emailInput = document.getElementById('gate-email');
+      if (emailInput) {
+        emailInput.addEventListener('keydown', e => {
+          if (e.key === 'Enter') handleGateSubmit();
+        });
+      }
+    });
+
+    async function handleGateSubmit() {
+      const input   = document.getElementById('gate-email');
+      const errorEl = document.getElementById('gate-error');
+      const btn     = document.getElementById('gate-submit');
+      const email   = input.value.trim();
+
+      errorEl.textContent = '';
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        input.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>';
+
+      // Fire conversion events
+      try { fbq('track', 'Lead'); } catch(_) {}
+      try { gtag('event', 'generate_lead'); } catch(_) {}
+
+      // Store lead to fv_leads array
+      const searchQuery = new URLSearchParams(window.location.search).get('search') || '';
+      const leadEntry = {
+        email,
+        name: '',
+        songSearched: searchQuery,
+        timestamp: new Date().toISOString(),
+        ref: localStorage.getItem('fv_ref') || 'direct',
+      };
+      const leads = JSON.parse(localStorage.getItem('fv_leads') || '[]');
+      leads.push(leadEntry);
+      localStorage.setItem('fv_leads', JSON.stringify(leads));
+
+      try {
+        console.log('[FV] Email capture:', { email, ref: leadEntry.ref, songSearched: leadEntry.songSearched });
+        await fetch('https://hooks.finalverseco.com/capture', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            timestamp: leadEntry.timestamp,
+            source: 'listening-hub',
+            ref: leadEntry.ref,
+          }),
+        });
+      } catch (err) {
+        console.log('[FV] Capture endpoint unavailable (expected in dev):', err.message);
+      }
+
+      localStorage.setItem('fv_email', email);
+
+      // Pre-fill modal
+      const honorEmailField = document.getElementById('honor-email');
+      if (honorEmailField) honorEmailField.value = email;
+
+      setTimeout(() => { showHub(); autoSearchFromUrl(); }, 480);
+    }
+
+    function showHub() {
+      const gate = document.getElementById('email-gate');
+      const hub  = document.getElementById('main-hub');
+      gate.style.transition = 'opacity 0.45s ease';
+      gate.style.opacity = '0';
+      setTimeout(() => {
+        gate.classList.add('hidden');
+        hub.classList.add('visible');
+      }, 450);
+    }
+
+    // ── Quick-fill search hints ─────────────────────────────────
+    function quickSearch(name) {
+      document.getElementById('search-input').value = name;
+      doSearch();
+    }
+
+    // ── Search ──────────────────────────────────────────────────
+    function doSearch() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      if (!query) return;
+
+      // Stop any playing audio
+      audioEl.pause();
+      audioEl.currentTime = 0;
+      document.getElementById('play-btn').textContent = '▶';
+      document.getElementById('waveform').classList.remove('playing');
+
+      const match = SONGS.find(s => s.name.toLowerCase().includes(query));
+
+      const section    = document.getElementById('player-section');
+      const noResult   = document.getElementById('no-result');
+      const resultCard = document.getElementById('result-card');
+      const playerUI   = document.getElementById('player-ui');
+      const showBtn    = document.getElementById('show-player-btn');
+      const rushAddon  = document.getElementById('rush-addon');
+
+      section.classList.remove('hidden');
+      noResult.classList.add('hidden');
+      resultCard.classList.add('hidden');
+      playerUI.classList.remove('visible');
+      showBtn.classList.remove('hidden');
+      rushAddon.classList.add('hidden');
+
+      if (!match) {
+        noResult.classList.remove('hidden');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      currentSong = match;
+
+      // Reset audio src
+      audioEl.src = match.audioSrc;
+      audioEl.load();
+
+      document.getElementById('res-name').textContent     = match.name;
+      document.getElementById('res-genre').textContent    = match.genre;
+      document.getElementById('res-duration').textContent = '—:——';
+      document.getElementById('time-total').textContent   = '—:——';
+      document.getElementById('time-current').textContent = '0:00';
+      document.getElementById('progress-fill').style.width = '0%';
+
+      resultCard.classList.remove('hidden');
+      rushAddon.classList.remove('hidden'); // show rush add-on when song found
+
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    // ── Player ──────────────────────────────────────────────────
+    function showPlayer() {
+      const playerUI = document.getElementById('player-ui');
+      const showBtn  = document.getElementById('show-player-btn');
+      playerUI.classList.add('visible');
+      showBtn.classList.add('hidden');
+      audioEl.play().catch(() => {});
+      document.getElementById('play-btn').textContent = '⏸';
+      document.getElementById('waveform').classList.add('playing');
+    }
+
+    function togglePlay() {
+      if (audioEl.paused) {
+        audioEl.play().catch(() => {});
+        document.getElementById('play-btn').textContent = '⏸';
+        document.getElementById('waveform').classList.add('playing');
+      } else {
+        audioEl.pause();
+        document.getElementById('play-btn').textContent = '▶';
+        document.getElementById('waveform').classList.remove('playing');
+      }
+    }
+
+    function seekTo(e) {
+      if (!audioEl.duration) return;
+      const bg   = document.getElementById('progress-bg');
+      const rect = bg.getBoundingClientRect();
+      const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audioEl.currentTime = pct * audioEl.duration;
+    }
+
+    function formatTime(secs) {
+      if (!secs || isNaN(secs)) return '0:00';
+      const m = Math.floor(secs / 60);
+      const s = Math.floor(secs % 60);
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────
+    function scrollToStore() {
+      document.getElementById('store-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function shareLink() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Final Verse — Memorial Song',
+          text: currentSong ? `Listen to the memorial song for ${currentSong.name}` : 'A Final Verse memorial song',
+          url: window.location.href,
+        }).catch(() => {});
+      } else {
+        try {
+          navigator.clipboard.writeText(window.location.href);
+          alert('Link copied to clipboard! Share it with family members.');
+        } catch (_) {
+          alert('Copy this link to share: ' + window.location.href);
+        }
+      }
+    }
+
+    // ── Honor Another Loved One Modal ──────────────────────────
+    function openHonorModal() {
+      const overlay = document.getElementById('honor-modal-overlay');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      const storedEmail = localStorage.getItem('fv_email');
+      const emailField  = document.getElementById('honor-email');
+      if (storedEmail && emailField && !emailField.value) {
+        emailField.value = storedEmail;
+      }
+
+      setTimeout(() => {
+        document.getElementById('honor-name').focus();
+      }, 350);
+    }
+
+    function closeHonorModal() {
+      const overlay = document.getElementById('honor-modal-overlay');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function overlayClickClose(e) {
+      if (e.target === document.getElementById('honor-modal-overlay')) {
+        closeHonorModal();
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeHonorModal();
+    });
+
+    async function submitHonorForm() {
+      const nameVal    = document.getElementById('honor-name').value.trim();
+      const locVal     = document.getElementById('honor-location').value.trim();
+      const funeralVal = document.getElementById('honor-funeral-home').value.trim();
+      const emailVal   = document.getElementById('honor-email').value.trim();
+      const errorEl    = document.getElementById('honor-form-error');
+      const submitBtn  = document.getElementById('honor-submit-btn');
+
+      errorEl.textContent = '';
+
+      if (!nameVal) {
+        errorEl.textContent = 'Please enter the loved one\'s full name.';
+        document.getElementById('honor-name').focus();
+        return;
+      }
+      if (!locVal) {
+        errorEl.textContent = 'Please enter the city & state.';
+        document.getElementById('honor-location').focus();
+        return;
+      }
+      if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        document.getElementById('honor-email').focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-gold"></span>&nbsp; Sending…';
+
+      // Fire conversion events
+      try { fbq('track', 'Lead', { content_name: 'out_of_zone_request' }); } catch(_) {}
+      try { gtag('event', 'generate_lead', { event_category: 'out_of_zone_request' }); } catch(_) {}
+
+      const payload = {
+        name:         nameVal,
+        location:     locVal,
+        funeral_home: funeralVal || null,
+        email:        emailVal,
+        timestamp:    new Date().toISOString(),
+        ref:          localStorage.getItem('fv_ref') || 'direct',
+      };
+
+      // Store to localStorage
+      const songReqs = JSON.parse(localStorage.getItem('fv_song_requests') || '[]');
+      songReqs.push(payload);
+      localStorage.setItem('fv_song_requests', JSON.stringify(songReqs));
+
+      // Open mailto to ceo
+      const subject = encodeURIComponent(`Song Request — ${nameVal}`);
+      const body = encodeURIComponent(
+        `SONG REQUEST\n` +
+        `============\n\n` +
+        `Loved One's Name: ${nameVal}\n` +
+        `City & State: ${locVal}\n` +
+        `Funeral Home: ${funeralVal || '(not provided)'}\n` +
+        `Requestor Email: ${emailVal}\n` +
+        `Referral Source: ${payload.ref}\n` +
+        `Submitted: ${new Date().toLocaleString()}\n`
+      );
+      setTimeout(() => {
+        window.location.href = `mailto:ceo@dortchai.com?subject=${subject}&body=${body}`;
+      }, 200);
+
+      document.getElementById('honor-form-view').style.display = 'none';
+      const successView = document.getElementById('honor-success-view');
+      const successMsg  = document.getElementById('honor-success-msg');
+      successMsg.textContent = `Thank you. We'll research ${nameVal}'s obituary and reach out within 48 hours.`;
+      successView.style.display = 'block';
+
+      setTimeout(() => {
+        closeHonorModal();
+        setTimeout(() => {
+          document.getElementById('honor-form-view').style.display = '';
+          successView.style.display = 'none';
+          document.getElementById('honor-name').value = '';
+          document.getElementById('honor-location').value = '';
+          document.getElementById('honor-funeral-home').value = '';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Request Their Song';
+          errorEl.textContent = '';
+        }, 600);
+      }, 4500);
+    }
+  </script>
 
 </body>
 </html>
