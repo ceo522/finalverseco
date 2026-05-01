@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service | Final Verse</title>
+  <meta name="description" content="Terms of Service for Final Verse — The Memorial Song Company, operated by Dortch Enterprises LLC." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #1A1A1A;
+      --gold: #D4AF37;
+      --off-white: #f0ece4;
+      --gray: #9a9a9a;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Lato', system-ui, sans-serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: var(--font-sans);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ::selection { background: var(--gold); color: var(--black); }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2rem;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-back {
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s ease;
+    }
+    .nav-back:hover { opacity: 0.75; }
+
+    /* MAIN CONTENT */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+    }
+
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .effective-date {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 3rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--off-white);
+      margin-bottom: 0.75rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    ul li {
+      font-size: 1rem;
+      color: var(--off-white);
+      margin-bottom: 0.35rem;
+    }
+
+    a.inline {
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      transition: border-color 0.2s ease;
+    }
+    a.inline:hover { border-color: var(--gold); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-family: var(--font-sans);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      main { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Final Verse</a>
+    <a href="/" class="nav-back">← Back to Final Verse</a>
+  </nav>
+
+  <main>
+    <h1 class="page-title">Terms of Service</h1>
+    <p class="effective-date">Effective Date: May 1, 2026</p>
+
+    <section>
+      <h2>Service Description</h2>
+      <p>Final Verse (The Memorial Song Company), operated by Dortch Enterprises LLC, creates AI-assisted custom memorial songs using obituary and life story information submitted by customers. Songs are delivered digitally as MP3 files.</p>
+    </section>
+
+    <section>
+      <h2>Ordering</h2>
+      <p>By placing an order, you confirm that you have the right to submit the deceased person's information and obituary content, and that the information provided is accurate to the best of your knowledge.</p>
+    </section>
+
+    <section>
+      <h2>Payment</h2>
+      <p>All payments are processed securely by Stripe. Prices are shown in USD. Payment in full is required before song production begins. By completing a purchase you agree to Stripe's terms of service.</p>
+    </section>
+
+    <section>
+      <h2>Delivery Timeline</h2>
+      <ul>
+        <li><strong>Standard delivery:</strong> 48–72 hours after payment confirmation</li>
+        <li><strong>Rush delivery:</strong> 24 hours where available (selected at checkout)</li>
+      </ul>
+      <p>Timelines begin once we have received complete order information. Delays caused by incomplete or unclear submissions may extend the delivery window.</p>
+    </section>
+
+    <section>
+      <h2>Revisions</h2>
+      <p>Each order includes one free revision. Additional revisions are available at $50 each. All revision requests must be submitted within 7 days of the original delivery date.</p>
+    </section>
+
+    <section>
+      <h2>Refund Policy</h2>
+      <ul>
+        <li>A full refund is available within 24 hours of payment, provided song production has not yet begun.</li>
+        <li>No refunds are issued after the completed song has been delivered.</li>
+        <li>If Final Verse is unable to deliver within the stated timeline, a full refund will be issued.</li>
+      </ul>
+      <p>To request a refund, contact us at <a href="mailto:ceo@dortchai.com" class="inline">ceo@dortchai.com</a>.</p>
+    </section>
+
+    <section>
+      <h2>Intellectual Property</h2>
+      <p>Final Verse retains all rights to the underlying AI-generated musical composition. Upon delivery, the customer receives a non-exclusive, personal license to use the song for private, non-commercial memorial purposes. You may share the song privately with family and friends.</p>
+    </section>
+
+    <section>
+      <h2>Prohibited Use</h2>
+      <p>Songs created by Final Verse may not be:</p>
+      <ul>
+        <li>Resold or licensed to any third party</li>
+        <li>Broadcast commercially or used in advertising</li>
+        <li>Used for any purpose other than honoring the deceased</li>
+        <li>Uploaded to commercial music distribution platforms</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Limitation of Liability</h2>
+      <p>Final Verse is not liable for delays or errors caused by incorrect, incomplete, or misleading information submitted at the time of order. Our total liability to any customer is limited to the amount paid for that specific order.</p>
+    </section>
+
+    <section>
+      <h2>Changes to These Terms</h2>
+      <p>We may update these Terms of Service from time to time. Continued use of Final Verse services after an update constitutes acceptance of the revised terms. The effective date at the top of this page will reflect the most recent revision.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Questions about these terms? Reach us at:<br>
+      <a href="mailto:ceo@dortchai.com" class="inline">ceo@dortchai.com</a><br>
+      Final Verse · Dortch Enterprises LLC · Springfield, MA</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2026 Dortch Enterprises LLC &middot; Final Verse &middot; <a href="mailto:ceo@dortchai.com" style="color:inherit;">ceo@dortchai.com</a>
+  </footer>
+
+</body>
+</html>
