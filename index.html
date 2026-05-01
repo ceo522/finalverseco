@@ -2559,9 +2559,9 @@
       };
 
       try {
-        const res = await fetch("https://formspree.io/f/xdkgjvwq", {
+        const res = await fetch("/api/order-intake", {
           method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(orderData),
         });
         if (!res.ok) throw new Error("Save failed: " + res.status);

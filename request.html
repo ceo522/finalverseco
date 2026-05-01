@@ -494,17 +494,32 @@
 
       let sent = false;
 
-      // Primary: Formspree
+      // Primary: Postmark via Netlify function
       try {
-        const res = await fetch('https://formspree.io/f/xdkgjvwq', {
+        const orderPayload = {
+          deceased_name: data['name'] || '',
+          buyer_name: data['requester_name'] || data['name'] || '',
+          buyer_email: data['email'] || '',
+          buyer_phone: data['phone'] || '',
+          funeral_home: data['funeral_home'] || '',
+          song_style: data['style'] || 'not specified',
+          obituary: data['details'] || '',
+          city: data['city'] || '',
+          state: data['state'] || '',
+          date_of_passing: data['date_of_passing'] || '',
+          order_status: 'request_received',
+          payment_status: 'n/a',
+          timestamp: new Date().toISOString(),
+        };
+        const res = await fetch('/api/order-intake', {
           method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderPayload)
         });
-        if (res.ok || res.status === 200) sent = true;
+        if (res.ok) sent = true;
       } catch(err) {}
 
-      // Backup: mailto link open if both fail (silent fallback)
+      // Backup: mailto link if function fails (silent fallback)
       if (!sent) {
         const subject = encodeURIComponent('Song Request: ' + (data['name'] || ''));
         const body = encodeURIComponent(
