@@ -2559,7 +2559,7 @@
       };
 
       try {
-        const res = await fetch("/api/order-intake", {
+        const res = await fetch("https://finalverse-orders.loca.lt/api/order-intake", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(orderData),
