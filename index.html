@@ -1305,6 +1305,8 @@
       transform: scale(0.93) translateY(20px);
       transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
       opacity: 0;
+      max-height: 90vh;
+      overflow-y: auto;
     }
     #order-modal-overlay.open .order-modal {
       transform: scale(1) translateY(0);
@@ -1618,6 +1620,8 @@
     </div>
   </section>
 
+
+  <!-- TODO: In Stripe Dashboard → Payment Links → each link → After Payment → set success URL to: https://finalverseco.com/thank-you.html and cancel URL to: https://finalverseco.com/cancel.html -->
 
   <!-- =============================================
        PRICING
@@ -1998,6 +2002,68 @@
       <div class="order-form-field">
         <label class="order-form-label" for="order-phone">Your Phone Number <span style="color:#e05555">*</span></label>
         <input type="tel" id="order-phone" class="order-form-input" placeholder="(555) 555-5555" required />
+      </div>
+
+      <div class="order-form-field">
+        <label class="order-form-label" for="order-nickname">Nickname or What They Were Called (optional)</label>
+        <input type="text" id="order-nickname" class="order-form-input" placeholder="e.g. Grandma Rose, Big Lou, Coach..." />
+      </div>
+
+      <div class="order-form-field">
+        <label class="order-form-label" for="order-obituary">Obituary or Life Story <span style="color:#e05555">*</span></label>
+        <textarea id="order-obituary" class="order-form-input" rows="6" style="min-height:120px;resize:vertical;" placeholder="Paste or type the obituary text, or share memories, hobbies, and life story details that should be reflected in the song..." required></textarea>
+      </div>
+
+      <div class="order-form-field">
+        <label class="order-form-label" for="order-song-style">Song Style <span style="color:#e05555">*</span></label>
+        <select id="order-song-style" class="order-form-input" required>
+          <option value="">— Select a style —</option>
+          <option value="Gospel">Gospel</option>
+          <option value="R&B / Soul">R&amp;B / Soul</option>
+          <option value="Country">Country</option>
+          <option value="Hip-Hop">Hip-Hop</option>
+          <option value="Spoken Word">Spoken Word</option>
+          <option value="Latin / Spanish">Latin / Spanish</option>
+          <option value="Pop">Pop</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="order-form-field">
+        <label class="order-form-label" for="order-voice-pref">Voice Preference <span style="color:#e05555">*</span></label>
+        <select id="order-voice-pref" class="order-form-input" required>
+          <option value="">— Select a preference —</option>
+          <option value="Female Voice">Female Voice</option>
+          <option value="Male Voice">Male Voice</option>
+          <option value="No Preference">No Preference</option>
+        </select>
+      </div>
+
+      <div class="order-form-field">
+        <label class="order-form-label" for="order-tone-pref">Song Tone <span style="color:#e05555">*</span></label>
+        <select id="order-tone-pref" class="order-form-input" required>
+          <option value="">— Select a tone —</option>
+          <option value="Celebratory &amp; Uplifting">Celebratory &amp; Uplifting</option>
+          <option value="Peaceful &amp; Reflective">Peaceful &amp; Reflective</option>
+          <option value="Emotional &amp; Heartfelt">Emotional &amp; Heartfelt</option>
+          <option value="Spiritual &amp; Worshipful">Spiritual &amp; Worshipful</option>
+          <option value="No Preference">No Preference</option>
+        </select>
+      </div>
+
+      <div class="order-form-field">
+        <label class="order-form-label" for="order-delivery">Delivery <span style="color:#e05555">*</span></label>
+        <select id="order-delivery" class="order-form-input" required>
+          <option value="">— Select delivery —</option>
+          <option value="Digital Download (MP3)">Digital Download (MP3)</option>
+          <option value="Digital + Printed Lyric Sheet (+$25)">Digital + Printed Lyric Sheet (+$25)</option>
+          <option value="Digital + USB Keepsake (+$75)">Digital + USB Keepsake (+$75)</option>
+        </select>
+      </div>
+
+      <div class="order-form-field" style="display:flex;align-items:flex-start;gap:10px;margin-top:8px;">
+        <input type="checkbox" id="order-consent" style="margin-top:4px;accent-color:#D4AF37;width:16px;height:16px;flex-shrink:0;" required />
+        <label for="order-consent" style="font-size:0.82rem;color:#9a9a9a;line-height:1.5;">I confirm I have the right to submit this person's information and I agree to the Final Verse <a href="/terms.html" target="_blank" style="color:#D4AF37;">Terms of Service</a> and <a href="/privacy.html" target="_blank" style="color:#D4AF37;">Privacy Policy</a>.</label>
       </div>
 
       <div class="order-delivery-note" id="order-delivery-note">
@@ -2387,6 +2453,14 @@
       document.getElementById('order-email').value = '';
       document.getElementById('order-phone').value = '';
       document.getElementById('order-email-display').textContent = 'your email';
+      const nickEl = document.getElementById("order-nickname"); if (nickEl) nickEl.value = "";
+      const obitEl = document.getElementById("order-obituary"); if (obitEl) obitEl.value = "";
+      const styleEl = document.getElementById("order-song-style"); if (styleEl) styleEl.value = "";
+      const voiceEl = document.getElementById("order-voice-pref"); if (voiceEl) voiceEl.value = "";
+      const toneEl = document.getElementById("order-tone-pref"); if (toneEl) toneEl.value = "";
+      const delivEl = document.getElementById("order-delivery"); if (delivEl) delivEl.value = "";
+      const consentEl = document.getElementById("order-consent"); if (consentEl) consentEl.checked = false;
+      clearOrderError();
       document.getElementById('order-modal-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
       setTimeout(() => document.getElementById('order-loved-one').focus(), 300);
@@ -2406,38 +2480,150 @@
       document.getElementById('order-email-display').textContent = email || 'your email';
     }
 
-    function continueToPayment() {
-      const lovedOne = document.getElementById('order-loved-one').value.trim();
-      const funeralHome = document.getElementById('order-funeral-home').value.trim();
-      const email = document.getElementById('order-email').value.trim();
-      const phone = document.getElementById('order-phone').value.trim();
-      if (!lovedOne) { document.getElementById('order-loved-one').focus(); return; }
-      if (!funeralHome) { document.getElementById('order-funeral-home').focus(); return; }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById('order-email').focus(); return;
+    async function continueToPayment() {
+      // Gather all fields
+      const lovedOne = document.getElementById("order-loved-one").value.trim();
+      const funeralHome = document.getElementById("order-funeral-home").value.trim();
+      const email = document.getElementById("order-email").value.trim();
+      const phone = document.getElementById("order-phone").value.trim();
+      const nickname = (document.getElementById("order-nickname") || {value:""}).value.trim();
+      const obituary = document.getElementById("order-obituary").value.trim();
+      const songStyle = document.getElementById("order-song-style").value;
+      const voicePref = document.getElementById("order-voice-pref").value;
+      const tonePref = document.getElementById("order-tone-pref").value;
+      const delivery = document.getElementById("order-delivery").value;
+      const consent = document.getElementById("order-consent").checked;
+
+      // Validate required
+      if (!lovedOne) { document.getElementById("order-loved-one").focus(); showOrderError("Please enter the name of your loved one."); return; }
+      if (!funeralHome) { document.getElementById("order-funeral-home").focus(); showOrderError("Please enter the funeral home name."); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById("order-email").focus(); showOrderError("Please enter a valid email address."); return; }
+      if (!phone) { document.getElementById("order-phone").focus(); showOrderError("Please enter your phone number."); return; }
+      if (!obituary || obituary.length < 20) { document.getElementById("order-obituary").focus(); showOrderError("Please enter an obituary or life story (at least a few sentences)."); return; }
+      if (!songStyle) { document.getElementById("order-song-style").focus(); showOrderError("Please select a song style."); return; }
+      if (!voicePref) { document.getElementById("order-voice-pref").focus(); showOrderError("Please select a voice preference."); return; }
+      if (!tonePref) { document.getElementById("order-tone-pref").focus(); showOrderError("Please select a song tone."); return; }
+      if (!delivery) { document.getElementById("order-delivery").focus(); showOrderError("Please select a delivery option."); return; }
+      if (!consent) { document.getElementById("order-consent").focus(); showOrderError("Please check the consent box to continue."); return; }
+
+      // Generate order ID
+      const now = new Date();
+      const datePart = now.getFullYear().toString() +
+        String(now.getMonth()+1).padStart(2,"0") +
+        String(now.getDate()).padStart(2,"0");
+      const randPart = Math.random().toString(36).substring(2,8).toUpperCase();
+      const orderId = "FV-" + datePart + "-" + randPart;
+
+      // Determine package name from Stripe URL
+      const packageMap = {
+        "dRmfZg4bm34Egc26bU6c004": "Bundle — Song + Keepsake ($597)",
+        "bJe3cu9vG34E7Fw2ZI6c000": "Standard Song ($297)",
+        "4gMaEW9vG8oYf7Y9o66c001": "Premium Song ($349)",
+        "9B63cu9vG0Ww9NEeIq6c002": "Package 4",
+        "6oUfZgcHSfRq5xo1VE6c003": "Package 5",
+      };
+      let packageName = "Memorial Song";
+      if (_orderStripeUrl) {
+        for (const [key, val] of Object.entries(packageMap)) {
+          if (_orderStripeUrl.includes(key)) { packageName = val; break; }
+        }
       }
-      if (!phone) { document.getElementById('order-phone').focus(); return; }
-      // Store order context
-      const orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
-      orders.push({ lovedOne, funeralHome, email, phone, timestamp: new Date().toISOString() });
-      localStorage.setItem('fv_orders', JSON.stringify(orders));
-      closeOrderModal();
-      // If no Stripe URL (e.g. Rush), send via email
-      if (!_orderStripeUrl) {
-        const subject = encodeURIComponent('Rush Order — ' + lovedOne);
-        const body = encodeURIComponent(
-          'RUSH SONG ORDER ($175)\n' +
-          '========================\n\n' +
-          'Loved One: ' + lovedOne + '\n' +
-          'Funeral Home: ' + funeralHome + '\n' +
-          'Email: ' + email + '\n' +
-          'Phone: ' + phone + '\n' +
-          'Submitted: ' + new Date().toLocaleString()
-        );
-        window.location.href = 'mailto:ceo@dortchai.com?subject=' + subject + '&body=' + body;
-        return;
+
+      // Show saving state
+      const btn = document.querySelector(".order-continue-btn");
+      const origText = btn ? btn.textContent : "Continue to Payment →";
+      if (btn) { btn.textContent = "Saving your order…"; btn.disabled = true; }
+      clearOrderError();
+
+      // POST to Formspree
+      const orderData = {
+        order_id: orderId,
+        timestamp: now.toISOString(),
+        package: packageName,
+        payment_status: "pending",
+        order_status: "intake_received_pending_payment",
+        buyer_name: lovedOne,
+        buyer_email: email,
+        buyer_phone: phone,
+        funeral_home: funeralHome,
+        deceased_name: lovedOne,
+        nickname: nickname || "(none)",
+        obituary: obituary,
+        song_style: songStyle,
+        voice_preference: voicePref,
+        tone_preference: tonePref,
+        delivery_option: delivery,
+        consent_given: "yes",
+        _subject: "NEW ORDER " + orderId + " — " + lovedOne,
+        _replyto: email,
+      };
+
+      try {
+        const res = await fetch("https://formspree.io/f/xdkgjvwq", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(orderData),
+        });
+        if (!res.ok) throw new Error("Save failed: " + res.status);
+
+        // Save to localStorage as backup
+        const orders = JSON.parse(localStorage.getItem("fv_orders") || "[]");
+        orders.push(orderData);
+        localStorage.setItem("fv_orders", JSON.stringify(orders));
+
+        closeOrderModal();
+
+        // Restore button
+        if (btn) { btn.textContent = origText; btn.disabled = false; }
+
+        // Redirect to Stripe with order ID in URL, or open in new tab for Rush
+        if (!_orderStripeUrl) {
+          const subject = encodeURIComponent("Rush Order " + orderId + " — " + lovedOne);
+          const body = encodeURIComponent(
+            "ORDER ID: " + orderId + "\n" +
+            "========================\n\n" +
+            "Loved One: " + lovedOne + "\n" +
+            "Funeral Home: " + funeralHome + "\n" +
+            "Email: " + email + "\n" +
+            "Phone: " + phone + "\n" +
+            "Style: " + songStyle + "\n" +
+            "Tone: " + tonePref + "\n" +
+            "Submitted: " + now.toLocaleString() + "\n\n" +
+            "OBITUARY:\n" + obituary
+          );
+          window.location.href = "mailto:ceo@dortchai.com?subject=" + subject + "&body=" + body;
+          return;
+        }
+
+        // Append order_id as URL param to Stripe link (for tracking in Stripe metadata / success URL)
+        const stripeUrl = _orderStripeUrl + "?client_reference_id=" + encodeURIComponent(orderId) +
+          "&prefilled_email=" + encodeURIComponent(email);
+        window.open(stripeUrl, "_blank", "noopener");
+
+      } catch (err) {
+        if (btn) { btn.textContent = origText; btn.disabled = false; }
+        showOrderError("We could not save your order. Please try again or contact us at ceo@dortchai.com.");
+        console.error("Order save failed:", err);
       }
-      window.open(_orderStripeUrl, '_blank', 'noopener');
+    }
+
+    function showOrderError(msg) {
+      let el = document.getElementById("order-error-msg");
+      if (!el) {
+        el = document.createElement("div");
+        el.id = "order-error-msg";
+        el.style.cssText = "background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.5);color:#fca5a5;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:12px;";
+        const btn = document.querySelector(".order-continue-btn");
+        if (btn) btn.parentNode.insertBefore(el, btn);
+      }
+      el.textContent = msg;
+      el.style.display = "block";
+      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function clearOrderError() {
+      const el = document.getElementById("order-error-msg");
+      if (el) el.style.display = "none";
     }
 
     document.addEventListener('keydown', e => {

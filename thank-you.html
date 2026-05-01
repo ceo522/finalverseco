@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You — Final Verse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1A1A1A;
+      color: #ffffff;
+      font-family: 'Lato', system-ui, sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .page-wrap {
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    .wordmark {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #D4AF37;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .tagline {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9a9a9a;
+      margin-bottom: 40px;
+    }
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #D4AF37, transparent);
+      margin: 1.25rem auto;
+    }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+    .subheading {
+      font-size: 1.05rem;
+      color: #c0b9a8;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: #252525;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .card p {
+      color: #c0b9a8;
+      font-size: 0.97rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.7;
+    }
+    .card p:last-child { margin-bottom: 0; }
+    .card strong { color: #ffffff; }
+    .order-ref {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      color: #D4AF37;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      background: #D4AF37;
+      color: #1A1A1A;
+      font-family: 'Lato', system-ui, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: 2px solid #D4AF37;
+      transition: background 0.25s, transform 0.25s;
+      margin-bottom: 1.5rem;
+    }
+    .btn-gold:hover {
+      background: #e8c94f;
+      transform: translateY(-2px);
+    }
+    .contact-line {
+      font-size: 0.85rem;
+      color: #9a9a9a;
+    }
+    .contact-line a {
+      color: #D4AF37;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div class="wordmark">Final Verse</div>
+    <div class="tagline">The Memorial Song Company</div>
+
+    <p style="font-size:2.5rem;margin-bottom:0.5rem;">✅</p>
+    <h1>Thank You. Your Order Was Received.</h1>
+    <div class="gold-line"></div>
+    <p class="subheading">We have your tribute information and payment is confirmed.</p>
+
+    <div class="order-ref" id="order-ref-box"></div>
+
+    <div class="card">
+      <p>Our production team will review your submission and begin preparing your custom memorial song. You will receive a preview link by email within <strong>48–72 hours</strong>. If you do not see our email, please check your spam or junk folder.</p>
+      <p><strong>Note:</strong> Production does not begin until your payment is fully confirmed by Stripe.</p>
+    </div>
+
+    <a href="/" class="btn-gold">← Return to Final Verse</a>
+
+    <div class="contact-line">Questions? Email us at <a href="mailto:ceo@dortchai.com">ceo@dortchai.com</a></div>
+  </div>
+
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get("order_id") || params.get("client_reference_id");
+      if (orderId) {
+        const box = document.getElementById("order-ref-box");
+        box.textContent = "Your order reference: " + orderId;
+        box.style.display = "block";
+      }
+    })();
+  </script>
+</body>
+</html>
