@@ -1467,13 +1467,8 @@
       // allow href navigation to proceed normally
     }
 
-    // ── Director bypass — ?director=1 skips the email gate always ──
-    (function() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('director') === '1') {
-        localStorage.setItem('fv_email', 'director@preview');
-      }
-    })();
+    // ── Director bypass — ?director=1 skips gate immediately, no localStorage needed ──
+    var _directorBypass = new URLSearchParams(window.location.search).get('director') === '1';
 
     // ── URL param auto-search ──────────────────────────────────
     function autoSearchFromUrl() {
@@ -1490,10 +1485,10 @@
     // ── Gate Logic ─────────────────────────────────────────────
     window.addEventListener('DOMContentLoaded', () => {
       const stored = localStorage.getItem('fv_email');
-      if (stored) {
+      if (_directorBypass || stored) {
         showHub();
         const honorEmailField = document.getElementById('honor-email');
-        if (honorEmailField) honorEmailField.value = stored;
+        if (honorEmailField) honorEmailField.value = stored || 'director@preview';
         // Auto-search from URL param after hub is already unlocked
         autoSearchFromUrl();
       }
