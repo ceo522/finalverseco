@@ -1467,13 +1467,11 @@
       // allow href navigation to proceed normally
     }
 
-    // ── Director bypass — ?director=1 skips the email gate ──────
+    // ── Director bypass — ?director=1 skips the email gate always ──
     (function() {
       const params = new URLSearchParams(window.location.search);
       if (params.get('director') === '1') {
-        if (!localStorage.getItem('fv_email')) {
-          localStorage.setItem('fv_email', 'director@preview');
-        }
+        localStorage.setItem('fv_email', 'director@preview');
       }
     })();
 

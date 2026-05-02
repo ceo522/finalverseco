@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Final Verse — The Memorial Song Company</title>
+  <meta name="description" content="Contact Final Verse — reach out about a memorial song, funeral home partnership, or general inquiry." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Lato', sans-serif; background: #111; color: #f0ece4; min-height: 100vh; }
+
+    nav {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #D4AF37; text-decoration: none; }
+    .nav-back { color: #D4AF37; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; }
+    .nav-back:hover { text-decoration: underline; }
+
+    .hero { text-align: center; padding: 70px 20px 40px; max-width: 640px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #D4AF37; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.25; margin-bottom: 16px; }
+    .hero p { color: #9a9a9a; font-size: 1rem; line-height: 1.7; }
+
+    .contact-wrap { max-width: 560px; margin: 0 auto; padding: 0 20px 80px; }
+
+    .contact-card {
+      background: #1a1a1a;
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 16px;
+      padding: 40px 36px;
+      margin-bottom: 28px;
+    }
+
+    .form-field { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 0.82rem; color: #9a9a9a; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+    .form-input {
+      width: 100%;
+      background: #252525;
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 8px;
+      color: #f0ece4;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: #D4AF37; }
+    .form-input::placeholder { color: #555; }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+
+    .submit-btn {
+      width: 100%;
+      background: #D4AF37;
+      color: #111;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+    .submit-btn:hover { background: #e8c94f; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .error-msg { color: #e05555; font-size: 0.85rem; margin-top: 10px; display: none; }
+    .success-msg { display: none; text-align: center; padding: 24px 0 8px; }
+    .success-msg h3 { color: #D4AF37; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
+    .success-msg p { color: #9a9a9a; font-size: 0.9rem; line-height: 1.7; }
+
+    .direct-contact { background: #161616; border: 1px solid #2a2a2a; border-radius: 12px; padding: 24px 28px; }
+    .direct-contact p { color: #9a9a9a; font-size: 0.9rem; line-height: 1.8; }
+    .direct-contact a { color: #D4AF37; text-decoration: none; }
+    .direct-contact a:hover { text-decoration: underline; }
+
+    footer { text-align: center; padding: 24px; border-top: 1px solid #1f1f1f; }
+    footer p { font-size: 0.8rem; color: #444; }
+    footer a { color: #D4AF37; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">Final Verse</a>
+    <a href="/" class="nav-back">← Back to Home</a>
+  </nav>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Get in Touch</p>
+    <h1>Contact Final Verse</h1>
+    <p>Questions about a memorial song, funeral home partnerships, or anything else — we're here.</p>
+  </div>
+
+  <div class="contact-wrap">
+
+    <div class="contact-card">
+      <div id="contact-form">
+        <div class="form-field">
+          <label class="form-label" for="c-name">Your Name <span style="color:#e05555">*</span></label>
+          <input type="text" id="c-name" class="form-input" placeholder="Your full name" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="c-email">Email Address <span style="color:#e05555">*</span></label>
+          <input type="email" id="c-email" class="form-input" placeholder="your@email.com" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="c-subject">Subject</label>
+          <select id="c-subject" class="form-input">
+            <option value="">Select a topic...</option>
+            <option value="funeral-home">Funeral Home Partnership</option>
+            <option value="order">Order / Existing Song</option>
+            <option value="demo">Request a Demo Song</option>
+            <option value="general">General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="c-message">Message <span style="color:#e05555">*</span></label>
+          <textarea id="c-message" class="form-input" placeholder="How can we help?"></textarea>
+        </div>
+        <div id="c-error" class="error-msg"></div>
+        <button class="submit-btn" id="c-submit" onclick="submitContact()">Send Message →</button>
+      </div>
+
+      <div class="success-msg" id="c-success">
+        <h3>Message Received</h3>
+        <p>Thank you for reaching out. We'll get back to you within 1 business day.<br/>
+        In the meantime, feel free to browse our <a href="/listen/" style="color:#D4AF37;">memorial song library</a>.</p>
+      </div>
+    </div>
+
+    <div class="direct-contact">
+      <p>
+        <strong style="color:#f0ece4;">Prefer to reach us directly?</strong><br/>
+        📞 <a href="tel:+18778770417">877-877-0417</a><br/>
+        ✉️ <a href="mailto:ceo@dortchai.com">ceo@dortchai.com</a><br/>
+        🌐 <a href="https://finalverseco.com">finalverseco.com</a>
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Final Verse — The Memorial Song Company &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
+  </footer>
+
+  <script>
+    async function submitContact() {
+      const name    = document.getElementById('c-name').value.trim();
+      const email   = document.getElementById('c-email').value.trim();
+      const subject = document.getElementById('c-subject').value;
+      const message = document.getElementById('c-message').value.trim();
+      const errorEl = document.getElementById('c-error');
+      const btn     = document.getElementById('c-submit');
+
+      errorEl.style.display = 'none';
+
+      if (!name)    { errorEl.textContent = 'Please enter your name.'; errorEl.style.display = 'block'; return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.'; errorEl.style.display = 'block'; return;
+      }
+      if (!message) { errorEl.textContent = 'Please enter a message.'; errorEl.style.display = 'block'; return; }
+
+      btn.textContent = 'Sending…'; btn.disabled = true;
+
+      try {
+        const res = await fetch('https://api.finalverseco.com/api/order-intake', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            buyer_name: name,
+            buyer_email: email,
+            deceased_name: 'Contact Form',
+            obituary: message,
+            song_style: subject || 'General Inquiry',
+            order_id: 'CONTACT-' + Date.now(),
+            package: 'Contact Form — ' + (subject || 'general'),
+            _subject: 'Contact Form: ' + name + ' — ' + (subject || 'General'),
+            _replyto: email,
+          }),
+        });
+        // Show success regardless of exact response (email is sent server-side)
+        document.getElementById('contact-form').style.display = 'none';
+        document.getElementById('c-success').style.display = 'block';
+      } catch (err) {
+        btn.textContent = 'Send Message →'; btn.disabled = false;
+        errorEl.textContent = 'Could not send. Please email us directly at ceo@dortchai.com.';
+        errorEl.style.display = 'block';
+      }
+    }
+  </script>
+
+</body>
+</html>
