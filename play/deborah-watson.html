@@ -5,20 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Deborah Watson — Final Verse</title>
 <meta name="robots" content="noindex,nofollow"/>
+<meta property="og:title" content="A Memorial Song for Deborah Watson"/>
+<meta property="og:description" content="A personalized memorial song created by Final Verse — The Memorial Song Company"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#111;color:#f0e6c8;font-family:Georgia,serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
-.card{background:#1a1a1a;border:1px solid rgba(212,175,55,0.3);border-radius:16px;padding:40px 32px;max-width:480px;width:100%;text-align:center}
+.card{background:#1a1a1a;border:1px solid rgba(212,175,55,0.3);border-radius:16px;padding:40px 32px;max-width:480px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.5)}
 .logo{color:#D4AF37;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
 .name{font-size:clamp(1.4rem,4vw,2rem);font-weight:400;margin-bottom:6px;line-height:1.3}
 .home{color:#9a9a9a;font-size:0.9rem;margin-bottom:4px}
 .genre{color:#D4AF37;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:32px}
 .play-btn{background:#D4AF37;color:#111;border:none;border-radius:50px;width:72px;height:72px;font-size:28px;cursor:pointer;margin-bottom:24px;transition:transform 0.15s,background 0.15s;display:inline-flex;align-items:center;justify-content:center}
 .play-btn:hover{background:#e8c94f;transform:scale(1.06)}
+.play-btn:active{transform:scale(0.97)}
 .progress-wrap{background:#252525;border-radius:4px;height:4px;width:100%;margin-bottom:12px;cursor:pointer;overflow:hidden}
 .progress-bar{background:#D4AF37;height:4px;width:0%;border-radius:4px;transition:width 0.25s linear}
 .time{font-size:0.8rem;color:#666;margin-bottom:28px}
-.pending{background:#252525;border-radius:8px;padding:20px;color:#777;font-size:0.85rem;margin-bottom:24px;line-height:1.6}
 .cta{display:inline-block;background:transparent;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:0.85rem;letter-spacing:0.5px;margin-bottom:20px}
 .cta:hover{background:rgba(212,175,55,0.1)}
 .footer{color:#444;font-size:0.75rem;margin-top:8px}
@@ -31,34 +33,23 @@ body{background:#111;color:#f0e6c8;font-family:Georgia,serif;min-height:100vh;di
   <h1 class="name">Deborah Watson</h1>
   <p class="home">Grise Funeral Home</p>
   <p class="genre">R&B Soul</p>
-  <div id="player-wrap">
-    <div class="pending" id="pending-msg">
-      &#9834; Song coming soon — being produced now.<br/>
-      <span style="font-size:0.75rem;color:#555;">This page will update when audio is ready.</span>
-    </div>
+  <button class="play-btn" id="playBtn" onclick="togglePlay()">&#9654;</button>
+  <div class="progress-wrap" onclick="seek(event)">
+    <div class="progress-bar" id="progress"></div>
   </div>
-  <a href="https://finalverseco.com/?ref=play-page" class="cta">Order a Song for Your Family →</a>
-  <p class="footer">
-    Final Verse &middot; <a href="mailto:ceo@dortchai.com">ceo@dortchai.com</a> &middot; 877-877-0417
-  </p>
+  <p class="time" id="timeDisplay">0:00 / 0:00</p>
+  <a href="https://finalverseco.com/?ref=play" class="cta">Order a Song for Your Family →</a>
+  <p class="footer">Final Verse &middot; <a href="mailto:ceo@dortchai.com">ceo@dortchai.com</a> &middot; 877-877-0417</p>
 </div>
-<audio id="audio" src="" preload="none"></audio>
+<audio id="audio" src="https://res.cloudinary.com/dej4h3qly/video/upload/v1777049928/final-verse/final-verse/deborah-watson.mp3" preload="auto"></audio>
 <script>
-// Audio URL will be inserted here when song is ready
-var AUDIO_URL = "PENDING";
-if (AUDIO_URL && AUDIO_URL !== "PENDING") {
-  document.getElementById('pending-msg').style.display = 'none';
-  var wrap = document.getElementById('player-wrap');
-  wrap.innerHTML = '<button class="play-btn" id="playBtn" onclick="togglePlay()">&#9654;</button><div class="progress-wrap" onclick="seek(event)"><div class="progress-bar" id="progress"></div></div><p class="time" id="timeDisplay">0:00 / 0:00</p>';
-  var audio = document.getElementById('audio');
-  audio.src = AUDIO_URL;
-  function fmt(s){var m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
-  audio.addEventListener('timeupdate',function(){if(audio.duration){document.getElementById('progress').style.width=(audio.currentTime/audio.duration*100)+'%';document.getElementById('timeDisplay').textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
-  audio.addEventListener('ended',function(){document.getElementById('playBtn').innerHTML='&#9654;';});
-  function togglePlay(){if(audio.paused){audio.play();document.getElementById('playBtn').innerHTML='&#9646;&#9646;';}else{audio.pause();document.getElementById('playBtn').innerHTML='&#9654;';}}
-  function seek(e){var pct=e.offsetX/e.currentTarget.offsetWidth;if(audio.duration)audio.currentTime=audio.duration*pct;}
-  window.addEventListener('DOMContentLoaded',function(){audio.play().then(function(){document.getElementById('playBtn').innerHTML='&#9646;&#9646;';}).catch(function(){});});
-}
+var audio=document.getElementById('audio'),btn=document.getElementById('playBtn'),bar=document.getElementById('progress'),time=document.getElementById('timeDisplay');
+function fmt(s){var m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',function(){if(audio.duration){bar.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+audio.addEventListener('ended',function(){btn.innerHTML='&#9654;';});
+function togglePlay(){if(audio.paused){audio.play();btn.innerHTML='&#9646;&#9646;';}else{audio.pause();btn.innerHTML='&#9654;';}}
+function seek(e){var pct=e.offsetX/e.currentTarget.offsetWidth;if(audio.duration)audio.currentTime=audio.duration*pct;}
+window.addEventListener('DOMContentLoaded',function(){audio.play().then(function(){btn.innerHTML='&#9646;&#9646;';}).catch(function(){});}); 
 </script>
 </body>
 </html>
