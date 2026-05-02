@@ -1467,6 +1467,16 @@
       // allow href navigation to proceed normally
     }
 
+    // ── Director bypass — ?director=1 skips the email gate ──────
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('director') === '1') {
+        if (!localStorage.getItem('fv_email')) {
+          localStorage.setItem('fv_email', 'director@preview');
+        }
+      }
+    })();
+
     // ── URL param auto-search ──────────────────────────────────
     function autoSearchFromUrl() {
       const searchParam = new URLSearchParams(window.location.search).get('search');
