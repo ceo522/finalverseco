@@ -1485,14 +1485,17 @@
 
     // ── Gate Logic ─────────────────────────────────────────────
     window.addEventListener('DOMContentLoaded', () => {
+      // Gate disabled — open hub directly, collect email optionally
+      showHub();
+      autoSearchFromUrl();
+      if (false) {  // gate bypass — kept for reference
       const stored = localStorage.getItem('fv_email');
       if (_directorBypass || stored) {
         showHub();
         const honorEmailField = document.getElementById('honor-email');
         if (honorEmailField) honorEmailField.value = stored || 'director@preview';
-        // Auto-search from URL param after hub is already unlocked
         autoSearchFromUrl();
-      }
+      }}
 
       // Enter key on gate
       const emailInput = document.getElementById('gate-email');
