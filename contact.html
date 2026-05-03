@@ -189,7 +189,7 @@
       try {
         const ctrl = new AbortController();
         setTimeout(() => ctrl.abort(), 2000);
-        await fetch('https://contracting-burn-carolina-hull.trycloudflare.com/api/contact', {
+        await fetch('https://finalverse-backend.dortchenterprises.workers.dev/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, subject, message }),
