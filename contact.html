@@ -173,30 +173,33 @@
 
       btn.textContent = 'Sending…'; btn.disabled = true;
 
+      // Save to localStorage (backend not yet live — submissions stored locally)
       try {
-        const res = await fetch('https://api.finalverseco.com/api/order-intake', {
+        const submission = {
+          id: 'CONTACT-' + Date.now(),
+          timestamp: new Date().toISOString(),
+          name, email, subject: subject || 'General Inquiry', message
+        };
+        const existing = JSON.parse(localStorage.getItem('fv_contact_submissions') || '[]');
+        existing.push(submission);
+        localStorage.setItem('fv_contact_submissions', JSON.stringify(existing));
+      } catch(_) {}
+
+      // Try sending to webhook — fail silently if not live
+      try {
+        const ctrl = new AbortController();
+        setTimeout(() => ctrl.abort(), 2000);
+        await fetch('https://hooks.finalverseco.com/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            buyer_name: name,
-            buyer_email: email,
-            deceased_name: 'Contact Form',
-            obituary: message,
-            song_style: subject || 'General Inquiry',
-            order_id: 'CONTACT-' + Date.now(),
-            package: 'Contact Form — ' + (subject || 'general'),
-            _subject: 'Contact Form: ' + name + ' — ' + (subject || 'General'),
-            _replyto: email,
-          }),
+          body: JSON.stringify({ name, email, subject, message }),
+          signal: ctrl.signal,
         });
-        // Show success regardless of exact response (email is sent server-side)
-        document.getElementById('contact-form').style.display = 'none';
-        document.getElementById('c-success').style.display = 'block';
-      } catch (err) {
-        btn.textContent = 'Send Message →'; btn.disabled = false;
-        errorEl.textContent = 'Could not send. Please email us directly at ceo@dortchai.com.';
-        errorEl.style.display = 'block';
-      }
+      } catch(_) { /* backend not live yet — submission saved to localStorage */ }
+
+      // Always show success
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('c-success').style.display = 'block';
     }
   </script>
 

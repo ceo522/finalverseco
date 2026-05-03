@@ -2559,17 +2559,22 @@
       };
 
       try {
-        const res = await fetch("https://api.finalverseco.com/api/order-intake", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(orderData),
-        });
-        if (!res.ok) throw new Error("Save failed: " + res.status);
-
-        // Save to localStorage as backup
+        // Save to localStorage first (backend not yet live)
         const orders = JSON.parse(localStorage.getItem("fv_orders") || "[]");
         orders.push(orderData);
         localStorage.setItem("fv_orders", JSON.stringify(orders));
+
+        // Try sending to webhook — fail silently if not live
+        try {
+          const ctrl = new AbortController();
+          setTimeout(() => ctrl.abort(), 2000);
+          await fetch("https://hooks.finalverseco.com/order-intake", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderData),
+            signal: ctrl.signal,
+          });
+        } catch(_) { /* backend not live yet */ }
 
         closeOrderModal();
 

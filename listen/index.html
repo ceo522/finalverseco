@@ -1596,7 +1596,12 @@
       document.getElementById('play-btn').textContent = '▶';
       document.getElementById('waveform').classList.remove('playing');
 
-      const match = SONGS.find(s => s.name.toLowerCase().includes(query));
+      // Search by name OR funeral home (case-insensitive, partial match)
+      const match = SONGS.find(s =>
+        (s.name  || '').toLowerCase().includes(query) ||
+        (s.home  || '').toLowerCase().includes(query) ||
+        (s.genre || '').toLowerCase().includes(query)
+      );
 
       const section    = document.getElementById('player-section');
       const noResult   = document.getElementById('no-result');
@@ -1620,19 +1625,28 @@
 
       currentSong = match;
 
-      // Reset audio src
-      audioEl.src = match.audioSrc;
-      audioEl.load();
+      const hasAudio = match.audioSrc && match.audioSrc.trim() !== '';
+
+      if (hasAudio) {
+        // Load audio only if URL exists
+        audioEl.src = match.audioSrc;
+        audioEl.load();
+        showBtn.classList.remove('hidden');
+      } else {
+        // No audio — hide player button, show pending message
+        audioEl.src = '';
+        showBtn.classList.add('hidden');
+      }
 
       document.getElementById('res-name').textContent     = match.name;
-      document.getElementById('res-genre').textContent    = match.genre;
-      document.getElementById('res-duration').textContent = '—:——';
-      document.getElementById('time-total').textContent   = '—:——';
-      document.getElementById('time-current').textContent = '0:00';
+      document.getElementById('res-genre').textContent    = match.genre + (match.home ? ' · ' + match.home : '');
+      document.getElementById('res-duration').textContent = hasAudio ? '—:——' : 'Preview pending';
+      document.getElementById('time-total').textContent   = hasAudio ? '—:——' : '—';
+      document.getElementById('time-current').textContent = hasAudio ? '0:00' : '—';
       document.getElementById('progress-fill').style.width = '0%';
 
       resultCard.classList.remove('hidden');
-      rushAddon.classList.remove('hidden'); // show rush add-on when song found
+      if (hasAudio) rushAddon.classList.remove('hidden');
 
       setTimeout(() => {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
