@@ -1075,43 +1075,7 @@
     <source src="https://ceo522.github.io/finalverseco/audio/pharoah-smalls-still.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- ─── EMAIL GATE ─────────────────────────────────────────── -->
-  <div id="email-gate" role="dialog" aria-modal="true" aria-labelledby="gate-headline">
-    <div class="gate-card">
-      <div class="gate-logo">
-        <div class="gate-logo-mark">♪</div>
-        <div class="gate-brand">Final Verse</div>
-        <div class="gate-tagline">The Memorial Song Company</div>
-      </div>
-      <div class="gate-divider">
-        <div class="gold-rule"></div>
-      </div>
-      <h1 class="gate-headline" id="gate-headline">
-        Access Your Loved One's Song
-      </h1>
-      <p class="gate-subtext">
-        Enter your email below to open the listening hub.<br />
-        Your song was crafted with care — just for your family.
-      </p>
-      <div class="gate-input-wrap">
-        <input
-          type="email"
-          id="gate-email"
-          class="gate-input"
-          placeholder="your@email.com"
-          autocomplete="email"
-          aria-label="Email address"
-        />
-      </div>
-      <div class="gate-error" id="gate-error" aria-live="polite"></div>
-      <button class="gate-btn" id="gate-submit" onclick="handleGateSubmit()">
-        Access Song
-      </button>
-      <p class="gate-privacy">
-        We respect your privacy. Your email is only used to deliver your memorial song experience.
-      </p>
-    </div>
-  </div>
+  <!-- Email gate removed — hub opens directly -->
 
   <!-- ─── MAIN HUB ───────────────────────────────────────────── -->
   <div id="main-hub">
@@ -1485,17 +1449,8 @@
 
     // ── Gate Logic ─────────────────────────────────────────────
     window.addEventListener('DOMContentLoaded', () => {
-      // Gate disabled — open hub directly, collect email optionally
       showHub();
       autoSearchFromUrl();
-      if (false) {  // gate bypass — kept for reference
-      const stored = localStorage.getItem('fv_email');
-      if (_directorBypass || stored) {
-        showHub();
-        const honorEmailField = document.getElementById('honor-email');
-        if (honorEmailField) honorEmailField.value = stored || 'director@preview';
-        autoSearchFromUrl();
-      }}
 
       // Enter key on gate
       const emailInput = document.getElementById('gate-email');
@@ -1506,77 +1461,11 @@
       }
     });
 
-    async function handleGateSubmit() {
-      const input   = document.getElementById('gate-email');
-      const errorEl = document.getElementById('gate-error');
-      const btn     = document.getElementById('gate-submit');
-      const email   = input.value.trim();
-
-      errorEl.textContent = '';
-
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        errorEl.textContent = 'Please enter a valid email address.';
-        input.focus();
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span>';
-
-      // Fire conversion events
-      try { fbq('track', 'Lead'); } catch(_) {}
-      try { gtag('event', 'generate_lead'); } catch(_) {}
-
-      // Store lead to fv_leads array
-      const searchQuery = new URLSearchParams(window.location.search).get('search') || '';
-      const leadEntry = {
-        email,
-        name: '',
-        songSearched: searchQuery,
-        timestamp: new Date().toISOString(),
-        ref: localStorage.getItem('fv_ref') || 'direct',
-      };
-      const leads = JSON.parse(localStorage.getItem('fv_leads') || '[]');
-      leads.push(leadEntry);
-      localStorage.setItem('fv_leads', JSON.stringify(leads));
-
-      try {
-        console.log('[FV] Email capture:', { email, ref: leadEntry.ref, songSearched: leadEntry.songSearched });
-        const ctrl = new AbortController();
-        setTimeout(() => ctrl.abort(), 2000);
-        await fetch('https://hooks.finalverseco.com/capture', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            timestamp: leadEntry.timestamp,
-            source: 'listening-hub',
-            ref: leadEntry.ref,
-          }),
-          signal: ctrl.signal,
-        });
-      } catch (err) {
-        console.log('[FV] Capture endpoint unavailable:', err.message);
-      }
-
-      localStorage.setItem('fv_email', email);
-
-      // Pre-fill modal
-      const honorEmailField = document.getElementById('honor-email');
-      if (honorEmailField) honorEmailField.value = email;
-
-      setTimeout(() => { showHub(); autoSearchFromUrl(); }, 480);
-    }
+    // handleGateSubmit removed — gate eliminated
 
     function showHub() {
-      const gate = document.getElementById('email-gate');
-      const hub  = document.getElementById('main-hub');
-      gate.style.transition = 'opacity 0.45s ease';
-      gate.style.opacity = '0';
-      setTimeout(() => {
-        gate.classList.add('hidden');
-        hub.classList.add('visible');
-      }, 450);
+      const hub = document.getElementById('main-hub');
+      hub.classList.add('visible');
     }
 
     // ── Quick-fill search hints ─────────────────────────────────
