@@ -2600,10 +2600,29 @@
           return;
         }
 
-        // Append order_id as URL param to Stripe link (for tracking in Stripe metadata / success URL)
-        const stripeUrl = _orderStripeUrl + "?client_reference_id=" + encodeURIComponent(orderId) +
+        // Append order_id + deceased name to Stripe link
+        const stripeRef = encodeURIComponent(orderId + " | " + lovedOne);
+        const stripeUrl = _orderStripeUrl + "?client_reference_id=" + stripeRef +
           "&prefilled_email=" + encodeURIComponent(email);
-        window.open(stripeUrl, "_blank", "noopener");
+
+        // Show confirmation overlay before redirect
+        const confirmDiv = document.createElement('div');
+        confirmDiv.style.cssText = 'position:fixed;inset:0;background:rgba(10,10,10,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;';
+        confirmDiv.innerHTML = `
+          <div style="background:#222;border:1px solid rgba(212,175,55,0.4);border-radius:20px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:12px;">✅</div>
+            <h2 style="font-family:'Playfair Display',serif;color:#D4AF37;font-size:1.5rem;margin-bottom:8px;">Order Received</h2>
+            <p style="color:#fff;font-size:1.1rem;margin-bottom:6px;">Memorial Song for</p>
+            <p style="font-family:'Playfair Display',serif;color:#D4AF37;font-size:1.4rem;font-weight:700;margin-bottom:16px;">${lovedOne}</p>
+            <p style="color:#999;font-size:0.875rem;margin-bottom:24px;">Order #${orderId}<br/>Style: ${songStyle} · ${tonePref}</p>
+            <p style="color:#ccc;font-size:0.875rem;margin-bottom:28px;">Taking you to secure checkout now...</p>
+            <div style="width:40px;height:40px;border:3px solid rgba(212,175,55,0.3);border-top-color:#D4AF37;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto;"></div>
+          </div>`;
+        document.body.appendChild(confirmDiv);
+        setTimeout(() => {
+          window.open(stripeUrl, "_blank", "noopener");
+          setTimeout(() => document.body.removeChild(confirmDiv), 1500);
+        }, 2000);
 
       } catch (err) {
         if (btn) { btn.textContent = origText; btn.disabled = false; }
