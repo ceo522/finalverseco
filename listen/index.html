@@ -1129,6 +1129,12 @@
       <!-- Player Result -->
       <section id="player-section" class="hidden">
 
+        <!-- Multi-result list (shown when >1 match) -->
+        <div id="multi-result" class="hidden" style="margin-bottom:24px;">
+          <p style="color:#d4af37;font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:14px;">Multiple songs found — select one:</p>
+          <div id="multi-result-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+        </div>
+
         <div id="no-result" class="search-no-result hidden">
           <p>No song found for that name. Please check the spelling or contact your funeral home.</p>
           <div style="margin-top:28px;background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.22);border-radius:14px;padding:28px 24px;">
@@ -1477,6 +1483,42 @@
     }
 
     // ── Search ──────────────────────────────────────────────────
+    function loadSong(song) {
+      const section    = document.getElementById('player-section');
+      const noResult   = document.getElementById('no-result');
+      const resultCard = document.getElementById('result-card');
+      const playerUI   = document.getElementById('player-ui');
+      const showBtn    = document.getElementById('show-player-btn');
+      const rushAddon  = document.getElementById('rush-addon');
+      const multiResult = document.getElementById('multi-result');
+
+      multiResult.classList.add('hidden');
+      noResult.classList.add('hidden');
+      resultCard.classList.remove('hidden');
+      playerUI.classList.remove('visible');
+      showBtn.classList.remove('hidden');
+      rushAddon.classList.add('hidden');
+
+      currentSong = song;
+      const hasAudio = song.audioSrc && song.audioSrc.trim() !== '';
+      if (hasAudio) {
+        audioEl.src = song.audioSrc;
+        audioEl.load();
+        showBtn.classList.remove('hidden');
+      } else {
+        audioEl.src = '';
+        showBtn.classList.add('hidden');
+      }
+      document.getElementById('res-name').textContent     = song.name;
+      document.getElementById('res-genre').textContent    = song.genre + (song.home ? ' · ' + song.home : '');
+      document.getElementById('res-duration').textContent = hasAudio ? '—:——' : 'Preview pending';
+      document.getElementById('time-total').textContent   = hasAudio ? '—:——' : '—';
+      document.getElementById('time-current').textContent = hasAudio ? '0:00' : '—';
+      document.getElementById('progress-fill').style.width = '0%';
+      if (hasAudio) rushAddon.classList.remove('hidden');
+      setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+
     function doSearch() {
       const query = document.getElementById('search-input').value.trim().toLowerCase();
       if (!query) return;
@@ -1487,12 +1529,12 @@
       document.getElementById('play-btn').textContent = '▶';
       document.getElementById('waveform').classList.remove('playing');
 
-      // Search by name OR funeral home (case-insensitive, partial match)
-      const match = SONGS.find(s =>
-        (s.name  || '').toLowerCase().includes(query) ||
-        (s.home  || '').toLowerCase().includes(query) ||
-        (s.genre || '').toLowerCase().includes(query)
-      );
+      // Search by name OR funeral home OR genre (case-insensitive, partial match on ALL words)
+      const queryWords = query.split(/\s+/).filter(Boolean);
+      const matches = SONGS.filter(s => {
+        const haystack = [(s.name || ''), (s.home || ''), (s.genre || '')].join(' ').toLowerCase();
+        return queryWords.every(w => haystack.includes(w));
+      });
 
       const section    = document.getElementById('player-section');
       const noResult   = document.getElementById('no-result');
@@ -1500,49 +1542,50 @@
       const playerUI   = document.getElementById('player-ui');
       const showBtn    = document.getElementById('show-player-btn');
       const rushAddon  = document.getElementById('rush-addon');
+      const multiResult = document.getElementById('multi-result');
+      const multiList   = document.getElementById('multi-result-list');
 
       section.classList.remove('hidden');
       noResult.classList.add('hidden');
       resultCard.classList.add('hidden');
+      multiResult.classList.add('hidden');
       playerUI.classList.remove('visible');
       showBtn.classList.remove('hidden');
       rushAddon.classList.add('hidden');
 
-      if (!match) {
+      if (!matches.length) {
         noResult.classList.remove('hidden');
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
-      currentSong = match;
-
-      const hasAudio = match.audioSrc && match.audioSrc.trim() !== '';
-
-      if (hasAudio) {
-        // Load audio only if URL exists
-        audioEl.src = match.audioSrc;
-        audioEl.load();
-        showBtn.classList.remove('hidden');
-      } else {
-        // No audio — hide player button, show pending message
-        audioEl.src = '';
-        showBtn.classList.add('hidden');
+      if (matches.length === 1) {
+        loadSong(matches[0]);
+        return;
       }
 
-      document.getElementById('res-name').textContent     = match.name;
-      document.getElementById('res-genre').textContent    = match.genre + (match.home ? ' · ' + match.home : '');
-      document.getElementById('res-duration').textContent = hasAudio ? '—:——' : 'Preview pending';
-      document.getElementById('time-total').textContent   = hasAudio ? '—:——' : '—';
-      document.getElementById('time-current').textContent = hasAudio ? '0:00' : '—';
-      document.getElementById('progress-fill').style.width = '0%';
+      // Multiple matches — show list
+      multiList.innerHTML = matches.map((s, i) => `
+        <div onclick="loadSong(SONGS_MAP[${i + '_' + s.name.replace(/'/g,'')}])" 
+             style="cursor:pointer;padding:14px 18px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:10px;transition:background 0.2s;"
+             onmouseover="this.style.background='rgba(212,175,55,0.18)'" onmouseout="this.style.background='rgba(212,175,55,0.08)'">
+          <div style="font-family:'Playfair Display',serif;color:#fff;font-size:1rem;">${s.name}</div>
+          <div style="font-size:0.8rem;color:#d4af37;margin-top:3px;">${s.genre}${s.home ? ' · ' + s.home : ''}</div>
+        </div>
+      `).join('');
+      // Attach click handlers properly
+      const items = multiList.querySelectorAll('div');
+      matches.forEach((s, i) => { items[i].onclick = () => loadSong(s); });
 
-      resultCard.classList.remove('hidden');
-      if (hasAudio) rushAddon.classList.remove('hidden');
+      multiResult.classList.remove('hidden');
+      section.classList.remove('hidden');
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
 
-      setTimeout(() => {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
+      const match = matches[0]; // fallback (unreachable but keeps old refs)
+      currentSong = match;
+
+    }  // end doSearch
 
     // ── Player ──────────────────────────────────────────────────
     function showPlayer() {
