@@ -1031,7 +1031,7 @@
     }
 
     /* ─── Misc Utilities ─────────────────────────────────────────── */
-    .hidden { display: none !important; }
+    .hidden { display: none; }
     .spinner {
       width: 18px; height: 18px;
       border: 2px solid rgba(26,26,26,0.3);
@@ -1483,113 +1483,95 @@
     }
 
     // ── Search ──────────────────────────────────────────────────
-    function loadSong(song) {
-      const section    = document.getElementById('player-section');
-      const noResult   = document.getElementById('no-result');
-      const resultCard = document.getElementById('result-card');
-      const playerUI   = document.getElementById('player-ui');
-      const showBtn    = document.getElementById('show-player-btn');
-      const rushAddon  = document.getElementById('rush-addon');
-      const multiResult = document.getElementById('multi-result');
+    function showSong(song) {
+      // Stop audio
+      audioEl.pause();
+      audioEl.currentTime = 0;
+      document.getElementById('play-btn').textContent = '▶';
+      document.getElementById('waveform').classList.remove('playing');
 
-      section.classList.remove('hidden');
-      multiResult.classList.add('hidden');
-      noResult.classList.add('hidden');
-      resultCard.classList.remove('hidden');
-      playerUI.classList.remove('visible');
-      showBtn.classList.remove('hidden');
-      rushAddon.classList.add('hidden');
+      // Show/hide sections
+      document.getElementById('player-section').style.display = 'block';
+      document.getElementById('no-result').style.display      = 'none';
+      document.getElementById('multi-result').style.display   = 'none';
+      document.getElementById('result-card').style.display    = 'block';
+      document.getElementById('player-ui').classList.remove('visible');
+      document.getElementById('rush-addon').style.display     = 'none';
 
       currentSong = song;
-      const hasAudio = song.audioSrc && song.audioSrc.trim() !== '';
+      var hasAudio = song.audioSrc && song.audioSrc.trim() !== '';
+
       if (hasAudio) {
         audioEl.src = song.audioSrc;
         audioEl.load();
-        showBtn.classList.remove('hidden');
+        document.getElementById('show-player-btn').style.display = 'block';
+        document.getElementById('rush-addon').style.display      = 'block';
       } else {
         audioEl.src = '';
-        showBtn.classList.add('hidden');
+        document.getElementById('show-player-btn').style.display = 'none';
       }
+
       document.getElementById('res-name').textContent     = song.name;
       document.getElementById('res-genre').textContent    = song.genre + (song.home ? ' · ' + song.home : '');
       document.getElementById('res-duration').textContent = hasAudio ? '—:——' : 'Preview pending';
       document.getElementById('time-total').textContent   = hasAudio ? '—:——' : '—';
       document.getElementById('time-current').textContent = hasAudio ? '0:00' : '—';
       document.getElementById('progress-fill').style.width = '0%';
-      if (hasAudio) rushAddon.classList.remove('hidden');
-      setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+
+      setTimeout(function() {
+        document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     }
 
     function doSearch() {
-      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      var query = document.getElementById('search-input').value.trim().toLowerCase();
       if (!query) return;
 
-      // Stop any playing audio
-      audioEl.pause();
-      audioEl.currentTime = 0;
-      document.getElementById('play-btn').textContent = '▶';
-      document.getElementById('waveform').classList.remove('playing');
-
-      // Search by name OR funeral home OR genre (case-insensitive, partial match on ALL words)
-      const queryWords = query.split(/\s+/).filter(Boolean);
-      const matches = SONGS.filter(s => {
-        const haystack = [(s.name || ''), (s.home || ''), (s.genre || '')].join(' ').toLowerCase();
-        return queryWords.every(w => haystack.includes(w));
+      var words   = query.split(/\s+/).filter(Boolean);
+      var matches = SONGS.filter(function(s) {
+        var hay = ((s.name || '') + ' ' + (s.genre || '') + ' ' + (s.home || '')).toLowerCase();
+        return words.every(function(w) { return hay.indexOf(w) !== -1; });
       });
 
-      const section    = document.getElementById('player-section');
-      const noResult   = document.getElementById('no-result');
-      const resultCard = document.getElementById('result-card');
-      const playerUI   = document.getElementById('player-ui');
-      const showBtn    = document.getElementById('show-player-btn');
-      const rushAddon  = document.getElementById('rush-addon');
-      const multiResult = document.getElementById('multi-result');
-      const multiList   = document.getElementById('multi-result-list');
+      document.getElementById('player-section').style.display = 'block';
+      document.getElementById('no-result').style.display      = 'none';
+      document.getElementById('result-card').style.display    = 'none';
+      document.getElementById('multi-result').style.display   = 'none';
+      document.getElementById('rush-addon').style.display     = 'none';
 
-      section.classList.remove('hidden');
-      noResult.classList.add('hidden');
-      resultCard.classList.add('hidden');
-      multiResult.classList.add('hidden');
-      playerUI.classList.remove('visible');
-      showBtn.classList.remove('hidden');
-      rushAddon.classList.add('hidden');
-
-      if (!matches.length) {
-        noResult.classList.remove('hidden');
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (matches.length === 0) {
+        document.getElementById('no-result').style.display = 'block';
+        document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
       if (matches.length === 1) {
-        loadSong(matches[0]);
+        showSong(matches[0]);
         return;
       }
 
-      // Multiple matches — build list with proper JS click binding (no inline onclick)
-      multiList.innerHTML = '';
+      // Multiple — show pick list
+      var list = document.getElementById('multi-result-list');
+      list.innerHTML = '';
       matches.forEach(function(s) {
-        const card = document.createElement('div');
-        card.style.cssText = 'cursor:pointer;padding:14px 18px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:10px;transition:background 0.2s;';
-        card.onmouseover = function() { this.style.background = 'rgba(212,175,55,0.18)'; };
-        card.onmouseout  = function() { this.style.background = 'rgba(212,175,55,0.08)'; };
-        card.onclick = function() { loadSong(s); };
-        card.innerHTML = '<div style="font-family:\'Playfair Display\',serif;color:#fff;font-size:1rem;">' + s.name + '</div>' +
-          '<div style="font-size:0.8rem;color:#d4af37;margin-top:3px;">' + s.genre + (s.home ? ' · ' + s.home : '') + '</div>';
-        multiList.appendChild(card);
+        var card = document.createElement('div');
+        card.style.cssText = 'cursor:pointer;padding:14px 18px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:10px;margin-bottom:8px;';
+        card.innerHTML = '<div style="font-family:Georgia,serif;color:#fff;font-size:1rem;">' + s.name + '</div>'
+                       + '<div style="font-size:0.82rem;color:#d4af37;margin-top:4px;">' + s.genre + (s.home ? ' · ' + s.home : '') + '</div>';
+        (function(song) {
+          card.onclick = function() { showSong(song); };
+        }(s));
+        list.appendChild(card);
       });
 
-      multiResult.classList.remove('hidden');
-      section.classList.remove('hidden');
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    }  // end doSearch
+      document.getElementById('multi-result').style.display = 'block';
+      document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
     // ── Player ──────────────────────────────────────────────────
     function showPlayer() {
-      const playerUI = document.getElementById('player-ui');
-      const showBtn  = document.getElementById('show-player-btn');
-      playerUI.classList.add('visible');
-      showBtn.classList.add('hidden');
+      document.getElementById('player-ui').classList.add('visible');
+      document.getElementById('show-player-btn').style.display = 'none';
       audioEl.play().catch(() => {});
       document.getElementById('play-btn').textContent = '⏸';
       document.getElementById('waveform').classList.add('playing');
