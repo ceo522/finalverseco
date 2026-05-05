@@ -1564,26 +1564,22 @@
         return;
       }
 
-      // Multiple matches — show list
-      multiList.innerHTML = matches.map((s, i) => `
-        <div onclick="loadSong(SONGS_MAP[${i + '_' + s.name.replace(/'/g,'')}])" 
-             style="cursor:pointer;padding:14px 18px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:10px;transition:background 0.2s;"
-             onmouseover="this.style.background='rgba(212,175,55,0.18)'" onmouseout="this.style.background='rgba(212,175,55,0.08)'">
-          <div style="font-family:'Playfair Display',serif;color:#fff;font-size:1rem;">${s.name}</div>
-          <div style="font-size:0.8rem;color:#d4af37;margin-top:3px;">${s.genre}${s.home ? ' · ' + s.home : ''}</div>
-        </div>
-      `).join('');
-      // Attach click handlers properly
-      const items = multiList.querySelectorAll('div');
-      matches.forEach((s, i) => { items[i].onclick = () => loadSong(s); });
+      // Multiple matches — build list with proper JS click binding (no inline onclick)
+      multiList.innerHTML = '';
+      matches.forEach(function(s) {
+        const card = document.createElement('div');
+        card.style.cssText = 'cursor:pointer;padding:14px 18px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:10px;transition:background 0.2s;';
+        card.onmouseover = function() { this.style.background = 'rgba(212,175,55,0.18)'; };
+        card.onmouseout  = function() { this.style.background = 'rgba(212,175,55,0.08)'; };
+        card.onclick = function() { loadSong(s); };
+        card.innerHTML = '<div style="font-family:\'Playfair Display\',serif;color:#fff;font-size:1rem;">' + s.name + '</div>' +
+          '<div style="font-size:0.8rem;color:#d4af37;margin-top:3px;">' + s.genre + (s.home ? ' · ' + s.home : '') + '</div>';
+        multiList.appendChild(card);
+      });
 
       multiResult.classList.remove('hidden');
       section.classList.remove('hidden');
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-
-      const match = matches[0]; // fallback (unreachable but keeps old refs)
-      currentSong = match;
 
     }  // end doSearch
 
