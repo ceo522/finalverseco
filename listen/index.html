@@ -1031,7 +1031,7 @@
     }
 
     /* ─── Misc Utilities ─────────────────────────────────────────── */
-    .hidden { display: none; }
+    .hidden { display: none !important; }
     .spinner {
       width: 18px; height: 18px;
       border: 2px solid rgba(26,26,26,0.3);
@@ -1128,12 +1128,6 @@
 
       <!-- Player Result -->
       <section id="player-section" class="hidden">
-
-        <!-- Multi-result list (shown when >1 match) -->
-        <div id="multi-result" class="hidden" style="margin-bottom:24px;">
-          <p style="color:#d4af37;font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:14px;">Multiple songs found — select one:</p>
-          <div id="multi-result-list" style="display:flex;flex-direction:column;gap:10px;"></div>
-        </div>
 
         <div id="no-result" class="search-no-result hidden">
           <p>No song found for that name. Please check the spelling or contact your funeral home.</p>
@@ -1483,95 +1477,98 @@
     }
 
     // ── Search ──────────────────────────────────────────────────
-    function showSong(song) {
-      // Stop audio
+    function loadMatchedSong(match, section, noResult, resultCard, playerUI, showBtn, rushAddon) {
+      var hasAudio = match.audioSrc && match.audioSrc.trim() !== '';
+      currentSong = match;
+      if (hasAudio) { audioEl.src = match.audioSrc; audioEl.load(); showBtn.classList.remove('hidden'); }
+      else { audioEl.src = ''; showBtn.classList.add('hidden'); }
+      document.getElementById('res-name').textContent     = match.name;
+      document.getElementById('res-genre').textContent    = match.genre + (match.home ? ' · ' + match.home : '');
+      document.getElementById('res-duration').textContent = hasAudio ? '—:——' : 'Preview pending';
+      document.getElementById('time-total').textContent   = hasAudio ? '—:——' : '—';
+      document.getElementById('time-current').textContent = hasAudio ? '0:00' : '—';
+      document.getElementById('progress-fill').style.width = '0%';
+      resultCard.classList.remove('hidden');
+      if (hasAudio) rushAddon.classList.remove('hidden');
+      setTimeout(function() { section.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    }
+
+    function doSearch() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      if (!query) return;
+
+      // Stop any playing audio
       audioEl.pause();
       audioEl.currentTime = 0;
       document.getElementById('play-btn').textContent = '▶';
       document.getElementById('waveform').classList.remove('playing');
 
-      // Show/hide sections
-      document.getElementById('player-section').style.display = 'block';
-      document.getElementById('no-result').style.display      = 'none';
-      document.getElementById('multi-result').style.display   = 'none';
-      document.getElementById('result-card').style.display    = 'block';
-      document.getElementById('player-ui').classList.remove('visible');
-      document.getElementById('rush-addon').style.display     = 'none';
-
-      currentSong = song;
-      var hasAudio = song.audioSrc && song.audioSrc.trim() !== '';
-
-      if (hasAudio) {
-        audioEl.src = song.audioSrc;
-        audioEl.load();
-        document.getElementById('show-player-btn').style.display = 'block';
-        document.getElementById('rush-addon').style.display      = 'block';
-      } else {
-        audioEl.src = '';
-        document.getElementById('show-player-btn').style.display = 'none';
-      }
-
-      document.getElementById('res-name').textContent     = song.name;
-      document.getElementById('res-genre').textContent    = song.genre + (song.home ? ' · ' + song.home : '');
-      document.getElementById('res-duration').textContent = hasAudio ? '—:——' : 'Preview pending';
-      document.getElementById('time-total').textContent   = hasAudio ? '—:——' : '—';
-      document.getElementById('time-current').textContent = hasAudio ? '0:00' : '—';
-      document.getElementById('progress-fill').style.width = '0%';
-
-      setTimeout(function() {
-        document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
-
-    function doSearch() {
-      var query = document.getElementById('search-input').value.trim().toLowerCase();
-      if (!query) return;
-
-      var words   = query.split(/\s+/).filter(Boolean);
-      var matches = SONGS.filter(function(s) {
-        var hay = ((s.name || '') + ' ' + (s.genre || '') + ' ' + (s.home || '')).toLowerCase();
-        return words.every(function(w) { return hay.indexOf(w) !== -1; });
+      // Search all words must match name/home/genre
+      const words   = query.split(/\s+/).filter(Boolean);
+      const matches = SONGS.filter(s => {
+        const hay = ((s.name||'') + ' ' + (s.home||'') + ' ' + (s.genre||'')).toLowerCase();
+        return words.every(w => hay.includes(w));
       });
+      const match = matches[0] || null;
 
-      document.getElementById('player-section').style.display = 'block';
-      document.getElementById('no-result').style.display      = 'none';
-      document.getElementById('result-card').style.display    = 'none';
-      document.getElementById('multi-result').style.display   = 'none';
-      document.getElementById('rush-addon').style.display     = 'none';
+      const section    = document.getElementById('player-section');
+      const noResult   = document.getElementById('no-result');
+      const resultCard = document.getElementById('result-card');
+      const playerUI   = document.getElementById('player-ui');
+      const showBtn    = document.getElementById('show-player-btn');
+      const rushAddon  = document.getElementById('rush-addon');
 
-      if (matches.length === 0) {
-        document.getElementById('no-result').style.display = 'block';
-        document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Multi-result pick list
+      var multiEl = document.getElementById('fv-multi-result');
+      if (!multiEl) {
+        multiEl = document.createElement('div');
+        multiEl.id = 'fv-multi-result';
+        multiEl.style.cssText = 'margin-bottom:20px;display:none;';
+        section.insertBefore(multiEl, section.firstChild);
+      }
+      multiEl.style.display = 'none';
+      multiEl.innerHTML = '';
+
+      section.classList.remove('hidden');
+      noResult.classList.add('hidden');
+      resultCard.classList.add('hidden');
+      playerUI.classList.remove('visible');
+      showBtn.classList.remove('hidden');
+      rushAddon.classList.add('hidden');
+
+      if (!match) {
+        noResult.classList.remove('hidden');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
-      if (matches.length === 1) {
-        showSong(matches[0]);
+      // If multiple matches — show pick list first
+      if (matches.length > 1) {
+        multiEl.innerHTML = '<p style="color:#d4af37;font-family:Georgia,serif;margin:0 0 12px;">Multiple songs found — choose one:</p>';
+        matches.forEach(function(s) {
+          var btn = document.createElement('div');
+          btn.style.cssText = 'cursor:pointer;padding:13px 16px;margin-bottom:8px;background:rgba(212,175,55,0.09);border:1px solid rgba(212,175,55,0.25);border-radius:10px;';
+          btn.innerHTML = '<span style="color:#fff;font-size:1rem;">' + s.name + '</span> <span style="color:#d4af37;font-size:0.82rem;margin-left:8px;">' + s.genre + '</span>';
+          (function(song){ btn.onclick = function(){
+            multiEl.style.display = 'none';
+            loadMatchedSong(song, section, noResult, resultCard, playerUI, showBtn, rushAddon);
+          }; }(s));
+          multiEl.appendChild(btn);
+        });
+        multiEl.style.display = 'block';
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
-      // Multiple — show pick list
-      var list = document.getElementById('multi-result-list');
-      list.innerHTML = '';
-      matches.forEach(function(s) {
-        var card = document.createElement('div');
-        card.style.cssText = 'cursor:pointer;padding:14px 18px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:10px;margin-bottom:8px;';
-        card.innerHTML = '<div style="font-family:Georgia,serif;color:#fff;font-size:1rem;">' + s.name + '</div>'
-                       + '<div style="font-size:0.82rem;color:#d4af37;margin-top:4px;">' + s.genre + (s.home ? ' · ' + s.home : '') + '</div>';
-        (function(song) {
-          card.onclick = function() { showSong(song); };
-        }(s));
-        list.appendChild(card);
-      });
-
-      document.getElementById('multi-result').style.display = 'block';
-      document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      loadMatchedSong(match, section, noResult, resultCard, playerUI, showBtn, rushAddon);
     }
 
     // ── Player ──────────────────────────────────────────────────
     function showPlayer() {
-      document.getElementById('player-ui').classList.add('visible');
-      document.getElementById('show-player-btn').style.display = 'none';
+      const playerUI = document.getElementById('player-ui');
+      const showBtn  = document.getElementById('show-player-btn');
+      playerUI.classList.add('visible');
+      showBtn.classList.add('hidden');
       audioEl.play().catch(() => {});
       document.getElementById('play-btn').textContent = '⏸';
       document.getElementById('waveform').classList.add('playing');
