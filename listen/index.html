@@ -1403,23 +1403,70 @@
     // ── Real Audio element ─────────────────────────────────────
     const audioEl = document.getElementById('real-audio');
 
-    // Sync progress bar & time display to real audio
+    // ── Snippet config ──────────────────────────────────────
+    const SNIPPET_LIMIT = 60; // seconds
+    const FADE_DURATION = 4;  // seconds to fade out
+    let snippetFading = false;
+
+    // ── Listen counter (stored in localStorage, admin-only) ──
+    function recordPlay(songName) {
+      try {
+        var counts = JSON.parse(localStorage.getItem('fv_play_counts') || '{}');
+        counts[songName] = (counts[songName] || 0) + 1;
+        counts['__total__'] = (counts['__total__'] || 0) + 1;
+        localStorage.setItem('fv_play_counts', JSON.stringify(counts));
+      } catch(_) {}
+    }
+
+    // Sync progress bar & time display to real audio + enforce 60s snippet
     audioEl.addEventListener('timeupdate', () => {
       if (!audioEl.duration) return;
-      const pct = (audioEl.currentTime / audioEl.duration) * 100;
+      var t = audioEl.currentTime;
+      var pct = (t / audioEl.duration) * 100;
       document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('time-current').textContent = formatTime(audioEl.currentTime);
+      document.getElementById('time-current').textContent = formatTime(t);
+
+      // Fade out starting at (SNIPPET_LIMIT - FADE_DURATION) seconds
+      var fadeStart = SNIPPET_LIMIT - FADE_DURATION;
+      if (t >= fadeStart && t < SNIPPET_LIMIT && !snippetFading) {
+        snippetFading = true;
+        var fadeSteps = 20;
+        var stepMs = (FADE_DURATION * 1000) / fadeSteps;
+        var step = 0;
+        var fadeTimer = setInterval(function() {
+          step++;
+          audioEl.volume = Math.max(0, 1 - step / fadeSteps);
+          if (step >= fadeSteps) clearInterval(fadeTimer);
+        }, stepMs);
+      }
+
+      // Hard stop at SNIPPET_LIMIT
+      if (t >= SNIPPET_LIMIT) {
+        audioEl.pause();
+        audioEl.currentTime = 0;
+        audioEl.volume = 1;
+        snippetFading = false;
+        document.getElementById('play-btn').textContent = '▶';
+        document.getElementById('waveform').classList.remove('playing');
+        document.getElementById('progress-fill').style.width = '0%';
+        document.getElementById('time-current').textContent = '0:00';
+        // Nudge user to order after preview
+        setTimeout(function() { scrollToStore(); }, 600);
+      }
     });
 
-    // Once metadata loaded, show real duration
+    // Once metadata loaded, show capped duration (60s max display)
     audioEl.addEventListener('loadedmetadata', () => {
-      document.getElementById('time-total').textContent   = formatTime(audioEl.duration);
-      document.getElementById('res-duration').textContent = formatTime(audioEl.duration);
+      var cap = Math.min(audioEl.duration, SNIPPET_LIMIT);
+      document.getElementById('time-total').textContent   = formatTime(cap) + ' preview';
+      document.getElementById('res-duration').textContent = formatTime(cap) + ' preview';
     });
 
-    // When song ends — reset to beginning
+    // When song ends naturally — reset
     audioEl.addEventListener('ended', () => {
       audioEl.currentTime = 0;
+      audioEl.volume = 1;
+      snippetFading = false;
       document.getElementById('play-btn').textContent = '▶';
       document.getElementById('waveform').classList.remove('playing');
       document.getElementById('progress-fill').style.width = '0%';
@@ -1571,13 +1618,17 @@
       const showBtn  = document.getElementById('show-player-btn');
       playerUI.classList.add('visible');
       showBtn.classList.add('hidden');
+      audioEl.volume = 1;
+      snippetFading = false;
       audioEl.play().catch(() => {});
       document.getElementById('play-btn').textContent = '⏸';
       document.getElementById('waveform').classList.add('playing');
+      if (currentSong) recordPlay(currentSong.name);
     }
 
     function togglePlay() {
       if (audioEl.paused) {
+        if (audioEl.currentTime === 0) { audioEl.volume = 1; snippetFading = false; }
         audioEl.play().catch(() => {});
         document.getElementById('play-btn').textContent = '⏸';
         document.getElementById('waveform').classList.add('playing');
@@ -1593,7 +1644,9 @@
       const bg   = document.getElementById('progress-bg');
       const rect = bg.getBoundingClientRect();
       const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      audioEl.currentTime = pct * audioEl.duration;
+      // Clamp seek to snippet limit
+      audioEl.currentTime = Math.min(pct * audioEl.duration, SNIPPET_LIMIT - 1);
+      audioEl.volume = 1; snippetFading = false;
     }
 
     function formatTime(secs) {
