@@ -1442,7 +1442,7 @@
     const audioEl = document.getElementById('real-audio');
 
     // ── Snippet config ──────────────────────────────────────
-    const SNIPPET_LIMIT = 60; // seconds
+    const SNIPPET_LIMIT = 30; // seconds
     const FADE_DURATION = 4;  // seconds to fade out
     let snippetFading = false;
 
@@ -1456,7 +1456,7 @@
       } catch(_) {}
     }
 
-    // Sync progress bar & time display to real audio + enforce 60s snippet (skipped for fullStream songs)
+    // Sync progress bar & time display to real audio + enforce 30s snippet (skipped for fullStream songs)
     audioEl.addEventListener('timeupdate', () => {
       if (!audioEl.duration) return;
       var t = audioEl.currentTime;
