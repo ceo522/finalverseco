@@ -1143,7 +1143,7 @@
           <div style="margin-top:28px;background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.22);border-radius:14px;padding:28px 24px;">
             <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:#fff;margin-bottom:8px;">Don't See Your Loved One?</div>
             <p style="font-size:0.9rem;color:#999;line-height:1.65;margin-bottom:18px;">We can create a personalized memorial song for anyone. Order directly and we will craft it within 48 hours.</p>
-            <a href="https://buy.stripe.com/dRmfZg4bm34Egc26bU6c004" target="_blank" style="display:inline-block;padding:13px 30px;background:#D4AF37;color:#1A1A1A;font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:50px;text-decoration:none;transition:background 0.2s;">Order a Custom Song — $297</a>
+            <a href="https://buy.stripe.com/7sY8wO37ieNmbVM57Q6c01y" target="_blank" style="display:inline-block;padding:13px 30px;background:#D4AF37;color:#1A1A1A;font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:50px;text-decoration:none;transition:background 0.2s;">Order a Custom Song — $297</a>
             <div style="font-size:0.75rem;color:#555;margin-top:10px;">🔒 Secure checkout via Stripe · Delivered within 48 hours</div>
           </div>
         </div>
@@ -1196,19 +1196,19 @@
 
       </section>
 
-      <!-- Rush Delivery Add-On (shown after search result) -->
+      <!-- Keep the Song (shown after search result) — opens the family's page, where the one $297 option lives -->
       <div id="rush-addon" class="hidden">
         <div class="rush-card">
           <div class="rush-left">
-            <div class="rush-emoji">⚡</div>
+            <div class="rush-emoji">&#127925;</div>
             <div class="rush-info">
-              <div class="rush-name">Rush Delivery — Song in 12 Hours</div>
-              <div class="rush-desc">Need it fast? We'll prioritize your order and deliver the finished song file within 12 hours.</div>
+              <div class="rush-name">Keep the Song</div>
+              <div class="rush-desc">Hear the full song, download it, and share it with the whole family. Yours forever.</div>
             </div>
           </div>
           <div class="rush-right">
-            <div class="rush-price">+$97</div>
-            <a href="mailto:ceo@dortchai.com?subject=Rush%20Order%20Request&body=I%20would%20like%20to%20request%20rush%20delivery%20for%20my%20memorial%20song." class="rush-btn" onclick="trackCheckout(event, 'Rush Delivery')">Add Rush</a>
+            <div class="rush-price">$297</div>
+            <a href="#" id="keep-link" class="rush-btn" onclick="trackCheckout(event, 'Keep the Song')">Keep the Song</a>
           </div>
         </div>
       </div>
@@ -1228,72 +1228,20 @@
       <!-- Product Store -->
       <section id="store-section" aria-label="Memorial Keepsakes">
         <div class="store-header fade-in">
-          <p class="store-eyebrow">Memorial Keepsakes</p>
-          <h2 class="store-title">Carry the Music With You</h2>
+          <p class="store-eyebrow">Keep It Forever</p>
+          <h2 class="store-title">One Simple Price</h2>
           <p class="store-body">
-            Every song we create can live beyond a screen. Our handcrafted keepsakes
-            let family members hold, wear, and replay the music — whenever they need it most.
+            Listening is always free. When you are ready, keep their song forever. Keepsakes like a QR keychain, an engraved flash drive and a picture frame can be added after.
           </p>
         </div>
 
-        <!-- ── BUNDLE FIRST — ANCHOR CARD ── -->
         <div class="bundle-card" id="order">
-          <div class="bundle-badge">🎁 Best Value — Most Popular</div>
-          <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438334/final-verse/products/usb_drive.png" alt="Handcrafted wood memorial music box" loading="lazy" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:16px;" />
-          <h3 class="bundle-title">The Complete Collection</h3>
-          <p class="bundle-items">
-            Everything above. Song + frame + keychain + drive. Save $273.
-          </p>
-          <p class="bundle-anchor-text">Most families choose the bundle to keep their loved one's memory in every room.</p>
-          <div class="bundle-pricing">
-            <span class="bundle-price">$597</span>
-            <span class="bundle-original">$870</span>
-            <span class="bundle-save">Save $273</span>
-          </div>
-          <a href="https://buy.stripe.com/dRmfZg4bm34Egc26bU6c004" target="_blank" class="bundle-btn" onclick="trackCheckout(event, 'Bundle')">Get the Bundle</a>
-          <span class="bundle-stripe-badge">🔒 Secure checkout via Stripe</span>
-        </div>
-
-        <!-- ── INDIVIDUAL PRODUCTS GRID ── -->
-        <div class="products-grid">
-
-          <div class="product-card">
-            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438301/final-verse/products/digital.png" alt="Digital memorial song download - MP3 and WAV" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
-            <div class="product-name">Digital Download</div>
-            <div class="product-price">$297</div>
-            <div class="product-desc">Download your song forever in MP3 + WAV. Yours to keep, share, and play anywhere.</div>
-            <div class="product-anchor">The most popular choice — yours instantly.</div>
-            <a href="https://buy.stripe.com/bJe3cu9vG34E7Fw2ZI6c000" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Digital Download')">Order Now</a>
-            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
-          </div>
-
-          <div class="product-card">
-            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438271/final-verse/products/photo_frame.png" alt="Memorial song oak photo frame with built-in speaker" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
-            <div class="product-name">Song Photo Frame</div>
-            <div class="product-price">$349</div>
-            <div class="product-desc">A solid wood frame with built-in speaker. Press the button and hear your loved one's song. Song included.</div>
-            <a href="https://buy.stripe.com/4gMaEW9vG8oYf7Y9o66c001" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Song Photo Frame')">Order Now</a>
-            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
-          </div>
-
-          <div class="product-card">
-            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438252/final-verse/products/keychain.png" alt="Custom audio memorial keychain" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
-            <div class="product-name">Custom Keychain</div>
-            <div class="product-price">$97</div>
-            <div class="product-desc">Premium metal keychain with built-in speaker. Press to play your loved one's song. Song included.</div>
-            <a href="https://buy.stripe.com/9B63cu9vG0Ww9NEeIq6c002" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Custom Keychain')">Order Now</a>
-            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
-          </div>
-
-          <div class="product-card">
-            <img src="https://res.cloudinary.com/dej4h3qly/image/upload/v1776438334/final-verse/products/usb_drive.png" alt="Engraved gold memorial USB drive in velvet pouch" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px;" />
-            <div class="product-name">Engraved Thumb Drive</div>
-            <div class="product-price">$127</div>
-            <div class="product-desc">Laser-engraved gold USB drive pre-loaded with the song. Velvet pouch included. Song included.</div>
-            <a href="https://buy.stripe.com/6oUfZgcHSfRq5xo1VE6c003" target="_blank" class="product-btn" onclick="trackCheckout(event, 'Engraved Thumb Drive')">Order Now</a>
-            <div class="stripe-badge">🔒 Secure checkout via Stripe</div>
-          </div>
-
+          <h3 class="bundle-title">Keep the Song</h3>
+          <p class="bundle-items">Their full song to download, plus a private page to play and share it with the whole family.</p>
+          <div class="bundle-pricing"><span class="bundle-price">$297</span></div>
+          <a href="#search-input" class="bundle-btn" onclick="document.getElementById('search-input').focus()">Find Their Song</a>
+          <span class="bundle-stripe-badge">Search their name above, then tap Keep the Song. Keepsakes open up after.</span>
+          <p style="margin-top:14px;font-size:0.85rem;color:#bbb;">Don&rsquo;t see them? <a href="https://buy.stripe.com/7sY8wO37ieNmbVM57Q6c01y" target="_blank" style="color:#D4AF37;">Order a custom song &mdash; $297</a></p>
         </div>
 
       </section>
@@ -1636,7 +1584,12 @@
       document.getElementById('time-current').textContent = hasAudio ? '0:00' : '—';
       document.getElementById('progress-fill').style.width = '0%';
       resultCard.classList.remove('hidden');
-      if (hasAudio) rushAddon.classList.remove('hidden');
+      if (hasAudio) {
+        var who = (match.name || '').replace(/\s+(Gospel|Reggae|R&B)$/, '');
+        var slug = who.replace(/'/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        document.getElementById('keep-link').href = '/play/' + slug + '.html';
+        rushAddon.classList.remove('hidden');
+      }
       setTimeout(function() { section.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
     }
 

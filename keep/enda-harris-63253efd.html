@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Enda Harris — Your Song — Final Verse</title>
+<meta name="robots" content="noindex,nofollow"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;color:#f0e6c8;font-family:Georgia,serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+.card{background:#1a1a1a;border:1px solid rgba(212,175,55,0.3);border-radius:16px;padding:40px 28px;max-width:480px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.5)}
+.logo{color:#D4AF37;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.name{font-size:clamp(1.4rem,4vw,2rem);font-weight:400;margin-bottom:6px;line-height:1.3}
+.home{color:#9a9a9a;font-size:0.9rem;margin-bottom:4px}
+.genre{color:#D4AF37;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:32px}
+.tracks{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0 28px}
+.track{background:transparent;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:50px;padding:6px 16px;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.track.on{background:#D4AF37;color:#111}
+.play-btn{background:#D4AF37;color:#111;border:none;border-radius:50px;width:72px;height:72px;font-size:28px;cursor:pointer;margin-bottom:24px;transition:transform 0.15s,background 0.15s;display:inline-flex;align-items:center;justify-content:center}
+.play-btn:hover{background:#e8c94f;transform:scale(1.06)}
+.progress-wrap{background:#252525;border-radius:4px;height:4px;width:100%;margin-bottom:12px;cursor:pointer;overflow:hidden}
+.progress-bar{background:#D4AF37;height:4px;width:0%;border-radius:4px;transition:width 0.25s linear}
+.time{font-size:0.8rem;color:#666;margin-bottom:28px}
+.note{color:#9a9a9a;font-size:0.85rem;line-height:1.5;margin-bottom:20px}
+.cta{display:inline-block;background:#D4AF37;color:#111;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:0.85rem;letter-spacing:0.5px;margin-bottom:12px}
+.cta2{display:inline-block;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:0.85rem;letter-spacing:0.5px;margin-bottom:20px}
+.footer{color:#555;font-size:0.75rem;margin-top:8px}
+.offer{display:grid;gap:12px;margin:4px 0 22px;text-align:left}
+.opt{display:block;border:1px solid rgba(212,175,55,0.35);border-radius:12px;padding:16px 18px;text-decoration:none;color:#f0e6c8;position:relative}
+.opt.top{border-color:#D4AF37;background:rgba(212,175,55,0.07)}
+.opt b{display:flex;justify-content:space-between;gap:12px;font-weight:400;font-size:1.05rem;color:#fff}
+.opt b span{color:#D4AF37;white-space:nowrap}
+.opt small{display:block;color:#9a9a9a;font-size:0.82rem;line-height:1.45;margin-top:6px}
+.opt .tag{position:absolute;top:-10px;right:14px;background:#D4AF37;color:#111;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+.opt em{display:inline-block;margin-top:10px;font-style:normal;font-size:0.8rem;color:#D4AF37}
+.secure{color:#666;font-size:0.72rem;margin:-10px 0 18px}
+.h2{color:#D4AF37;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin:30px 0 12px}
+.dl{display:block;background:#D4AF37;color:#111;padding:12px 18px;border-radius:8px;text-decoration:none;font-size:0.9rem;margin-bottom:10px}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+.small-btn{background:transparent;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:6px;padding:8px 14px;font-size:0.8rem;cursor:pointer;font-family:inherit;text-decoration:none}
+.thanks{background:rgba(212,175,55,0.1);border:1px solid #D4AF37;border-radius:12px;padding:16px;margin-bottom:24px;font-size:0.9rem;line-height:1.5;display:none}
+.lyrics{text-align:left;white-space:pre-wrap;font-size:0.88rem;line-height:1.6;color:#d8cfb4;background:#151515;border-radius:10px;padding:16px;max-height:340px;overflow:auto;margin-bottom:10px}
+@media print{body{background:#fff;color:#000;display:block}.card{border:none;box-shadow:none;background:#fff}
+ .card>*:not(.print-area){display:none!important}.print-area,.print-area *{display:block!important;color:#000!important;background:#fff!important;max-height:none!important}}
+.footer a{color:#D4AF37;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <p class="logo">&#9834; Final Verse</p>
+  <h1 class="name">Enda Harris</h1>
+  <p class="home">Henderson&#x27;s Funeral Home &amp; Cremation Services</p>
+  <div class="tracks"><button class="track on" data-src="https://res.cloudinary.com/dej4h3qly/video/upload/v1795354738/final-verse/henderson_s_funeral_home_crema-enda_harris-gospel.mp3" onclick="pick(this)">Gospel</button><button class="track" data-src="https://res.cloudinary.com/dej4h3qly/video/upload/v1795354802/final-verse/henderson_s_funeral_home_crema-enda_harris-r_b_soul.mp3" onclick="pick(this)">R&amp;B Soul</button></div>
+  <button class="play-btn" id="playBtn" onclick="togglePlay()">&#9654;</button>
+  <div class="progress-wrap" onclick="seek(event)">
+    <div class="progress-bar" id="progress"></div>
+  </div>
+  <p class="time" id="timeDisplay">0:00 / 0:00</p>
+  <div class="thanks" id="thanks"></div>
+  <p class="h2">Your song</p>
+  <a class="dl" href="https://res.cloudinary.com/dej4h3qly/video/upload/fl_attachment:Enda_Harris_Gospel/v1795354738/final-verse/henderson_s_funeral_home_crema-enda_harris-gospel.mp3">&#11015; Download the Gospel song (MP3)</a><a class="dl" href="https://res.cloudinary.com/dej4h3qly/video/upload/fl_attachment:Enda_Harris_R_B_Soul/v1795354802/final-verse/henderson_s_funeral_home_crema-enda_harris-r_b_soul.mp3">&#11015; Download the R&amp;B Soul song (MP3)</a>
+  <div class="row">
+    <button class="small-btn" onclick="share()">Share with family</button>
+    <button class="small-btn" onclick="copyLink(this)">Copy link</button>
+  </div>
+  <p class="note" style="margin-top:10px">Anyone you send this page to can play the song, download it, and order their own keepsake.</p>
+  <div class="print-area"><h2 style="display:none">Enda Harris</h2><p class="h2">Lyrics &middot; Gospel</p><div class="lyrics">[Verse 1]
+Down in Goodman, Mississippi, a little girl was born
+Lillie Mae raised her up in love through every storm
+She stood up for civil rights when the times were hard and long
+Enda Harris raised her voice and carried freedom&#x27;s song
+
+[Chorus]
+Enda, Enda, you taught us how to stand
+Forty years of little ones, you held them by the hand
+From Goodman to Springfield, your light is shining through
+Paradise is calling, and we&#x27;ll keep on loving you
+
+[Verse 2]
+She earned her degree in early childhood, then special ed besides
+Preschool doors across Springfield, she opened them so wide
+Holyoke, Chicopee, Springfield, Head Start was her call
+Every child who sat before her, she believed in them all
+
+[Chorus]
+Enda, Enda, you taught us how to stand
+Forty years of little ones, you held them by the hand
+From Goodman to Springfield, your light is shining through
+Paradise is calling, and we&#x27;ll keep on loving you
+
+[Bridge]
+Minister Ishaq is waiting, Isaac at the gate
+Her sons are standing with him, they don&#x27;t have long to wait
+Over three hundred forty grandchildren carry on her name
+Seventy-nine years of faith, and we will never be the same
+
+[Final Chorus]
+Enda, Enda, you taught us how to stand
+Forty years of little ones, you held them by the hand
+Now we carry you home to Goodman, where your story first came true
+Paradise has called you, and we&#x27;ll keep on loving you
+Yes, we&#x27;ll keep on loving you</div><p class="h2">Lyrics &middot; R&amp;B Soul</p><div class="lyrics">[Verse 1]
+Born in Goodman, Mississippi, red dirt and Delta sun
+Lillie Mae raised her up with love, taught her how to stand for someone
+She marched for civil rights when the road was hard and long
+Enda knew her voice was meant to carry more than just a song
+She took that fire up north to Springfield, Massachusetts snow
+Earned her degree in early childhood, &#x27;cause she had seeds to sow
+Special education too, for every child who needed more
+Miss Enda kept a light on, and she always held the door
+
+[Chorus]
+Sing it for Enda, let the whole room shine
+Forty years of little hands she held in time
+From Goodman to Springfield, she gave the world her heart
+Enda Harris, you were love right from the start
+Oh, Enda, we&#x27;re still singing your song
+
+[Verse 2]
+Head Start in Holyoke, Chicopee, and Springfield too
+She knelt down to a child&#x27;s eye and said, &quot;Baby, I believe in you&quot;
+She stood beside Minister Ishaq, Isaac Harris was his name
+Building up a family, and they never were the same
+Sons and daughters all around her, every name a prayer
+Over three hundred forty grandbabies, she made room for them all there
+Seventy-nine years of giving, and when her journey&#x27;s end was near
+She was surrounded by her family, everybody she held dear
+
+[Chorus]
+Sing it for Enda, let the whole room shine
+Forty years of little hands she held in time
+From Goodman to Springfield, she gave the world her heart
+Enda Harris, you were love right from the start
+Oh, Enda, we&#x27;re still singing your song
+
+[Bridge]
+Now her creator&#x27;s granted paradise, she&#x27;s resting in His grace
+Third Baptist on Walnut Street, we gather in this place
+And we&#x27;ll carry her back home to Goodman, where her story first began
+Back to Mississippi soil, held in her creator&#x27;s hand
+
+[Final Chorus]
+Sing it for Enda, let the whole room shine
+Forty years of little hands she held in time
+From Goodman to Springfield, she gave the world her heart
+Enda Harris, you were love right from the start
+Three hundred forty voices carry on
+Oh, Enda, we&#x27;re still singing your song
+Yes, Enda, we&#x27;re still singing your song</div></div><div class="row"><button class="small-btn" onclick="window.print()">Print the lyrics</button></div>
+  <div id="addons">
+  <p class="h2">Add a keepsake</p>
+  <div class="offer">
+    <a class="opt" href="https://buy.stripe.com/28E6oGcHS0Ww2lc57Q6c00e?client_reference_id=enda-harris"><b>QR keychain <span>$49</span></b><small>Scan it with any phone to play their song.</small></a>
+    <a class="opt" href="https://buy.stripe.com/6oU5kCcHS0WwaRI1VE6c00f?client_reference_id=enda-harris"><b>Engraved flash drive <span>$79</span></b><small>Their song and photo, to keep or play anywhere.</small></a>
+    <a class="opt" href="https://buy.stripe.com/eVqdR8dLWeNm1h89o66c00g?client_reference_id=enda-harris"><b>Picture frame <span>$149</span></b><small>Their photo, with a QR code that plays the song.</small></a>
+    <a class="opt top" id="upgrade" href="https://buy.stripe.com/bJecN4bDOdJibVM2ZI6c00h?client_reference_id=enda-harris"><b>Upgrade to the Legacy Collection <span>+$300</span></b>
+      <small>Adds the keychain, the flash drive and the frame, plus a tribute video (their photos set to the song). The video is only $23 more than the three keepsakes alone.</small></a>
+  </div>
+  <p class="secure">&#128274; Secure checkout by Stripe. Ships to your door. Order as many as the family needs.</p>
+  </div>
+  <p class="footer">Final Verse &middot; <a href="mailto:ceo@dortchai.com">ceo@dortchai.com</a> &middot; 877-877-0417</p>
+</div>
+<audio id="audio" src="https://res.cloudinary.com/dej4h3qly/video/upload/v1795354738/final-verse/henderson_s_funeral_home_crema-enda_harris-gospel.mp3" preload="auto"></audio>
+<script>
+var audio=document.getElementById('audio'),btn=document.getElementById('playBtn'),bar=document.getElementById('progress'),time=document.getElementById('timeDisplay');
+function fmt(s){var m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',function(){if(audio.duration){bar.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+audio.addEventListener('ended',function(){btn.innerHTML='&#9654;';});
+function togglePlay(){if(audio.paused){audio.play();btn.innerHTML='&#9646;&#9646;';}else{audio.pause();btn.innerHTML='&#9654;';}}
+function seek(e){var pct=e.offsetX/e.currentTarget.offsetWidth;if(audio.duration)audio.currentTime=audio.duration*pct;}
+function pick(b){document.querySelectorAll('.track').forEach(function(t){t.classList.remove('on');});b.classList.add('on');audio.src=b.dataset.src;audio.play().then(function(){btn.innerHTML='&#9646;&#9646;';}).catch(function(){});}
+</script>
+<script>
+var NAME="Enda Harris",q=new URLSearchParams(location.search).get('paid'),t=document.getElementById('thanks');
+try{if(q)localStorage.setItem('fv_paid_enda-harris',q);q=q||localStorage.getItem('fv_paid_enda-harris');}catch(x){}
+if(q==='song'){t.style.display='block';t.innerHTML='<b>Thank you.</b> ';t.append(NAME+"'s song is yours. Download it below and save this page, it stays up forever. We also emailed you the link.");}
+if(q==='legacy'){t.style.display='block';t.innerHTML='<b>Thank you.</b> Your Legacy Collection is started. Download the song below now. We\'ll email you within 24 hours to get the photos for the tribute video, the frame and the flash drive.';document.getElementById('upgrade').style.display='none';}
+function share(){if(navigator.share)navigator.share({title:NAME+' — Final Verse',url:location.origin+location.pathname});else copyLink();}
+function copyLink(b){var u=location.origin+location.pathname;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){if(b)b.textContent='Link copied';}).catch(function(){prompt('Copy this link:',u);});}
+</script>
+</body>
+</html>

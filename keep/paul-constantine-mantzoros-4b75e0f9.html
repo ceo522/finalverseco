@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Paul Constantine Mantzoros — Your Song — Final Verse</title>
+<meta name="robots" content="noindex,nofollow"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;color:#f0e6c8;font-family:Georgia,serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+.card{background:#1a1a1a;border:1px solid rgba(212,175,55,0.3);border-radius:16px;padding:40px 28px;max-width:480px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.5)}
+.logo{color:#D4AF37;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.name{font-size:clamp(1.4rem,4vw,2rem);font-weight:400;margin-bottom:6px;line-height:1.3}
+.home{color:#9a9a9a;font-size:0.9rem;margin-bottom:4px}
+.genre{color:#D4AF37;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:32px}
+.tracks{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0 28px}
+.track{background:transparent;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:50px;padding:6px 16px;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.track.on{background:#D4AF37;color:#111}
+.play-btn{background:#D4AF37;color:#111;border:none;border-radius:50px;width:72px;height:72px;font-size:28px;cursor:pointer;margin-bottom:24px;transition:transform 0.15s,background 0.15s;display:inline-flex;align-items:center;justify-content:center}
+.play-btn:hover{background:#e8c94f;transform:scale(1.06)}
+.progress-wrap{background:#252525;border-radius:4px;height:4px;width:100%;margin-bottom:12px;cursor:pointer;overflow:hidden}
+.progress-bar{background:#D4AF37;height:4px;width:0%;border-radius:4px;transition:width 0.25s linear}
+.time{font-size:0.8rem;color:#666;margin-bottom:28px}
+.note{color:#9a9a9a;font-size:0.85rem;line-height:1.5;margin-bottom:20px}
+.cta{display:inline-block;background:#D4AF37;color:#111;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:0.85rem;letter-spacing:0.5px;margin-bottom:12px}
+.cta2{display:inline-block;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:0.85rem;letter-spacing:0.5px;margin-bottom:20px}
+.footer{color:#555;font-size:0.75rem;margin-top:8px}
+.offer{display:grid;gap:12px;margin:4px 0 22px;text-align:left}
+.opt{display:block;border:1px solid rgba(212,175,55,0.35);border-radius:12px;padding:16px 18px;text-decoration:none;color:#f0e6c8;position:relative}
+.opt.top{border-color:#D4AF37;background:rgba(212,175,55,0.07)}
+.opt b{display:flex;justify-content:space-between;gap:12px;font-weight:400;font-size:1.05rem;color:#fff}
+.opt b span{color:#D4AF37;white-space:nowrap}
+.opt small{display:block;color:#9a9a9a;font-size:0.82rem;line-height:1.45;margin-top:6px}
+.opt .tag{position:absolute;top:-10px;right:14px;background:#D4AF37;color:#111;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+.opt em{display:inline-block;margin-top:10px;font-style:normal;font-size:0.8rem;color:#D4AF37}
+.secure{color:#666;font-size:0.72rem;margin:-10px 0 18px}
+.h2{color:#D4AF37;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin:30px 0 12px}
+.dl{display:block;background:#D4AF37;color:#111;padding:12px 18px;border-radius:8px;text-decoration:none;font-size:0.9rem;margin-bottom:10px}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+.small-btn{background:transparent;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:6px;padding:8px 14px;font-size:0.8rem;cursor:pointer;font-family:inherit;text-decoration:none}
+.thanks{background:rgba(212,175,55,0.1);border:1px solid #D4AF37;border-radius:12px;padding:16px;margin-bottom:24px;font-size:0.9rem;line-height:1.5;display:none}
+.lyrics{text-align:left;white-space:pre-wrap;font-size:0.88rem;line-height:1.6;color:#d8cfb4;background:#151515;border-radius:10px;padding:16px;max-height:340px;overflow:auto;margin-bottom:10px}
+@media print{body{background:#fff;color:#000;display:block}.card{border:none;box-shadow:none;background:#fff}
+ .card>*:not(.print-area){display:none!important}.print-area,.print-area *{display:block!important;color:#000!important;background:#fff!important;max-height:none!important}}
+.footer a{color:#D4AF37;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <p class="logo">&#9834; Final Verse</p>
+  <h1 class="name">Paul Constantine Mantzoros</h1>
+  <p class="home">Sampson Family Chapels</p>
+  <div class="tracks"><button class="track on" data-src="https://res.cloudinary.com/dej4h3qly/video/upload/v1794744297/final-verse/sampson_family_chapels-paul_constantine_mantzoros-gospel.mp3" onclick="pick(this)">Gospel</button><button class="track" data-src="https://res.cloudinary.com/dej4h3qly/video/upload/v1794744382/final-verse/sampson_family_chapels-paul_constantine_mantzoros-traditional_catholic_hymn.mp3" onclick="pick(this)">Traditional Catholic Hymn</button></div>
+  <button class="play-btn" id="playBtn" onclick="togglePlay()">&#9654;</button>
+  <div class="progress-wrap" onclick="seek(event)">
+    <div class="progress-bar" id="progress"></div>
+  </div>
+  <p class="time" id="timeDisplay">0:00 / 0:00</p>
+  <div class="thanks" id="thanks"></div>
+  <p class="h2">Your song</p>
+  <a class="dl" href="https://res.cloudinary.com/dej4h3qly/video/upload/fl_attachment:Paul_Constantine_Mantzoros_Gospel/v1794744297/final-verse/sampson_family_chapels-paul_constantine_mantzoros-gospel.mp3">&#11015; Download the Gospel song (MP3)</a><a class="dl" href="https://res.cloudinary.com/dej4h3qly/video/upload/fl_attachment:Paul_Constantine_Mantzoros_Traditional_Catholic_Hymn/v1794744382/final-verse/sampson_family_chapels-paul_constantine_mantzoros-traditional_catholic_hymn.mp3">&#11015; Download the Traditional Catholic Hymn song (MP3)</a>
+  <div class="row">
+    <button class="small-btn" onclick="share()">Share with family</button>
+    <button class="small-btn" onclick="copyLink(this)">Copy link</button>
+  </div>
+  <p class="note" style="margin-top:10px">Anyone you send this page to can play the song, download it, and order their own keepsake.</p>
+  <div class="print-area"><h2 style="display:none">Paul Constantine Mantzoros</h2><p class="h2">Lyrics &middot; Gospel</p><div class="lyrics">[Verse 1]
+Born in Athens in the winter light,
+Son of Constantine and Vasiliki,
+He carried Greece in every song he loved,
+And brought it home to Springfield faithfully.
+At St. George he lifted up his prayers,
+The Orthodox faith he held so dear,
+Smart and steady, always on our team,
+Paul, we still can feel you here.
+
+[Chorus]
+Pour one more cup for Paul,
+Save his seat at the table for us all,
+Thirty, forty years of friends who&#x27;d answer when he&#x27;d call,
+He put himself second, and he stood up tall.
+Oh, we sing it for Paul.
+
+[Verse 2]
+Thirteen years he gave at DXC,
+He never wanted to let anyone down,
+Even on his hardest days he showed up,
+That&#x27;s the kind of man we had around.
+A spur-of-the-moment trip, a foreign car,
+History and art and a good meal shared,
+That one-of-a-kind humor in the room,
+And everybody knew how much he cared.
+
+[Chorus]
+Pour one more cup for Paul,
+Save his seat at the table for us all,
+Thirty, forty years of friends who&#x27;d answer when he&#x27;d call,
+He put himself second, and he stood up tall.
+Oh, we sing it for Paul.
+
+[Bridge]
+He faced a lot of trouble, but he stayed positive and strong,
+He was a caretaker, a good son, and he stayed that way all along,
+Now Peter and Nicholas are waiting,
+His brothers waiting by the door,
+Mama and Papa singing, &quot;Welcome home,&quot;
+Back where he started from, and more.
+
+[Final Chorus]
+Pour one more cup for Paul,
+Save his seat at the table for us all,
+The friends who were his family will answer when you call,
+You put yourself second, Paul, and you stood up tall.
+Oh, we sing it for Paul,
+Yes, we sing it for Paul.</div><p class="h2">Lyrics &middot; Traditional Catholic Hymn</p><div class="lyrics">[Verse 1]
+From Athens came a son of Greece,
+To Constantine and Vasiliki born,
+He carried home in every hymn
+At St. George on a Sunday morn.
+The music and the faith of old,
+The history he held so dear,
+His homeland lived inside his heart
+And kept his roots forever near.
+
+[Chorus]
+Sing for Paul, our faithful friend,
+Thirty, forty years and more,
+The one you&#x27;d want there on your team,
+The one you could depend upon for sure.
+Through every hard and heavy day
+He put himself second, stood strong,
+Paul Constantine, we lift your name
+And carry you in song.
+
+[Verse 2]
+A sudden trip, a new day&#x27;s road,
+Adventures with his friends in tow,
+A foreign car, a work of art,
+Good food and stories as they go.
+A cup of coffee, laughter shared,
+That humor only Paul could bring,
+Thirteen years he gave DXC,
+He never let down anyone.
+
+[Chorus]
+Sing for Paul, our faithful friend,
+Thirty, forty years and more,
+The one you&#x27;d want there on your team,
+The one you could depend upon for sure.
+Through every hard and heavy day
+He put himself second, stood strong,
+Paul Constantine, we lift your name
+And carry you in song.
+
+[Bridge]
+A loving son, a caretaker,
+Who held his family close and true,
+With Peter and with Nicholas,
+His brothers, now he&#x27;s home with you.
+The friends who stood around him
+Were family through and through,
+He taught us all to stay positive,
+And see the hard days through.
+
+[Final Chorus]
+Sing for Paul, our faithful friend,
+Thirty, forty years and more,
+The one you&#x27;d want there on your team,
+The one you could depend upon for sure.
+From Athens to Oak Grove&#x27;s rest,
+His faith and friendships carry on,
+Paul Constantine, memory eternal,
+We carry you in song.</div></div><div class="row"><button class="small-btn" onclick="window.print()">Print the lyrics</button></div>
+  <div id="addons">
+  <p class="h2">Add a keepsake</p>
+  <div class="offer">
+    <a class="opt" href="https://buy.stripe.com/28E6oGcHS0Ww2lc57Q6c00e?client_reference_id=paul-constantine-mantzoros"><b>QR keychain <span>$49</span></b><small>Scan it with any phone to play their song.</small></a>
+    <a class="opt" href="https://buy.stripe.com/6oU5kCcHS0WwaRI1VE6c00f?client_reference_id=paul-constantine-mantzoros"><b>Engraved flash drive <span>$79</span></b><small>Their song and photo, to keep or play anywhere.</small></a>
+    <a class="opt" href="https://buy.stripe.com/eVqdR8dLWeNm1h89o66c00g?client_reference_id=paul-constantine-mantzoros"><b>Picture frame <span>$149</span></b><small>Their photo, with a QR code that plays the song.</small></a>
+    <a class="opt top" id="upgrade" href="https://buy.stripe.com/bJecN4bDOdJibVM2ZI6c00h?client_reference_id=paul-constantine-mantzoros"><b>Upgrade to the Legacy Collection <span>+$300</span></b>
+      <small>Adds the keychain, the flash drive and the frame, plus a tribute video (their photos set to the song). The video is only $23 more than the three keepsakes alone.</small></a>
+  </div>
+  <p class="secure">&#128274; Secure checkout by Stripe. Ships to your door. Order as many as the family needs.</p>
+  </div>
+  <p class="footer">Final Verse &middot; <a href="mailto:ceo@dortchai.com">ceo@dortchai.com</a> &middot; 877-877-0417</p>
+</div>
+<audio id="audio" src="https://res.cloudinary.com/dej4h3qly/video/upload/v1794744297/final-verse/sampson_family_chapels-paul_constantine_mantzoros-gospel.mp3" preload="auto"></audio>
+<script>
+var audio=document.getElementById('audio'),btn=document.getElementById('playBtn'),bar=document.getElementById('progress'),time=document.getElementById('timeDisplay');
+function fmt(s){var m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',function(){if(audio.duration){bar.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+audio.addEventListener('ended',function(){btn.innerHTML='&#9654;';});
+function togglePlay(){if(audio.paused){audio.play();btn.innerHTML='&#9646;&#9646;';}else{audio.pause();btn.innerHTML='&#9654;';}}
+function seek(e){var pct=e.offsetX/e.currentTarget.offsetWidth;if(audio.duration)audio.currentTime=audio.duration*pct;}
+function pick(b){document.querySelectorAll('.track').forEach(function(t){t.classList.remove('on');});b.classList.add('on');audio.src=b.dataset.src;audio.play().then(function(){btn.innerHTML='&#9646;&#9646;';}).catch(function(){});}
+</script>
+<script>
+var NAME="Paul Constantine Mantzoros",q=new URLSearchParams(location.search).get('paid'),t=document.getElementById('thanks');
+try{if(q)localStorage.setItem('fv_paid_paul-constantine-mantzoros',q);q=q||localStorage.getItem('fv_paid_paul-constantine-mantzoros');}catch(x){}
+if(q==='song'){t.style.display='block';t.innerHTML='<b>Thank you.</b> ';t.append(NAME+"'s song is yours. Download it below and save this page, it stays up forever. We also emailed you the link.");}
+if(q==='legacy'){t.style.display='block';t.innerHTML='<b>Thank you.</b> Your Legacy Collection is started. Download the song below now. We\'ll email you within 24 hours to get the photos for the tribute video, the frame and the flash drive.';document.getElementById('upgrade').style.display='none';}
+function share(){if(navigator.share)navigator.share({title:NAME+' — Final Verse',url:location.origin+location.pathname});else copyLink();}
+function copyLink(b){var u=location.origin+location.pathname;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){if(b)b.textContent='Link copied';}).catch(function(){prompt('Copy this link:',u);});}
+</script>
+</body>
+</html>

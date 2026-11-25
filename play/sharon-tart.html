@@ -25,6 +25,23 @@ body{background:#111;color:#f0e6c8;font-family:Georgia,serif;min-height:100vh;di
 .cta{display:inline-block;background:#D4AF37;color:#111;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:0.85rem;letter-spacing:0.5px;margin-bottom:12px}
 .cta2{display:inline-block;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:0.85rem;letter-spacing:0.5px;margin-bottom:20px}
 .footer{color:#555;font-size:0.75rem;margin-top:8px}
+.offer{display:grid;gap:12px;margin:4px 0 22px;text-align:left}
+.opt{display:block;border:1px solid rgba(212,175,55,0.35);border-radius:12px;padding:16px 18px;text-decoration:none;color:#f0e6c8;position:relative}
+.opt.top{border-color:#D4AF37;background:rgba(212,175,55,0.07)}
+.opt b{display:flex;justify-content:space-between;gap:12px;font-weight:400;font-size:1.05rem;color:#fff}
+.opt b span{color:#D4AF37;white-space:nowrap}
+.opt small{display:block;color:#9a9a9a;font-size:0.82rem;line-height:1.45;margin-top:6px}
+.opt .tag{position:absolute;top:-10px;right:14px;background:#D4AF37;color:#111;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+.opt em{display:inline-block;margin-top:10px;font-style:normal;font-size:0.8rem;color:#D4AF37}
+.secure{color:#666;font-size:0.72rem;margin:-10px 0 18px}
+.h2{color:#D4AF37;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin:30px 0 12px}
+.dl{display:block;background:#D4AF37;color:#111;padding:12px 18px;border-radius:8px;text-decoration:none;font-size:0.9rem;margin-bottom:10px}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+.small-btn{background:transparent;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:6px;padding:8px 14px;font-size:0.8rem;cursor:pointer;font-family:inherit;text-decoration:none}
+.thanks{background:rgba(212,175,55,0.1);border:1px solid #D4AF37;border-radius:12px;padding:16px;margin-bottom:24px;font-size:0.9rem;line-height:1.5;display:none}
+.lyrics{text-align:left;white-space:pre-wrap;font-size:0.88rem;line-height:1.6;color:#d8cfb4;background:#151515;border-radius:10px;padding:16px;max-height:340px;overflow:auto;margin-bottom:10px}
+@media print{body{background:#fff;color:#000;display:block}.card{border:none;box-shadow:none;background:#fff}
+ .card>*:not(.print-area){display:none!important}.print-area,.print-area *{display:block!important;color:#000!important;background:#fff!important;max-height:none!important}}
 .footer a{color:#D4AF37;text-decoration:none}
 </style>
 </head>
@@ -40,7 +57,12 @@ body{background:#111;color:#f0e6c8;font-family:Georgia,serif;min-height:100vh;di
   </div>
   <p class="time" id="timeDisplay">0:00 / 0:00</p>
   <p class="note">This full song was made for Sharon Tart's family. Play it at the service, the repast, or anytime.</p>
-  <a href="https://finalverseco.com/?ref=play" class="cta">Keep This Song Forever →</a><br/>
+  <div class="offer">
+    <a class="opt top" href="https://buy.stripe.com/28E5kCcHSbBa0d4eIq6c00u"><b>Keep the Song <span>$297</span></b>
+      <small>The full song to download, plus a private page to play and share it with the whole family. Yours forever.</small>
+      <em>Keep the Song &rarr;</em></a>
+  </div>
+  <p class="secure">&#128274; Secure checkout by Stripe. Keepsakes and the Legacy Collection open up after.</p>
   <a href="https://finalverseco.com/listen/?ref=play" class="cta2">Back to the Listening Hub</a>
   <p class="footer">Final Verse &middot; <a href="mailto:ceo@dortchai.com">ceo@dortchai.com</a> &middot; 877-877-0417</p>
 </div>
