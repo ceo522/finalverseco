@@ -198,7 +198,7 @@
       right: 0;
       z-index: 1000;
       padding: 0 40px;
-      height: 72px;
+      height: 100px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -265,7 +265,7 @@
     .nav-mobile {
       display: none;
       position: fixed;
-      top: 72px;
+      top: 100px;
       left: 0;
       right: 0;
       background: rgba(26,26,26,0.98);
@@ -1458,6 +1458,14 @@
       display: block;
     }
 
+    /* Original Final Verse logo (white version of Thomas's logo), big in the top left */
+    .fv-logo { height: 80px; width: auto; display: block; }
+    .fv-logo-foot { height: 70px; }
+    @media (max-width: 768px) {
+      #navbar { height: 80px; }
+      .fv-logo { height: 60px; }
+      .nav-mobile { top: 80px; }
+    }
   </style>
 </head>
 
@@ -1468,7 +1476,7 @@
   ============================================= -->
   <nav id="navbar" role="navigation" aria-label="Main navigation">
     <a href="#" class="nav-logo" aria-label="Final Verse Home">
-      <img src="https://ceo522.github.io/finalverseco/images/final-verse-logo-transparent.png" alt="Final Verse — The Memorial Song Co." style="height:60px;width:auto;object-fit:contain;filter:brightness(1.8) contrast(1.1);" />
+      <img class="fv-logo" src="https://ceo522.github.io/finalverseco/images/final-verse-logo-white.png" alt="Final Verse — The Memorial Song Co." />
     </a>
 
     <ul class="nav-links">
@@ -1848,7 +1856,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <div class="nav-logo" style="margin-bottom:0.75rem;">
-            <img src="https://ceo522.github.io/finalverseco/images/final-verse-logo-transparent.png" alt="Final Verse — The Memorial Song Co." style="height:60px;width:auto;object-fit:contain;filter:brightness(1.8) contrast(1.1);" />
+            <img class="fv-logo fv-logo-foot" src="https://ceo522.github.io/finalverseco/images/final-verse-logo-white.png" alt="Final Verse — The Memorial Song Co." />
           </div>
           <div class="footer-tagline">Songs That Last Forever</div>
         </div>
